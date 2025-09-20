@@ -289,19 +289,19 @@
                    
                     <div class="input-card">
                         <div class="flex justify-between items-center mb-1">
-                            <label id="step-up-label" class="text-sm font-medium text-gray-700">Annual Step-up Rate (%)</label>
-                            <div id="step-up-toggle" class="switch-toggle-container">
+                            <label id="step-up-label" class="text-sm font-medium text-gray-700">Annual Step-up Amount (₹)</label>
+                            <div id="step-up-toggle" class="switch-toggle-container active">
                                 <span class="switch-label percent"> % </span>
                                 <span class="switch-label amount"> ₹ </span>
                             </div>
                         </div>
-                        <div class="flex items-center space-x-2" id="step-up-rate-container">
-                            <input type="range" id="sip-increase-rate-slider" min="0" max="20" value="5" step="1" class="range-slider">
-                            <input type="number" id="sip-increase-rate-input" class="manual-input" value="5">
+                        <div class="flex items-center space-x-2 hidden" id="step-up-rate-container">
+                            <input type="range" id="sip-increase-rate-slider" min="0" max="20" value="0" step="1" class="range-slider">
+                            <input type="number" id="sip-increase-rate-input" class="manual-input" value="0">
                         </div>
-                        <div class="flex items-center space-x-2 hidden" id="step-up-amount-container">
-                             <input type="range" id="sip-increase-amount-slider" min="0" max="50000" value="500" step="100" class="range-slider">
-                             <input type="number" id="sip-increase-amount-input" class="manual-input" value="500">
+                        <div class="flex items-center space-x-2" id="step-up-amount-container">
+                             <input type="range" id="sip-increase-amount-slider" min="0" max="50000" value="0" step="100" class="range-slider">
+                             <input type="number" id="sip-increase-amount-input" class="manual-input" value="0">
                         </div>
                     </div>
                    
@@ -631,7 +631,7 @@
             const chartCtx = chartCanvas.getContext('2d');
            
             let investmentChart;
-            let isStepUpAmount = false;
+            let isStepUpAmount = true;
 
 
             // Utility Functions
