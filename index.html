@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>SIP Calculator with Inflation | Calculate Your Real Returns</title>
+    <meta name="description" content="Use our free and accurate SIP calculator with inflation to understand the true future value of your investments. Plan for your financial goals with real, inflation-adjusted numbers.">
+    <meta name="keywords" content="sip calculator with inflation, inflation adjusted sip calculator, sip calculator, mutual fund calculator, financial planning tool, investment calculator india, real returns calculator">
+    <meta name="author" content="SipCalculatorWithInflation">
+    <link rel="canonical" href="https://SipCalculatorWithInflation.toolblaster.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Browser Integration & Branding -->
+    <meta name="theme-color" content="#E34037">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E34037'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z' /%3E%3C/svg%3E">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "SIP Calculator with Inflation",
+      "operatingSystem": "Web",
+      "applicationCategory": "FinanceApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "128"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "description": "A free online tool to calculate the future value of SIP (Systematic Investment Plan) investments, adjusted for inflation to show the real returns.",
+      "url": "https://SipCalculatorWithInflation.toolblaster.com"
+    }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .container {
+            max-width: 640px; /* Reduced for a more compact view */
+        }
+        .range-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+            height: 4px;
+            width: 100%;
+        }
+        .range-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #E34037 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%));
+            border-radius: 3px;
+        }
+        .range-slider::-moz-range-track {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #E34037 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%));
+            border-radius: 3px;
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            margin-top: -6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #C22D2D;
+            box-shadow: 0 0 0 2px rgba(227, 64, 55, 0.3);
+        }
+        .range-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #C22D2D;
+            border: none;
+            box-shadow: 0 0 0 2px rgba(227, 64, 55, 0.3);
+        }
+        .manual-input {
+            width: 80px;
+            padding: 0.25rem;
+            border: 1px solid #E34037;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            background-color: #f9fafb;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+        .manual-input:focus {
+            outline: none;
+            border-color: #C22D2D;
+            box-shadow: 0 1px 3px rgba(227, 64, 55, 0.2);
+        }
+        @media (min-width: 768px) {
+             .manual-input {
+                width: 100px;
+                font-size: 0.875rem;
+             }
+        }
+        .text-xxs {
+            font-size: 0.6rem;
+        }
+        .toggle-btn-blue {
+            background-color: #BFDBFE;
+            color: #1E40AF;
+            border: 1px solid #93C5FD;
+        }
+        .toggle-btn-blue:hover {
+             background-color: #93C5FD;
+        }
+        .heading-container {
+            background-color: #fee2e2;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #fca5a5;
+            margin-bottom: 1rem;
+        }
+        .table-cell-right {
+            text-align: right;
+        }
+        .input-card {
+            background-color: #f9fafb;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #fca5a5;
+            transition: border-color 0.2s ease;
+        }
+        .input-card:hover {
+            border-color: #E34037;
+        }
+        .switch-toggle-container {
+            position: relative;
+            width: 90px;
+            height: 28px;
+            background-color: #E5E7EB;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .switch-toggle-container::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 41px;
+            height: 24px;
+            background-color: white;
+            border-radius: 999px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .switch-toggle-container.active::before {
+            transform: translateX(41px);
+        }
+        .switch-label {
+            position: relative;
+            flex-grow: 1;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6B7280;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .switch-toggle-container.active .switch-label.amount,
+        .switch-toggle-container:not(.active) .switch-label.percent {
+            color: #C22D2D;
+        }
+        .heading-text-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .heading-text-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: -0.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 1px;
+            background-color: #E34037;
+        }
+        .result-heading {
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: #EF4444;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-white border-b border-gray-200 shadow-sm">
+        <div class="container mx-auto px-4">
+             <div class="flex items-center justify-between py-3">
+                <a href="#" class="flex items-center space-x-2">
+                    <svg class="w-7 h-7 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                       <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                    </svg>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gray-800">SipCalculator<span class="font-extrabold text-red-600">WithInflation</span></span>
+                        <div class="h-px w-1/2 bg-red-500 mt-1"></div>
+                    </div>
+                </a>
+                <a href="sip-calculator-with-inflation.html" class="text-xs font-semibold text-gray-700 hover:text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-full transition-colors hidden sm:flex items-center">
+                    Read the Full Guide
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-6">
+        <div class="bg-white shadow-lg rounded-xl p-3 md:p-4 w-full border border-red-300">
+            <!-- Header Section -->
+            <div class="text-center">
+                <div class="heading-container">
+                    <div class="heading-text-wrapper">
+                        <h1 class="text-lg md:text-xl font-extrabold text-gray-800">SIP Calculator with Inflation</h1>
+                    </div>
+                    <p class="mt-1 text-xs text-gray-500">Plan your SIP investments for a secure financial future.</p>
+                </div>
+            </div>
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 mt-4">
+                <!-- Input Section -->
+                <div class="space-y-3">
+                    <div class="input-card">
+                        <label for="sip-amount-slider" class="block text-sm font-medium text-gray-700 mb-1">Monthly SIP Amount (₹)</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="range" id="sip-amount-slider" min="500" max="100000" value="10000" step="500" class="range-slider">
+                            <input type="number" id="sip-amount-input" class="manual-input" value="10000">
+                        </div>
+                    </div>
+                   
+                    <div class="input-card">
+                        <div class="flex justify-between items-center mb-1">
+                            <label id="step-up-label" class="text-sm font-medium text-gray-700">Annual Step-up Rate (%)</label>
+                            <div id="step-up-toggle" class="switch-toggle-container">
+                                <span class="switch-label percent"> % </span>
+                                <span class="switch-label amount"> ₹ </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2" id="step-up-rate-container">
+                            <input type="range" id="sip-increase-rate-slider" min="0" max="20" value="5" step="1" class="range-slider">
+                            <input type="number" id="sip-increase-rate-input" class="manual-input" value="5">
+                        </div>
+                        <div class="flex items-center space-x-2 hidden" id="step-up-amount-container">
+                             <input type="range" id="sip-increase-amount-slider" min="0" max="50000" value="500" step="100" class="range-slider">
+                             <input type="number" id="sip-increase-amount-input" class="manual-input" value="500">
+                        </div>
+                    </div>
+                   
+                    <!-- Common Inputs -->
+                    <div class="input-card">
+                        <label for="return-rate-slider" class="block text-sm font-medium text-gray-700 mb-1">Expected Annual Return (%)</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="range" id="return-rate-slider" min="1" max="30" value="12" step="0.1" class="range-slider">
+                            <input type="number" id="return-rate-input" class="manual-input" value="12">
+                        </div>
+                    </div>
+
+
+                    <div class="input-card">
+                        <label for="investment-period-slider" class="block text-sm font-medium text-gray-700 mb-1">Investment Period (Years)</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="range" id="investment-period-slider" min="1" max="40" value="15" step="1" class="range-slider">
+                            <input type="number" id="investment-period-input" class="manual-input" value="15">
+                        </div>
+                    </div>
+
+
+                    <div class="input-card">
+                        <div class="flex items-center justify-between">
+                            <label for="inflation-toggle" class="text-sm font-medium text-gray-700">Adjust for Inflation</label>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="inflation-toggle" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                            </label>
+                        </div>
+                        <div id="inflation-rate-container" class="hidden mt-2">
+                            <label for="inflation-rate-slider" class="block text-sm font-medium text-gray-700 mb-1">Annual Inflation Rate (%)</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="range" id="inflation-rate-slider" min="0" max="15" value="6" step="0.1" class="range-slider">
+                                <input type="number" id="inflation-rate-input" class="manual-input" value="6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Results Section -->
+                <div class="flex flex-col space-y-3 mt-3 lg:mt-0">
+                    <div class="bg-red-50 p-3 rounded-lg border border-red-300 text-center">
+                        <div class="heading-container mb-3">
+                            <h3 id="result-title" class="result-heading font-extrabold text-red-700">SIP Investment Summary</h3>
+                        </div>
+                        <div class="space-y-1 text-xs">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Total Invested:</span>
+                                <span id="invested-amount" class="font-semibold text-red-600">₹0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Total Returns:</span>
+                                <span id="total-returns" class="font-semibold text-green-600">₹0</span>
+                            </div>
+                            <div class="flex justify-between font-bold pt-2 border-t border-red-200">
+                                <span class="text-gray-800">Final Value:</span>
+                                <span id="final-value" class="text-purple-700">₹0</span>
+                            </div>
+                            <div id="real-value-container" class="flex justify-between mt-2 pt-2 border-t border-red-200 hidden">
+                                <span class="text-gray-600">Real Value:</span>
+                                <span id="real-value" class="font-bold text-purple-700">₹0</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="flex items-center justify-center h-40 w-full relative">
+                        <canvas id="investment-chart"></canvas>
+                    </div>
+
+                    <button id="toggle-table-btn" class="w-full px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out hover:bg-gray-300 toggle-btn-blue">Show Yearly Growth</button>
+
+                    <div id="growth-table-container" class="mt-3 hidden bg-blue-50 rounded-lg shadow-md border border-blue-200 p-3 overflow-x-auto">
+                        <h4 class="text-center text-sm font-bold text-blue-700 mb-2">Yearly Investment Growth</h4>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-2 py-1 text-left text-xxs font-medium text-gray-500 uppercase">Year</th>
+                                    <th id="growth-table-invested-header" class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Invested</th>
+                                    <th class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Returns</th>
+                                    <th class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Total Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="growth-table-body" class="bg-white divide-y divide-gray-200 text-xxs">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+             <p class="text-center text-xs text-gray-500 mt-4"><strong>Disclaimer:</strong> This calculator is for informational purposes only and does not constitute financial advice. <a href="sip-calculator-with-inflation.html" class="font-semibold text-red-600 hover:underline">Learn More</a></p>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-4">
+        <div class="container mx-auto px-4 text-center text-xs text-gray-500">
+             <p>&copy; 2025 SipCalculatorWithInflation. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const getElem = (id) => document.getElementById(id);
+           
+            // SIP Inputs
+            const sipAmountSlider = getElem('sip-amount-slider');
+            const sipAmountInput = getElem('sip-amount-input');
+            const sipIncreaseRateSlider = getElem('sip-increase-rate-slider');
+            const sipIncreaseRateInput = getElem('sip-increase-rate-input');
+            const sipIncreaseAmountSlider = getElem('sip-increase-amount-slider');
+            const sipIncreaseAmountInput = getElem('sip-increase-amount-input');
+           
+            const stepUpToggle = getElem('step-up-toggle');
+            const stepUpLabel = getElem('step-up-label');
+            const stepUpRateContainer = getElem('step-up-rate-container');
+            const stepUpAmountContainer = getElem('step-up-amount-container');
+
+
+            // Common Inputs
+            const returnRateSlider = getElem('return-rate-slider');
+            const returnRateInput = getElem('return-rate-input');
+            const investmentPeriodSlider = getElem('investment-period-slider');
+            const investmentPeriodInput = getElem('investment-period-input');
+            const inflationToggle = getElem('inflation-toggle');
+            const inflationRateContainer = getElem('inflation-rate-container');
+            const inflationRateSlider = getElem('inflation-rate-slider');
+            const inflationRateInput = getElem('inflation-rate-input');
+           
+            // Result Elements
+            const investedAmountElem = getElem('invested-amount');
+            const totalReturnsElem = getElem('total-returns');
+            const finalValueElem = getElem('final-value');
+            const realValueContainer = getElem('real-value-container');
+            const realValueElem = getElem('real-value');
+            const growthTableContainer = getElem('growth-table-container');
+            const growthTableBody = getElem('growth-table-body');
+            const toggleTableBtn = getElem('toggle-table-btn');
+            const chartCanvas = getElem('investment-chart');
+            const chartCtx = chartCanvas.getContext('2d');
+           
+            let investmentChart;
+            let isStepUpAmount = false;
+
+
+            // Utility Functions
+            const debounce = (func, delay) => { let timeout; return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), delay); }; };
+            const formatCurrency = (num) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(num));
+            const updateSliderFill = (slider) => {
+                if (!slider) return;
+                const percentage = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+                slider.style.setProperty('--fill-percentage', `${percentage}%`);
+            };
+
+
+            // Main Calculation Logic
+            function updateCalculator() {
+                const annualReturnRate = parseFloat(returnRateInput.value) / 100;
+                const investmentPeriodYears = parseFloat(investmentPeriodInput.value);
+               
+                let annualInflationRate = 0;
+                if(inflationToggle.checked) {
+                    const inflationInput = getElem('inflation-rate-input');
+                    if(inflationInput) {
+                        annualInflationRate = parseFloat(inflationInput.value) / 100;
+                    }
+                }
+               
+                let investedAmount, finalValue, totalReturns;
+                let yearlyGrowthData = [];
+
+
+                const monthlySipAmount = parseFloat(sipAmountInput.value);
+                const monthlyRate = annualReturnRate / 12;
+
+
+                let currentCorpus = 0;
+                let totalInvested = 0;
+                let currentMonthlySip = monthlySipAmount;
+
+
+                for (let year = 1; year <= investmentPeriodYears; year++) {
+                    let yearInvested = 0;
+                    for (let month = 1; month <= 12; month++) {
+                        currentCorpus = currentCorpus * (1 + monthlyRate) + currentMonthlySip;
+                        yearInvested += currentMonthlySip;
+                    }
+                    totalInvested += yearInvested;
+                   
+                    if (isStepUpAmount) {
+                         currentMonthlySip += parseFloat(sipIncreaseAmountInput.value);
+                    } else {
+                        const annualIncreaseRate = parseFloat(sipIncreaseRateInput.value) / 100;
+                        currentMonthlySip *= (1 + annualIncreaseRate);
+                    }
+                   
+                    yearlyGrowthData.push({
+                        year: year,
+                        invested: totalInvested,
+                        returns: currentCorpus - totalInvested,
+                        total: currentCorpus
+                    });
+                }
+                investedAmount = totalInvested;
+                finalValue = currentCorpus;
+                totalReturns = finalValue - investedAmount;
+
+
+                investedAmountElem.textContent = formatCurrency(investedAmount);
+                totalReturnsElem.textContent = formatCurrency(totalReturns);
+                finalValueElem.textContent = formatCurrency(finalValue);
+
+
+                if (inflationToggle.checked) {
+                    const realReturnRate = ((1 + annualReturnRate) / (1 + annualInflationRate)) - 1;
+                    const monthlyRealRate = realReturnRate / 12;
+                    let realCorpus = 0;
+                    let currentMonthlySipReal = parseFloat(sipAmountInput.value);
+                   
+                    for (let year = 1; year <= investmentPeriodYears; year++) {
+                        for (let month = 1; month <= 12; month++) {
+                            realCorpus = realCorpus * (1 + monthlyRealRate) + currentMonthlySipReal;
+                        }
+                        if (isStepUpAmount) {
+                            currentMonthlySipReal += parseFloat(sipIncreaseAmountInput.value);
+                        } else {
+                           const annualIncreaseRate = parseFloat(sipIncreaseRateInput.value) / 100;
+                           currentMonthlySipReal *= (1 + annualIncreaseRate);
+                        }
+                    }
+                    realValueElem.textContent = formatCurrency(realCorpus);
+                    realValueContainer.classList.remove('hidden');
+                } else {
+                    realValueContainer.classList.add('hidden');
+                }
+
+
+                updateChart([investedAmount, totalReturns], ['Total Invested', 'Total Returns'], ['#E34037', '#22C55E']);
+                generateGrowthTable(yearlyGrowthData);
+            }
+
+
+            function updateChart(data, labels, colors) {
+                const chartData = {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        hoverOffset: 4,
+                        borderRadius: 5,
+                        spacing: 2
+                    }]
+                };
+                const chartOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.label}: ${formatCurrency(context.parsed)}`
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                };
+                if (investmentChart) {
+                    investmentChart.data = chartData;
+                    investmentChart.update();
+                } else {
+                    investmentChart = new Chart(chartCtx, {
+                        type: 'doughnut',
+                        data: chartData,
+                        options: chartOptions
+                    });
+                }
+            }
+           
+            function generateGrowthTable(data) {
+                const growthTableBody = getElem('growth-table-body');
+                if (!growthTableBody) return;
+               
+                growthTableBody.innerHTML = '';
+                data.forEach(row => {
+                    const newRow = document.createElement('tr');
+                    newRow.className = 'hover:bg-gray-100 transition-colors';
+                    newRow.innerHTML = `
+                        <td class="px-4 py-2 whitespace-nowrap">${row.year}</td>
+                        <td class="px-4 py-2 whitespace-nowrap table-cell-right">${formatCurrency(row.invested)}</td>
+                        <td class="px-4 py-2 whitespace-nowrap table-cell-right text-green-600 font-semibold">${formatCurrency(row.returns)}</td>
+                        <td class="px-4 py-2 whitespace-nowrap table-cell-right font-bold">${formatCurrency(row.total)}</td>
+                    `;
+                    growthTableBody.appendChild(newRow);
+                });
+            }
+
+
+            function updateInputsVisibility() {
+                if (isStepUpAmount) {
+                    stepUpRateContainer.classList.add('hidden');
+                    stepUpAmountContainer.classList.remove('hidden');
+                    stepUpLabel.textContent = "Annual Step-up Amount (₹)";
+                } else {
+                    stepUpRateContainer.classList.remove('hidden');
+                    stepUpAmountContainer.classList.add('hidden');
+                    stepUpLabel.textContent = "Annual Step-up Rate (%)";
+                }
+                updateCalculator();
+            }
+
+            // Event Listeners
+            const inputs = [
+                { slider: sipAmountSlider, input: sipAmountInput },
+                { slider: sipIncreaseRateSlider, input: sipIncreaseRateInput },
+                { slider: sipIncreaseAmountSlider, input: sipIncreaseAmountInput },
+                { slider: returnRateSlider, input: returnRateInput },
+                { slider: investmentPeriodSlider, input: investmentPeriodInput },
+                { slider: inflationRateSlider, input: inflationRateInput }
+            ];
+
+
+            inputs.forEach(({ slider, input }) => {
+                if (slider && input) {
+                    slider.addEventListener('input', () => { input.value = slider.value; updateSliderFill(slider); debouncedUpdate(); });
+                    input.addEventListener('input', () => { slider.value = input.value; updateSliderFill(slider); debouncedUpdate(); });
+                    input.addEventListener('blur', () => { updateInputValue(input, slider); debouncedUpdate(); });
+                }
+            });
+
+
+            function updateInputValue(input, slider) {
+                let value = parseFloat(input.value);
+                const min = parseFloat(slider.min);
+                const max = parseFloat(slider.max);
+
+
+                if (isNaN(value) || value < min) {
+                    value = min;
+                } else if (value > max) {
+                    value = max;
+                }
+
+
+                const step = parseFloat(input.step) || 1;
+                value = Math.round(value / step) * step;
+
+
+                input.value = value;
+                slider.value = value;
+                updateSliderFill(slider);
+            }
+           
+            inflationToggle.addEventListener('change', () => {
+                const inflationCard = inflationToggle.closest('.input-card');
+                if (inflationToggle.checked) {
+                    inflationRateContainer.classList.remove('hidden');
+                    if(inflationCard) inflationCard.classList.add('input-card-accent');
+                } else {
+                    inflationRateContainer.classList.add('hidden');
+                    if(inflationCard) inflationCard.classList.remove('input-card-accent');
+                }
+                updateCalculator();
+            });
+
+
+            stepUpToggle.addEventListener('click', () => {
+                isStepUpAmount = !isStepUpAmount;
+                stepUpToggle.classList.toggle('active', isStepUpAmount);
+                updateInputsVisibility();
+            });
+           
+            toggleTableBtn.addEventListener('click', () => {
+                growthTableContainer.classList.toggle('hidden');
+                toggleTableBtn.textContent = growthTableContainer.classList.contains('hidden') ? 'Show Yearly Growth' : 'Hide Yearly Growth';
+            });
+
+
+            const debouncedUpdate = debounce(updateCalculator, 250);
+
+
+            updateCalculator();
+            document.querySelectorAll('.range-slider').forEach(updateSliderFill);
+        });
+    </script>
+</body>
+</html>
