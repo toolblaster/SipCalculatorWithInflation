@@ -110,23 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         if (inflationToggle.checked) {
-            const realReturnRate = ((1 + annualReturnRate) / (1 + annualInflationRate)) - 1;
-            const monthlyRealRate = realReturnRate / 12;
-            let realCorpus = 0;
-            let currentMonthlySipReal = parseFloat(sipAmountInput.value);
-           
-            for (let year = 1; year <= investmentPeriodYears; year++) {
-                for (let month = 1; month <= 12; month++) {
-                    realCorpus = realCorpus * (1 + monthlyRealRate) + currentMonthlySipReal;
-                }
-                if (isStepUpAmount) {
-                    currentMonthlySipReal += parseFloat(sipIncreaseAmountInput.value);
-                } else {
-                   const annualIncreaseRate = parseFloat(sipIncreaseRateInput.value) / 100;
-                   currentMonthlySipReal *= (1 + annualIncreaseRate);
-                }
-            }
-            realValueElem.textContent = formatCurrency(realCorpus);
+            const realValue = finalValue / Math.pow(1 + annualInflationRate, investmentPeriodYears);
+            realValueElem.textContent = formatCurrency(realValue);
             realValueContainer.classList.remove('hidden');
         } else {
             realValueContainer.classList.add('hidden');
