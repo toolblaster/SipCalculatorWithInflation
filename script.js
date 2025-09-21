@@ -158,8 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // A step-up of X on a base SIP of 1 is not meaningful.
                 // Let's assume the step-up amount is also a factor we need to solve for, relative to the initial SIP. 
                 // This becomes a non-linear problem.
-                // Let's simplify: for goal planning, the step-up amount is calculated based on the initial required SIP.
-                // This creates a circular dependency.
                 // The most robust way is to perform a binary search or iterative approximation to find the required SIP.
                 
                 // Iterative Approach:
@@ -464,4 +462,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- INITIALIZATION ---
     calculate();
     document.querySelectorAll('.range-slider').forEach(updateSliderFill);
+    
+    // Set the copyright year dynamically
+    if(getElem('copyright-year')) {
+        getElem('copyright-year').textContent = new Date().getFullYear();
+    }
 });
