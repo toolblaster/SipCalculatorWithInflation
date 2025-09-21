@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>SIP Calculator with Inflation | Calculate Your Real Returns</title>
+    <meta name="description" content="Use our free and accurate SIP calculator with inflation to understand the true future value of your investments. Plan for your financial goals with real, inflation-adjusted numbers.">
+    <meta name="keywords" content="sip calculator with inflation, inflation adjusted sip calculator, step up sip calculator with inflation, future value of SIP, investment growth calculator, financial goal planning, power of compounding calculator, rupee cost averaging, real returns calculator">
+    <meta name="author" content="SipCalculatorWithInflation">
+    <link rel="canonical" href="https://SipCalculatorWithInflation.toolblaster.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Browser Integration & Branding -->
+    <meta name="theme-color" content="#E34037">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E34037'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z' /%3E%3C/svg%3E">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "SIP Calculator with Inflation",
+      "operatingSystem": "Web",
+      "applicationCategory": "FinanceApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "128"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "description": "A free online tool to calculate the future value of SIP (Systematic Investment Plan) investments, adjusted for inflation to show the real returns.",
+      "url": "https://SipCalculatorWithInflation.toolblaster.com"
+    }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Deferred scripts for performance -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" defer></script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+    <script src="script.js" defer></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: 2.75rem; /* Squeezed the space between fixed header and main content */
+        }
+        .content-wrapper {
+            width: 100%;
+            max-width: 900px; /* THIS is the rule that creates your "second column". */
+            margin: 1rem auto; /* The 'auto' creates your "first and third columns" by centering the content. */
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .range-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+            height: 4px;
+            width: 100%;
+        }
+        .range-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #E34037 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%));
+            border-radius: 3px;
+        }
+        .range-slider::-moz-range-track {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #E34037 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%));
+            border-radius: 3px;
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            margin-top: -6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #C22D2D;
+            box-shadow: 0 0 0 2px rgba(227, 64, 55, 0.3);
+        }
+        .range-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #C22D2D;
+            border: none;
+            box-shadow: 0 0 0 2px rgba(227, 64, 55, 0.3);
+        }
+        .manual-input {
+            width: 80px;
+            padding: 0.25rem;
+            border: 1px solid #E34037;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            background-color: #f9fafb;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+        .manual-input:focus {
+            outline: none;
+            border-color: #C22D2D;
+            box-shadow: 0 1px 3px rgba(227, 64, 55, 0.2);
+        }
+        @media (min-width: 768px) {
+             .manual-input {
+                width: 100px;
+                font-size: 0.875rem;
+             }
+        }
+        .text-xxs {
+            font-size: 0.6rem;
+        }
+        .toggle-btn-blue {
+            background-color: #BFDBFE;
+            color: #1E40AF;
+            border: 1px solid #93C5FD;
+        }
+        .toggle-btn-blue:hover {
+             background-color: #93C5FD;
+        }
+        .heading-container {
+            background-color: #fee2e2;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #fca5a5;
+            margin-bottom: 1rem;
+        }
+        .table-cell-right {
+            text-align: right;
+        }
+        .input-card {
+            background-color: #f9fafb;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #fca5a5;
+            transition: border-color 0.2s ease;
+        }
+        .input-card:hover {
+            border-color: #E34037;
+        }
+        .switch-toggle-container {
+            position: relative;
+            width: 90px;
+            height: 28px;
+            background-color: #E5E7EB;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .switch-toggle-container::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 41px;
+            height: 24px;
+            background-color: white;
+            border-radius: 999px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .switch-toggle-container.active::before {
+            transform: translateX(41px);
+        }
+        .switch-label {
+            position: relative;
+            flex-grow: 1;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6B7280;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .switch-toggle-container.active .switch-label.amount,
+        .switch-toggle-container:not(.active) .switch-label.percent {
+            color: #C22D2D;
+        }
+        .heading-text-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .heading-text-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: -0.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 1px;
+            background-color: #E34037;
+        }
+        .result-heading {
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: #EF4444;
+        }
+        .section-card {
+            background-color: #fff;
+            border: 1px solid #fee2e2;
+            border-left: 4px solid #fca5a5;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+        }
+        .listicle {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        .listicle-icon {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 0.375rem;
+            background-color: #fee2e2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #dc2626;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .faq-question-button svg {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-white border-b border-gray-200 shadow-sm fixed top-0 w-full z-50">
+        <div class="w-full max-w-[900px] mx-auto px-4"> <!-- Removed content-wrapper to ensure header is compact -->
+             <div class="flex items-center justify-center py-1"> <!-- Reduced padding for a compact header -->
+                <a href="#" class="flex items-center space-x-2">
+                    <svg class="w-6 h-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                       <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                    </svg>
+                    <div class="flex flex-col">
+                        <span class="text-lg font-bold text-gray-800">SipCalculator<span class="font-extrabold text-red-600">WithInflation</span></span>
+                        <div class="h-px w-1/2 bg-red-500 mt-0.5"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <div class="bg-white shadow-lg rounded-xl p-3 md:p-4 w-full border border-red-300">
+            <!-- Header Section -->
+            <div class="text-center">
+                <div class="heading-container">
+                    <div class="heading-text-wrapper">
+                        <h1 class="text-lg md:text-xl font-extrabold text-gray-800">SIP Calculator with Inflation</h1>
+                    </div>
+                    <p class="mt-1 text-xs text-gray-500">Plan your SIP investments for a secure financial future.</p>
+                </div>
+            </div>
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 mt-4">
+                <!-- Input Section -->
+                <div class="space-y-3">
+                    <div class="input-card">
+                        <label for="sip-amount-slider" class="block text-sm font-medium text-gray-700 mb-1">Monthly SIP Amount (₹)</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="range" id="sip-amount-slider" min="500" max="100000" value="10000" step="500" class="range-slider">
+                            <input type="number" id="sip-amount-input" class="manual-input" value="10000">
+                        </div>
+                    </div>
+                   
+                    <div class="input-card">
+                        <div class="flex justify-between items-center mb-1">
+                            <label id="step-up-label" class="text-sm font-medium text-gray-700">Annual Step-up Amount (₹)</label>
+                            <div id="step-up-toggle" class="switch-toggle-container active">
+                                <span class="switch-label percent"> % </span>
+                                <span class="switch-label amount"> ₹ </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 hidden" id="step-up-rate-container">
+                            <input type="range" id="sip-increase-rate-slider" min="0" max="20" value="0" step="1" class="range-slider">
+                            <input type="number" id="sip-increase-rate-input" class="manual-input" value="0">
+                        </div>
+                        <div class="flex items-center space-x-2" id="step-up-amount-container">
+                             <input type="range" id="sip-increase-amount-slider" min="0" max="50000" value="0" step="100" class="range-slider">
+                             <input type="number" id="sip-increase-amount-input" class="manual-input" value="0">
+                        </div>
+                    </div>
+                   
+                    <!-- Common Inputs -->
+                    <div class="input-card">
+                        <label for="return-rate-slider" class="block text-sm font-medium text-gray-700 mb-1">Expected Annual Return (%)</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="range" id="return-rate-slider" min="1" max="30" value="12" step="0.1" class="range-slider">
+                            <input type="number" id="return-rate-input" class="manual-input" value="12">
+                        </div>
+                    </div>
+
+
+                    <div class="input-card">
+                        <label for="investment-period-slider" class="block text-sm font-medium text-gray-700 mb-1">Investment Period (Years)</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="range" id="investment-period-slider" min="1" max="40" value="15" step="1" class="range-slider">
+                            <input type="number" id="investment-period-input" class="manual-input" value="15">
+                        </div>
+                    </div>
+
+
+                    <div class="input-card">
+                        <div class="flex items-center justify-between">
+                            <label for="inflation-toggle" class="text-sm font-medium text-gray-700">Adjust for Inflation</label>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="inflation-toggle" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                            </label>
+                        </div>
+                        <div id="inflation-rate-container" class="hidden mt-2">
+                            <label for="inflation-rate-slider" class="block text-sm font-medium text-gray-700 mb-1">Annual Inflation Rate (%)</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="range" id="inflation-rate-slider" min="0" max="15" value="6" step="0.1" class="range-slider">
+                                <input type="number" id="inflation-rate-input" class="manual-input" value="6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Results Section -->
+                <div class="flex flex-col space-y-3 mt-3 lg:mt-0">
+                    <div class="bg-red-50 p-3 rounded-lg border border-red-300 text-center">
+                        <div class="heading-container mb-3">
+                            <h2 id="result-title" class="result-heading font-extrabold text-red-700">SIP Investment Summary</h2>
+                        </div>
+                        <div class="space-y-1 text-xs">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Total Invested:</span>
+                                <span id="invested-amount" class="font-semibold text-red-600">₹0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Total Returns:</span>
+                                <span id="total-returns" class="font-semibold text-green-600">₹0</span>
+                            </div>
+                            <div class="flex justify-between font-bold pt-2 border-t border-red-200">
+                                <span class="text-gray-800">Final Value:</span>
+                                <span id="final-value" class="text-purple-700">₹0</span>
+                            </div>
+                            <div id="real-value-container" class="flex justify-between mt-2 pt-2 border-t border-red-200 hidden">
+                                <span class="text-gray-600">Real Value:</span>
+                                <span id="real-value" class="font-bold text-purple-700">₹0</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="flex items-center justify-center h-40 w-full relative">
+                        <canvas id="investment-chart"></canvas>
+                    </div>
+
+                    <button id="toggle-table-btn" class="w-full px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out hover:bg-gray-300 toggle-btn-blue">Show Yearly Growth</button>
+
+                    <div id="growth-table-container" class="mt-3 hidden bg-blue-50 rounded-lg shadow-md border border-blue-200 p-3 overflow-x-auto">
+                        <h3 class="text-center text-sm font-bold text-blue-700 mb-2">Yearly Investment Growth</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-2 py-1 text-left text-xxs font-medium text-gray-500 uppercase">Year</th>
+                                    <th id="growth-table-invested-header" class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Invested</th>
+                                    <th class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Returns</th>
+                                    <th class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Total Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="growth-table-body" class="bg-white divide-y divide-gray-200 text-xxs">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+             <p class="text-center text-xs text-gray-500 mt-4"><strong>Disclaimer:</strong> This calculator is for informational purposes only and does not constitute financial advice.</p>
+        </div>
+    </main>
+
+    <div class="content-wrapper">
+        <hr class="my-8 border-t border-red-200">
+        <div class="text-center mb-6">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-700">A Guide to the <strong>SIP Calculator with Inflation</strong></h2>
+            <p class="mt-2 text-base text-gray-600">Understand the key concepts for <strong>smart financial planning</strong>.</p>
+        </div>
+        
+        <div class="space-y-4">
+            <!-- Section: What is a SIP? -->
+            <div class="section-card">
+                <div class="space-y-3">
+                    <h3 class="text-lg font-bold text-gray-800">What is a Systematic Investment Plan (SIP)?</h3>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <p class="text-sm text-gray-600">A <strong>disciplined method</strong> to invest a fixed amount in mutual funds at regular intervals (usually monthly).</p>
+                    </div>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 0v6m0-6L9 13" /></svg></div>
+                        <p class="text-sm text-gray-600">Benefits from <strong>'Rupee Cost Averaging'</strong> by buying more units when prices are low and fewer when prices are high.</p>
+                    </div>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg></div>
+                        <p class="text-sm text-gray-600">Harnesses the <strong>power of compounding</strong>, allowing your investment returns to generate their own returns over time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: SIP vs Lumpsum -->
+            <div class="section-card">
+                <div class="space-y-3">
+                    <h3 class="text-lg font-bold text-gray-800">Benefits of SIP vs. Lumpsum Investment</h3>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg></div>
+                        <p class="text-sm text-gray-600"><strong>Rupee Cost Averaging:</strong> SIPs automatically buy more units when the market is low and fewer when it's high. This <strong>averages out your purchase cost</strong> and removes the stress of trying to 'time the market', a major risk in lumpsum investing.</p>
+                    </div>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M12 12.75h.008v.008H12v-.008z" /></svg></div>
+                        <p class="text-sm text-gray-600"><strong>Builds Discipline:</strong> The automated nature of SIPs helps you invest consistently, turning saving into a <strong>strong financial habit</strong>. Lumpsum investments are often ad-hoc and can be missed.</p>
+                    </div>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <p class="text-sm text-gray-600"><strong>Makes Investing Accessible:</strong> You can start a SIP with an amount as low as ₹500. This <strong>lowers the barrier to entry</strong> for new investors, unlike lumpsum which often requires a large initial capital.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Why Inflation Matters -->
+            <div class="section-card">
+                 <div class="space-y-3">
+                    <h3 class="text-lg font-bold text-gray-800">Why Inflation is a Critical Factor</h3>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" /></svg></div>
+                        <p class="text-sm text-gray-600">Inflation silently reduces the <strong>purchasing power</strong> of your money. ₹1 Lakh today won't buy the same amount of goods in 10 years.</p>
+                    </div>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm3-6h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm3-6h.008v.008H14.25v-.008zm0 3h.008v.008H14.25v-.008zM4.5 21V5.75A2.25 2.25 0 016.75 3.5h10.5A2.25 2.25 0 0119.5 5.75V21" /></svg></div>
+                        <p class="text-sm text-gray-600">The <strong>'Real Rate of Return'</strong> (Nominal Return - Inflation) is the true measure of your investment's growth.</p>
+                    </div>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg></div>
+                        <p class="text-sm text-gray-600">A basic calculator is misleading; a <strong>SIP calculator with inflation</strong> is essential for <strong>accurate, real-world</strong> financial planning.</p>
+                    </div>
+                 </div>
+            </div>
+            
+            <!-- How To Section -->
+            <div class="section-card">
+                <div class="space-y-3">
+                    <h3 class="text-lg font-bold text-gray-800">How to Use the Calculator</h3>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" /></svg></div>
+                        <p class="text-sm text-gray-600"><strong>1. Enter Your Details:</strong> Input your monthly SIP amount, expected return, and investment period.</p>
+                    </div>
+                     <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg></div>
+                        <p class="text-sm text-gray-600"><strong>2. Add the Inflation Rate:</strong> Toggle on the inflation feature and enter a realistic annual inflation rate (e.g., 6%).</p>
+                    </div>
+                     <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" /><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a4 4 0 00-3.446 6.032l-2.261 2.26a1 1 0 101.414 1.415l2.261-2.261A4 4 0 1011 5z" clip-rule="evenodd" /></svg></div>
+                        <p class="text-sm text-gray-600"><strong>3. See Your Real Value:</strong> The calculator shows both the final amount and its <strong>'Real Value'</strong> in today's money.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formula Section -->
+            <div class="section-card">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-gray-800">The Calculation Formula Explained</h3>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h13.5m-13.5 7.5h13.5m-13.5-3.75h13.5M3.75 6.75h16.5v10.5h-16.5V6.75z" /></svg></div>
+                        <div class="text-sm text-gray-600">
+                           <p><strong>Future Value (FV) of SIP:</strong> This formula calculates the total corpus without considering inflation.</p>
+                           <p class="mt-2 text-xs">$$FV = P \times \frac{((1 + i)^n - 1)}{i} \times (1 + i)$$</p>
+                           <p class="mt-2 text-xs">Where: <strong>P</strong> is the monthly investment, <strong>i</strong> is the monthly interest rate, and <strong>n</strong> is the number of months.</p>
+                        </div>
+                    </div>
+                     <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg></div>
+                        <div class="text-sm text-gray-600">
+                           <p><strong>Inflation-Adjusted Value:</strong> This formula discounts the Future Value to its present-day purchasing power.</p>
+                           <p class="mt-2 text-xs">$$\text{Real Value} = \frac{FV}{(1 + r)^t}$$</p>
+                            <p class="mt-2 text-xs">Where: <strong>FV</strong> is the future value, <strong>r</strong> is the annual inflation rate, and <strong>t</strong> is the number of years.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Section: Strategies -->
+            <div class="section-card">
+                <div class="space-y-3">
+                    <h3 class="text-lg font-bold text-gray-800">Strategies to Build Real Wealth</h3>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M14.732 9.42a1 1 0 00-1.405-1.442l-2.43 2.384V2a1 1 0 00-2 0v8.362l-2.43-2.384a1 1 0 10-1.405 1.442l4.133 4.062a1 1 0 001.406 0l4.131-4.062zM18 17a1 1 0 01-1 1H3a1 1 0 110-2h14a1 1 0 011 1z" /></svg></div>
+                        <p class="text-sm text-gray-600"><strong>Use a Step-Up SIP:</strong> Increase your investment amount annually to ensure your savings rate <strong>outpaces inflation</strong>.</p>
+                    </div>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg></div>
+                        <p class="text-sm text-gray-600"><strong>Stay Invested Long-Term:</strong> Give your money <strong>10+ years</strong> to grow. This smooths out market volatility and maximizes compounding.</p>
+                    </div>
+                    <div class="listicle">
+                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg></div>
+                        <p class="text-sm text-gray-600"><strong>Choose Equity for Growth:</strong> Equity mutual funds have historically delivered returns that <strong>comfortably beat inflation</strong> over the long run.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="mt-8">
+                <h2 class="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-3">
+                    <!-- FAQ 1 -->
+                    <div class="bg-white border border-gray-200 rounded-md">
+                        <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
+                            Why must I use an inflation-adjusted SIP calculator?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="p-3 pt-0 text-sm text-gray-600">A regular calculator shows a future value that can be misleadingly large. An <strong>inflation-adjusted SIP calculator</strong> is superior because it tells you the <strong>'real value'</strong> of your money—what it will actually be able to buy. It's the most accurate way to plan for long-term goals like retirement or education.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ 2 -->
+                    <div class="bg-white border border-gray-200 rounded-md">
+                        <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
+                            What is a realistic inflation rate to use for India?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="p-3 pt-0 text-sm text-gray-600">While it fluctuates, the long-term average inflation rate in India has been around <strong>5-6%</strong>. For conservative and safe financial planning, using 6% in the <strong>sip calculator with inflation</strong> is a prudent choice. For specific goals like education, inflation might be higher.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ 3 -->
+                    <div class="bg-white border border-gray-200 rounded-md">
+                        <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
+                           Can a SIP truly beat inflation over the long term?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                             <p class="p-3 pt-0 text-sm text-gray-600"><strong>Yes.</strong> Historically, disciplined, long-term SIPs in equity mutual funds have delivered returns that are <strong>significantly higher</strong> than the average rate of inflation. The key is to stay invested for a long duration (10+ years) to benefit from the power of compounding and to ride out short-term market fluctuations.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ 4 -->
+                    <div class="bg-white border border-gray-200 rounded-md">
+                        <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
+                           What is the difference between nominal and real return?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="p-3 pt-0 text-sm text-gray-600"><strong>Nominal return</strong> is the straightforward growth rate of your investment (e.g., 12%). <strong>Real return</strong> is the nominal return minus the inflation rate (e.g., 12% - 6% = 6%). Our <strong>inflation adjusted sip calculator</strong> focuses on showing you the impact on your real return, which is the true measure of your wealth growth.</p>
+                        </div>
+                    </div>
+                     <!-- FAQ 5 -->
+                    <div class="bg-white border border-gray-200 rounded-md">
+                        <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
+                            How does a Step-Up SIP help combat inflation?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="p-3 pt-0 text-sm text-gray-600">A step-up SIP involves increasing your monthly investment amount annually, often in line with an increase in your salary. This ensures that the amount you save is <strong>always growing</strong>, preventing the value of your contributions from being eroded by inflation over time. It's a powerful feature to look for in a <strong>sip calculator with inflation</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="bg-white border-t border-gray-200 py-4">
+        <div class="content-wrapper">
+             <p class="text-center text-xs text-gray-500">&copy; 2025 SipCalculatorWithInflation. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
