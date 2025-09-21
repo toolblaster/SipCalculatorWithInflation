@@ -1,21 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     const getElem = (id) => document.getElementById(id);
-   
-    // SIP Inputs
+
+    // --- DOM ELEMENT SELECTORS ---
+    // Calculator Mode
+    const modeCalculateBtn = getElem('mode-calculate');
+    const modeGoalBtn = getElem('mode-goal');
+    const calculateWealthInputs = getElem('calculate-wealth-inputs');
+    const planGoalInputs = getElem('plan-goal-inputs');
+    const standardResultSummary = getElem('standard-result-summary');
+    const goalResultSummary = getElem('goal-result-summary');
+
+    // Inputs
     const sipAmountSlider = getElem('sip-amount-slider');
     const sipAmountInput = getElem('sip-amount-input');
+    const targetAmountSlider = getElem('target-amount-slider');
+    const targetAmountInput = getElem('target-amount-input');
     const sipIncreaseRateSlider = getElem('sip-increase-rate-slider');
     const sipIncreaseRateInput = getElem('sip-increase-rate-input');
     const sipIncreaseAmountSlider = getElem('sip-increase-amount-slider');
     const sipIncreaseAmountInput = getElem('sip-increase-amount-input');
-   
-    const stepUpToggle = getElem('step-up-toggle');
-    const stepUpLabel = getElem('step-up-label');
-    const stepUpRateContainer = getElem('step-up-rate-container');
-    const stepUpAmountContainer = getElem('step-up-amount-container');
-
-
-    // Common Inputs
     const returnRateSlider = getElem('return-rate-slider');
     const returnRateInput = getElem('return-rate-input');
     const investmentPeriodSlider = getElem('investment-period-slider');
@@ -24,24 +27,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const inflationRateContainer = getElem('inflation-rate-container');
     const inflationRateSlider = getElem('inflation-rate-slider');
     const inflationRateInput = getElem('inflation-rate-input');
-   
+    
+    // Toggles
+    const stepUpToggle = getElem('step-up-toggle');
+    const stepUpLabel = getElem('step-up-label');
+    const stepUpRateContainer = getElem('step-up-rate-container');
+    const stepUpAmountContainer = getElem('step-up-amount-container');
+
     // Result Elements
     const investedAmountElem = getElem('invested-amount');
     const totalReturnsElem = getElem('total-returns');
     const finalValueElem = getElem('final-value');
     const realValueContainer = getElem('real-value-container');
     const realValueElem = getElem('real-value');
+    const requiredSipAmountElem = getElem('required-sip-amount');
+    
+    // Table & Chart
     const growthTableContainer = getElem('growth-table-container');
     const growthTableBody = getElem('growth-table-body');
     const toggleTableBtn = getElem('toggle-table-btn');
     const chartCanvas = getElem('investment-chart');
     const chartCtx = chartCanvas.getContext('2d');
-   
+
+    // Sharing
+    const shareWhatsappBtn = getElem('share-whatsapp');
+    const shareFacebookBtn = getElem('share-facebook');
+    const shareTwitterBtn = getElem('share-twitter');
+    const copyLinkBtn = getElem('copy-link-btn');
+    const copyLinkDefaultIcon = getElem('copy-link-default');
+    const copyLinkSuccessIcon = getElem('copy-link-success');
+
+    // --- STATE MANAGEMENT ---
     let investmentChart;
     let isStepUpAmount = true;
+    let isGoalMode = false;
 
-
-    // Utility Functions
+    // --- UTILITY FUNCTIONS ---
     const debounce = (func, delay) => { let timeout; return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), delay); }; };
     const formatCurrency = (num) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(num));
     const updateSliderFill = (slider) => {
@@ -50,64 +71,54 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.style.setProperty('--fill-percentage', `${percentage}%`);
     };
 
-
-    // Main Calculation Logic
-    function updateCalculator() {
-        const annualReturnRate = parseFloat(returnRateInput.value) / 100;
-        const investmentPeriodYears = parseFloat(investmentPeriodInput.value);
-       
-        let annualInflationRate = 0;
-        if(inflationToggle.checked) {
-            const inflationInput = getElem('inflation-rate-input');
-            if(inflationInput) {
-                annualInflationRate = parseFloat(inflationInput.value) / 100;
-            }
+    // --- CORE CALCULATION LOGIC ---
+    function calculate() {
+        if (isGoalMode) {
+            calculateRequiredSIP();
+        } else {
+            calculateWealth();
         }
-       
-        let investedAmount, finalValue, totalReturns;
-        let yearlyGrowthData = [];
-
-
+    }
+    
+    function calculateWealth() {
         const monthlySipAmount = parseFloat(sipAmountInput.value);
-        const monthlyRate = annualReturnRate / 12;
+        const annualReturnRate = parseFloat(returnRateInput.value) / 100;
+        const investmentPeriodYears = parseInt(investmentPeriodInput.value);
+        const annualInflationRate = inflationToggle.checked ? parseFloat(inflationRateInput.value) / 100 : 0;
+        const stepUpValue = isStepUpAmount ? parseFloat(sipIncreaseAmountInput.value) : parseFloat(sipIncreaseRateInput.value) / 100;
 
-
-        let currentCorpus = 0;
         let totalInvested = 0;
+        let finalValue = 0;
         let currentMonthlySip = monthlySipAmount;
-
+        const monthlyRate = annualReturnRate / 12;
+        let yearlyGrowthData = [];
 
         for (let year = 1; year <= investmentPeriodYears; year++) {
             let yearInvested = 0;
             for (let month = 1; month <= 12; month++) {
-                currentCorpus = currentCorpus * (1 + monthlyRate) + currentMonthlySip;
+                finalValue = finalValue * (1 + monthlyRate) + currentMonthlySip;
                 yearInvested += currentMonthlySip;
             }
             totalInvested += yearInvested;
-           
+            
             if (isStepUpAmount) {
-                 currentMonthlySip += parseFloat(sipIncreaseAmountInput.value);
+                currentMonthlySip += stepUpValue;
             } else {
-                const annualIncreaseRate = parseFloat(sipIncreaseRateInput.value) / 100;
-                currentMonthlySip *= (1 + annualIncreaseRate);
+                currentMonthlySip *= (1 + stepUpValue);
             }
-           
+            
             yearlyGrowthData.push({
                 year: year,
                 invested: totalInvested,
-                returns: currentCorpus - totalInvested,
-                total: currentCorpus
+                returns: finalValue - totalInvested,
+                total: finalValue
             });
         }
-        investedAmount = totalInvested;
-        finalValue = currentCorpus;
-        totalReturns = finalValue - investedAmount;
 
-
-        investedAmountElem.textContent = formatCurrency(investedAmount);
+        const totalReturns = finalValue - totalInvested;
+        investedAmountElem.textContent = formatCurrency(totalInvested);
         totalReturnsElem.textContent = formatCurrency(totalReturns);
         finalValueElem.textContent = formatCurrency(finalValue);
-
 
         if (inflationToggle.checked) {
             const realValue = finalValue / Math.pow(1 + annualInflationRate, investmentPeriodYears);
@@ -117,12 +128,109 @@ document.addEventListener('DOMContentLoaded', () => {
             realValueContainer.classList.add('hidden');
         }
 
-
-        updateChart([investedAmount, totalReturns], ['Total Invested', 'Total Returns'], ['#D97706', '#15803D']); // Using darker, more contrasted colors
+        updateChart([totalInvested, totalReturns], ['Total Invested', 'Total Returns'], ['#EF4444', '#22C55E']);
         generateGrowthTable(yearlyGrowthData);
     }
 
+    function calculateRequiredSIP() {
+        const targetAmount = parseFloat(targetAmountInput.value);
+        const annualReturnRate = parseFloat(returnRateInput.value) / 100;
+        const investmentPeriodYears = parseInt(investmentPeriodInput.value);
+        const annualInflationRate = inflationToggle.checked ? parseFloat(inflationRateInput.value) / 100 : 0;
+        const stepUpValue = isStepUpAmount ? parseFloat(sipIncreaseAmountInput.value) : parseFloat(sipIncreaseRateInput.value) / 100;
 
+        // Adjust target for inflation first
+        const futureTargetAmount = inflationToggle.checked ? targetAmount * Math.pow(1 + annualInflationRate, investmentPeriodYears) : targetAmount;
+        
+        // This logic is a bit complex, we need to find the initial SIP that results in the futureTargetAmount.
+        // We can do this by calculating the future value of a "base" SIP of 1 and then scaling it.
+        let baseSipFV = 0;
+        let currentBaseSip = 1;
+        const monthlyRate = annualReturnRate / 12;
+
+        for (let year = 1; year <= investmentPeriodYears; year++) {
+            for (let month = 1; month <= 12; month++) {
+                baseSipFV = baseSipFV * (1 + monthlyRate) + currentBaseSip;
+            }
+            if (isStepUpAmount) {
+                // For amount step-up, the step-up value itself needs to be scaled relative to the base SIP of 1. This is tricky.
+                // A simpler approach for the user is to disable amount-based step-up in goal mode, but let's try to calculate it.
+                // A step-up of X on a base SIP of 1 is not meaningful.
+                // Let's assume the step-up amount is also a factor we need to solve for, relative to the initial SIP. 
+                // This becomes a non-linear problem.
+                // Let's simplify: for goal planning, the step-up amount is calculated based on the initial required SIP.
+                // This creates a circular dependency.
+                // The most robust way is to perform a binary search or iterative approximation to find the required SIP.
+                
+                // Iterative Approach:
+                let lowSip = 0;
+                let highSip = futureTargetAmount; // A safe upper bound
+                let requiredSip = highSip;
+                
+                for(let i = 0; i < 100; i++) { // 100 iterations for precision
+                    let midSip = (lowSip + highSip) / 2;
+                    let calculatedFv = getFutureValue(midSip, annualReturnRate, investmentPeriodYears, isStepUpAmount, stepUpValue);
+                    
+                    if (calculatedFv > futureTargetAmount) {
+                        highSip = midSip;
+                        requiredSip = midSip;
+                    } else {
+                        lowSip = midSip;
+                    }
+                }
+                
+                requiredSipAmountElem.textContent = formatCurrency(requiredSip);
+
+            } else { // Percentage-based step-up is straightforward
+                if (isStepUpAmount) {
+                     // This case is complex, let's just show an estimate or a message
+                    requiredSipAmountElem.textContent = "N/A with amount step-up";
+                    return;
+                }
+                
+                // Re-calculate the base FV for percentage step-up
+                baseSipFV = 0;
+                currentBaseSip = 1;
+                for (let year = 1; year <= investmentPeriodYears; year++) {
+                    for (let month = 1; month <= 12; month++) {
+                        baseSipFV = baseSipFV * (1 + monthlyRate) + currentBaseSip;
+                    }
+                    currentBaseSip *= (1 + stepUpValue);
+                }
+
+                if (baseSipFV === 0) {
+                     requiredSipAmountElem.textContent = formatCurrency(0);
+                     return;
+                }
+                
+                const requiredInitialSip = futureTargetAmount / baseSipFV;
+                requiredSipAmountElem.textContent = formatCurrency(requiredInitialSip);
+            }
+        
+        }
+    }
+    
+    // Helper for goal calculation
+    function getFutureValue(initialSip, annualReturnRate, years, isAmountStep, stepValue) {
+        let fv = 0;
+        let currentSip = initialSip;
+        const monthlyRate = annualReturnRate / 12;
+
+        for (let y = 0; y < years; y++) {
+            for (let m = 0; m < 12; m++) {
+                fv = fv * (1 + monthlyRate) + currentSip;
+            }
+            if (isAmountStep) {
+                currentSip += stepValue;
+            } else {
+                currentSip *= (1 + stepValue);
+            }
+        }
+        return fv;
+    }
+
+
+    // --- UI UPDATE FUNCTIONS ---
     function updateChart(data, labels, colors) {
         const chartData = {
             labels: labels,
@@ -149,6 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         if (investmentChart) {
             investmentChart.data = chartData;
+            investmentChart.options = chartOptions;
             investmentChart.update();
         } else {
             investmentChart = new Chart(chartCtx, {
@@ -160,23 +269,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
    
     function generateGrowthTable(data) {
-        const growthTableBody = getElem('growth-table-body');
         if (!growthTableBody) return;
-       
         growthTableBody.innerHTML = '';
         data.forEach(row => {
             const newRow = document.createElement('tr');
             newRow.className = 'hover:bg-gray-100 transition-colors';
             newRow.innerHTML = `
-                <td class="px-4 py-2 whitespace-nowrap">${row.year}</td>
-                <td class="px-4 py-2 whitespace-nowrap table-cell-right">${formatCurrency(row.invested)}</td>
-                <td class="px-4 py-2 whitespace-nowrap table-cell-right text-green-700 font-semibold">${formatCurrency(row.returns)}</td>
-                <td class="px-4 py-2 whitespace-nowrap table-cell-right font-bold">${formatCurrency(row.total)}</td>
+                <td class="px-2 py-1 whitespace-nowrap text-xxs">${row.year}</td>
+                <td class="px-2 py-1 whitespace-nowrap table-cell-right text-xxs">${formatCurrency(row.invested)}</td>
+                <td class="px-2 py-1 whitespace-nowrap table-cell-right text-green-700 font-semibold text-xxs">${formatCurrency(row.returns)}</td>
+                <td class="px-2 py-1 whitespace-nowrap table-cell-right font-bold text-xxs">${formatCurrency(row.total)}</td>
             `;
             growthTableBody.appendChild(newRow);
         });
     }
-
 
     function updateInputsVisibility() {
         if (isStepUpAmount) {
@@ -188,12 +294,52 @@ document.addEventListener('DOMContentLoaded', () => {
             stepUpAmountContainer.classList.add('hidden');
             stepUpLabel.textContent = "Annual Step-up Rate (%)";
         }
-        updateCalculator();
+        calculate();
+    }
+    
+    function setCalculatorMode(goalMode) {
+        isGoalMode = goalMode;
+        if (isGoalMode) {
+            // Switch to Goal Mode
+            modeGoalBtn.classList.add('bg-red-600', 'text-white', 'shadow');
+            modeCalculateBtn.classList.remove('bg-red-600', 'text-white', 'shadow');
+            modeCalculateBtn.classList.add('text-red-700');
+            
+            calculateWealthInputs.classList.add('hidden');
+            planGoalInputs.classList.remove('hidden');
+            
+            standardResultSummary.classList.add('hidden');
+            goalResultSummary.classList.remove('hidden');
+
+            // In goal mode, the chart and table might not make sense, let's hide them.
+            chartCanvas.parentElement.classList.add('hidden');
+            toggleTableBtn.classList.add('hidden');
+            growthTableContainer.classList.add('hidden');
+        } else {
+            // Switch to Calculate Mode
+            modeCalculateBtn.classList.add('bg-red-600', 'text-white', 'shadow');
+            modeGoalBtn.classList.remove('bg-red-600', 'text-white', 'shadow');
+            modeGoalBtn.classList.add('text-red-700');
+
+            planGoalInputs.classList.add('hidden');
+            calculateWealthInputs.classList.remove('hidden');
+
+            goalResultSummary.classList.add('hidden');
+            standardResultSummary.classList.remove('hidden');
+            
+            chartCanvas.parentElement.classList.remove('hidden');
+            toggleTableBtn.classList.remove('hidden');
+             // Retain hidden state of table
+        }
+        calculate();
     }
 
-    // Event Listeners
-    const inputs = [
+    // --- EVENT LISTENERS ---
+    const debouncedCalculate = debounce(calculate, 250);
+
+    const inputsToTrack = [
         { slider: sipAmountSlider, input: sipAmountInput },
+        { slider: targetAmountSlider, input: targetAmountInput },
         { slider: sipIncreaseRateSlider, input: sipIncreaseRateInput },
         { slider: sipIncreaseAmountSlider, input: sipIncreaseAmountInput },
         { slider: returnRateSlider, input: returnRateInput },
@@ -201,32 +347,44 @@ document.addEventListener('DOMContentLoaded', () => {
         { slider: inflationRateSlider, input: inflationRateInput }
     ];
 
-
-    inputs.forEach(({ slider, input }) => {
+    inputsToTrack.forEach(({ slider, input }) => {
         if (slider && input) {
-            slider.addEventListener('input', () => { input.value = slider.value; updateSliderFill(slider); debouncedUpdate(); });
-            input.addEventListener('input', () => { slider.value = input.value; updateSliderFill(slider); debouncedUpdate(); });
-            input.addEventListener('blur', () => { updateInputValue(input, slider); debouncedUpdate(); });
+            slider.addEventListener('input', () => { 
+                input.value = slider.value; 
+                updateSliderFill(slider); 
+                debouncedCalculate(); 
+            });
+            input.addEventListener('input', () => { 
+                // Basic validation to prevent overly large numbers that might crash the browser
+                if (parseFloat(input.value) > parseFloat(slider.max) * 1.1) {
+                    input.value = slider.max;
+                }
+                slider.value = input.value; 
+                updateSliderFill(slider); 
+                debouncedCalculate(); 
+            });
+            input.addEventListener('blur', () => { 
+                updateInputValue(input, slider); 
+                debouncedCalculate(); 
+            });
         }
     });
-
 
     function updateInputValue(input, slider) {
         let value = parseFloat(input.value);
         const min = parseFloat(slider.min);
         const max = parseFloat(slider.max);
-
+        // Use the slider's step attribute, not the input's
+        const step = parseFloat(slider.step) || 1;
 
         if (isNaN(value) || value < min) {
             value = min;
         } else if (value > max) {
             value = max;
         }
-
-
-        const step = parseFloat(slider.step) || 1; // Corrected: Get step from slider
+        
+        // Round to the nearest valid step
         value = Math.round(value / step) * step;
-
 
         input.value = value;
         slider.value = value;
@@ -242,9 +400,8 @@ document.addEventListener('DOMContentLoaded', () => {
             inflationRateContainer.classList.add('hidden');
             if(inflationCard) inflationCard.classList.remove('input-card-accent');
         }
-        updateCalculator();
+        calculate();
     });
-
 
     stepUpToggle.addEventListener('click', () => {
         isStepUpAmount = !isStepUpAmount;
@@ -262,83 +419,49 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const answer = button.nextElementSibling;
             const icon = button.querySelector('svg');
+            const isOpening = !answer.style.maxHeight;
 
-            if (answer.style.maxHeight) {
-                answer.style.maxHeight = null;
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                // This part can be simplified if only one FAQ can be open at a time
-                document.querySelectorAll('.faq-answer').forEach(ans => ans.style.maxHeight = null);
-                document.querySelectorAll('.faq-question-button svg').forEach(icn => icn.style.transform = 'rotate(0deg)');
-                
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(ans => ans.style.maxHeight = null);
+            document.querySelectorAll('.faq-question-button svg').forEach(icn => icn.style.transform = 'rotate(0deg)');
+
+            // Open the clicked one if it was closed
+            if (isOpening) {
                 answer.style.maxHeight = answer.scrollHeight + 'px';
                 icon.style.transform = 'rotate(180deg)';
             }
         });
     });
 
-
-    const debouncedUpdate = debounce(updateCalculator, 250);
-
-    // Share functionality
-    const shareWhatsappBtn = document.getElementById('share-whatsapp');
-    const shareFacebookBtn = document.getElementById('share-facebook');
-    const shareTwitterBtn = document.getElementById('share-twitter');
-    const copyLinkBtn = document.getElementById('copy-link-btn');
-
+    // Sharing Logic
     const shareUrl = window.location.href;
-    const shareText = "Check out this awesome SIP Calculator with Inflation to plan your investments!";
+    const shareTitle = "Check out this awesome SIP Calculator with Inflation!";
+    shareWhatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
+    shareFacebookBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+    shareTwitterBtn.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
 
-    if(shareWhatsappBtn) {
-        shareWhatsappBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
-            window.open(whatsappUrl, '_blank');
-        });
-    }
+    copyLinkBtn.addEventListener('click', () => {
+        const dummy = document.createElement('textarea');
+        document.body.appendChild(dummy);
+        dummy.value = shareUrl;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
 
-    if(shareFacebookBtn) {
-        shareFacebookBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-            window.open(facebookUrl, '_blank');
-        });
-    }
-
-    if(shareTwitterBtn) {
-        shareTwitterBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
-            window.open(twitterUrl, '_blank');
-        });
-    }
-
-    if(copyLinkBtn) {
-        copyLinkBtn.addEventListener('click', () => {
-            const defaultIcon = document.getElementById('copy-link-default');
-            const successIcon = document.getElementById('copy-link-success');
-
-            const tempInput = document.createElement('textarea');
-            tempInput.value = shareUrl;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-
-            // Visual feedback
-            if (defaultIcon && successIcon) {
-                defaultIcon.classList.add('hidden');
-                successIcon.classList.remove('hidden');
-
-                setTimeout(() => {
-                    successIcon.classList.add('hidden');
-                    defaultIcon.classList.remove('hidden');
-                }, 2000);
-            }
-        });
-    }
+        copyLinkDefaultIcon.classList.add('hidden');
+        copyLinkSuccessIcon.classList.remove('hidden');
+        setTimeout(() => {
+            copyLinkDefaultIcon.classList.remove('hidden');
+            copyLinkSuccessIcon.classList.add('hidden');
+        }, 2000);
+    });
+    
+    // Calculator mode buttons
+    modeCalculateBtn.addEventListener('click', () => setCalculatorMode(false));
+    modeGoalBtn.addEventListener('click', () => setCalculatorMode(true));
 
 
-    updateCalculator();
+    // --- INITIALIZATION ---
+    calculate();
     document.querySelectorAll('.range-slider').forEach(updateSliderFill);
 });
