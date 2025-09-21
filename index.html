@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>SIP Calculator with Inflation | Calculate Your Real Returns</title>
-    <meta name="description" content="Use our free and accurate SIP calculator with inflation to understand the true future value of your investments. Plan for your financial goals with real, inflation-adjusted numbers.">
-    <meta name="keywords" content="sip calculator with inflation, inflation adjusted sip calculator, step up sip calculator with inflation, future value of SIP, investment growth calculator, financial goal planning, power of compounding calculator, rupee cost averaging, real returns calculator">
+    <title>SIP Calculator with Inflation & Step Up | Calculate Real Returns</title>
+    <meta name="description" content="Our free SIP calculator with inflation helps you see the true value of your investments after rising costs. Use this powerful sip with inflation calculator, which includes a step up option, for accurate financial planning.">
+    <meta name="keywords" content="sip calculator with inflation, sip calculator with step up and inflation, sip with inflation calculator, sip calculator with inflation adjustment, future value of SIP, investment growth calculator, financial goal planning, real returns calculator">
     <meta name="author" content="SipCalculatorWithInflation">
     <link rel="canonical" href="https://SipCalculatorWithInflation.toolblaster.com">
     <meta name="robots" content="index, follow">
@@ -21,7 +21,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "SIP Calculator with Inflation",
+      "name": "SIP Calculator with Inflation and Step Up",
       "operatingSystem": "Web",
       "applicationCategory": "FinanceApplication",
       "aggregateRating": {
@@ -34,7 +34,7 @@
         "price": "0",
         "priceCurrency": "INR"
       },
-      "description": "A free online tool to calculate the future value of SIP (Systematic Investment Plan) investments, adjusted for inflation to show the real returns.",
+      "description": "A free online tool to calculate the future value of SIP (Systematic Investment Plan) investments, adjusted for inflation to show the real returns. Includes step-up functionality.",
       "url": "https://SipCalculatorWithInflation.toolblaster.com"
     }
     </script>
@@ -146,13 +146,17 @@
         }
         .input-card {
             background-color: #f9fafb;
-            padding: 0.75rem;
+            padding: 0.5rem;
             border-radius: 0.5rem;
             border: 1px solid #fca5a5;
             transition: border-color 0.2s ease;
         }
         .input-card:hover {
             border-color: #E34037;
+        }
+        .input-card-accent {
+            border-color: #E34037;
+            box-shadow: 0 0 0 1px #FCA5A5;
         }
         .switch-toggle-container {
             position: relative;
@@ -219,13 +223,13 @@
             border: 1px solid #fee2e2;
             border-left: 4px solid #fca5a5;
             border-radius: 0.5rem;
-            padding: 1rem;
+            padding: 0.75rem;
             box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
         }
         .listicle {
             display: flex;
             align-items: flex-start;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
         .listicle-icon {
             flex-shrink: 0;
@@ -245,6 +249,15 @@
         }
         .faq-question-button svg {
             transition: transform 0.3s ease-in-out;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
         }
     </style>
 </head>
@@ -267,7 +280,7 @@
     </header>
 
     <main class="content-wrapper">
-        <div class="bg-white shadow-lg rounded-xl p-3 md:p-4 w-full border border-red-300">
+        <div class="bg-white shadow-lg rounded-xl p-2 md:p-3 w-full border border-red-300">
             <!-- Header Section -->
             <div class="text-center">
                 <div class="heading-container">
@@ -278,21 +291,43 @@
                 </div>
             </div>
 
+            <!-- Calculator Mode Toggle -->
+            <div class="flex justify-center my-3">
+                <div class="flex p-1 rounded-full bg-red-100 border border-red-200">
+                    <button id="mode-calculate" class="px-4 py-1 text-sm font-semibold rounded-full bg-red-600 text-white shadow">Calculate Wealth</button>
+                    <button id="mode-goal" class="px-4 py-1 text-sm font-semibold rounded-full text-red-700">Plan a Goal</button>
+                </div>
+            </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 mt-4">
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3 mt-3">
                 <!-- Input Section -->
-                <div class="space-y-3">
-                    <div class="input-card">
-                        <label for="sip-amount-slider" class="block text-sm font-medium text-gray-700 mb-1">Monthly SIP Amount (₹)</label>
-                        <div class="flex items-center space-x-2">
-                            <input type="range" id="sip-amount-slider" min="500" max="100000" value="10000" step="500" class="range-slider">
-                            <input type="number" id="sip-amount-input" class="manual-input" value="10000">
+                <div class="space-y-2">
+                    <!-- Standard "Calculate Wealth" Inputs -->
+                    <div id="calculate-wealth-inputs" class="space-y-2">
+                        <div class="input-card">
+                            <label for="sip-amount-slider" class="block text-xs font-medium text-gray-700 mb-1">Monthly SIP Amount (₹)</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="range" id="sip-amount-slider" min="500" max="100000" value="10000" step="500" class="range-slider">
+                                <input type="number" id="sip-amount-input" class="manual-input" value="10000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- "Plan a Goal" Inputs -->
+                    <div id="plan-goal-inputs" class="hidden space-y-2">
+                        <div class="input-card">
+                            <label for="target-amount-slider" class="block text-xs font-medium text-gray-700 mb-1">Your Goal Amount (₹)</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="range" id="target-amount-slider" min="100000" max="90000000" value="10000000" step="100000" class="range-slider">
+                                <input type="number" id="target-amount-input" class="manual-input" value="10000000">
+                            </div>
                         </div>
                     </div>
                    
                     <div class="input-card">
                         <div class="flex justify-between items-center mb-1">
-                            <label id="step-up-label" class="text-sm font-medium text-gray-700">Annual Step-up Amount (₹)</label>
+                            <label id="step-up-label" class="text-xs font-medium text-gray-700">Annual Step-up Amount (₹)</label>
                             <div id="step-up-toggle" class="switch-toggle-container active">
                                 <span class="switch-label percent"> % </span>
                                 <span class="switch-label amount"> ₹ </span>
@@ -310,7 +345,7 @@
                    
                     <!-- Common Inputs -->
                     <div class="input-card">
-                        <label for="return-rate-slider" class="block text-sm font-medium text-gray-700 mb-1">Expected Annual Return (%)</label>
+                        <label for="return-rate-slider" class="block text-xs font-medium text-gray-700 mb-1">Expected Annual Return (%)</label>
                         <div class="flex items-center space-x-2">
                             <input type="range" id="return-rate-slider" min="1" max="30" value="12" step="0.1" class="range-slider">
                             <input type="number" id="return-rate-input" class="manual-input" value="12">
@@ -319,7 +354,7 @@
 
 
                     <div class="input-card">
-                        <label for="investment-period-slider" class="block text-sm font-medium text-gray-700 mb-1">Investment Period (Years)</label>
+                        <label for="investment-period-slider" class="block text-xs font-medium text-gray-700 mb-1">Investment Period (Years)</label>
                         <div class="flex items-center space-x-2">
                             <input type="range" id="investment-period-slider" min="1" max="40" value="15" step="1" class="range-slider">
                             <input type="number" id="investment-period-input" class="manual-input" value="15">
@@ -329,14 +364,14 @@
 
                     <div class="input-card">
                         <div class="flex items-center justify-between">
-                            <label for="inflation-toggle" class="text-sm font-medium text-gray-700">Adjust for Inflation</label>
+                            <label for="inflation-toggle" class="text-xs font-medium text-gray-700">Adjust for Inflation</label>
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="checkbox" id="inflation-toggle" class="sr-only peer">
                                 <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                             </label>
                         </div>
                         <div id="inflation-rate-container" class="hidden mt-2">
-                            <label for="inflation-rate-slider" class="block text-sm font-medium text-gray-700 mb-1">Annual Inflation Rate (%)</label>
+                            <label for="inflation-rate-slider" class="block text-xs font-medium text-gray-700 mb-1">Annual Inflation Rate (%)</label>
                             <div class="flex items-center space-x-2">
                                 <input type="range" id="inflation-rate-slider" min="0" max="15" value="6" step="0.1" class="range-slider">
                                 <input type="number" id="inflation-rate-input" class="manual-input" value="6">
@@ -347,33 +382,59 @@
 
 
                 <!-- Results Section -->
-                <div class="flex flex-col space-y-3 mt-3 lg:mt-0">
-                    <div class="bg-red-50 p-3 rounded-lg border border-red-300 text-center">
-                        <div class="heading-container mb-3">
+                <div class="flex flex-col space-y-2 mt-3 lg:mt-0">
+                    <div id="standard-result-summary" class="bg-red-50 p-2 rounded-lg border border-red-300 text-center">
+                        <div class="heading-container mb-2">
                             <h2 id="result-title" class="result-heading font-extrabold text-red-700">SIP Investment Summary</h2>
                         </div>
                         <div class="space-y-1 text-xs">
                             <div class="flex justify-between">
-                                <span class="text-gray-800">Total Invested:</span>
+                                <span class="text-gray-600">Total Invested:</span>
                                 <span id="invested-amount" class="font-semibold text-red-700">₹0</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-800">Total Returns:</span>
+                                <span class="text-gray-600">Total Returns:</span>
                                 <span id="total-returns" class="font-semibold text-green-700">₹0</span>
                             </div>
-                            <div class="flex justify-between font-bold pt-2 border-t border-red-200">
+                            <div class="flex justify-between font-bold pt-1 border-t border-red-200 mt-1">
                                 <span class="text-gray-800">Final Value:</span>
                                 <span id="final-value" class="text-purple-800">₹0</span>
                             </div>
-                            <div id="real-value-container" class="flex justify-between mt-2 pt-2 border-t border-red-200 hidden">
+                            <div id="real-value-container" class="flex justify-between mt-1 pt-1 border-t border-red-200 hidden">
                                 <span class="text-gray-800">Real Value:</span>
                                 <span id="real-value" class="font-bold text-purple-800">₹0</span>
                             </div>
                         </div>
                     </div>
+
+                     <div id="goal-result-summary" class="hidden text-center p-2 bg-green-50 border border-green-300 rounded-lg">
+                        <h3 class="text-sm font-semibold text-green-800">To Reach Your Goal, You Need to Invest</h3>
+                        <p id="required-sip-amount" class="text-2xl font-bold text-green-700">₹0</p>
+                        <p class="text-xs text-gray-600">per month</p>
+                    </div>
                    
                     <div class="flex items-center justify-center h-40 w-full relative">
                         <canvas id="investment-chart"></canvas>
+                    </div>
+
+                    <!-- Share Section -->
+                    <div class="bg-gray-50 p-1 rounded-lg border border-gray-200">
+                        <p class="text-center text-xs font-semibold text-gray-600 mb-1">Share this calculator</p>
+                        <div class="flex justify-center items-center space-x-2">
+                            <a href="#" id="share-whatsapp" class="share-btn bg-green-100 text-green-600 hover:bg-green-200">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.357 1.846 6.097l-1.017 3.717 3.715-1.011z"></path></svg>
+                            </a>
+                            <a href="#" id="share-facebook" class="share-btn bg-blue-100 text-blue-600 hover:bg-blue-200">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg>
+                            </a>
+                            <a href="#" id="share-twitter" class="share-btn bg-sky-100 text-sky-600 hover:bg-sky-200">
+                               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.793 4.649-.65.177-1.336.213-2.033.184.607 1.921 2.36 3.227 4.448 3.255-1.742 1.39-3.948 2.16-6.334 2.127-2.018-.002-3.99-.283-5.833-.824 2.383 1.532 5.234 2.41 8.354 2.41 9.828 0 15.367-8.016 14.945-15.656.932-.672 1.742-1.51 2.396-2.484z"></path></svg>
+                            </a>
+                            <button id="copy-link-btn" class="share-btn bg-gray-200 text-gray-700 hover:bg-gray-300 relative">
+                               <svg id="copy-link-default" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                               <svg id="copy-link-success" class="w-5 h-5 text-green-600 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            </button>
+                        </div>
                     </div>
 
                     <button id="toggle-table-btn" class="w-full px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out toggle-btn-red">Show Yearly Growth</button>
@@ -395,284 +456,265 @@
                     </div>
                 </div>
             </div>
-
-             <!-- Share Section -->
-            <div class="text-center pt-4 mt-4 border-t border-red-200">
-                <h3 class="text-md font-bold text-gray-700 mb-3">Share This Tool</h3>
-                <div class="flex items-center justify-center space-x-4">
-                    <!-- WhatsApp -->
-                    <a id="share-whatsapp" href="#" title="Share on WhatsApp" class="text-gray-500 hover:text-green-500 transition-colors duration-200">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.6 14.2c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.3.1-.1.1-.2 0-.4-.1-.1-.6-1.5-.8-2-.2-.5-.4-.5-.5-.5h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.4c.1.1 1.5 2.3 3.7 3.2.5.2.9.4 1.2.5.5.2 1 .1 1.4-.1.4-.2 1.2-.5 1.4-1 .2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18.2c-4.5 0-8.2-3.7-8.2-8.2S7.5 3.8 12 3.8s8.2 3.7 8.2 8.2-3.7 8.2-8.2 8.2z"></path></svg>
-                        <span class="sr-only">Share on WhatsApp</span>
-                    </a>
-                    <!-- Facebook -->
-                    <a id="share-facebook" href="#" title="Share on Facebook" class="text-gray-500 hover:text-blue-600 transition-colors duration-200">
-                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7c4.7-.8 8.4-4.9 8.4-9.9z"></path></svg>
-                        <span class="sr-only">Share on Facebook</span>
-                    </a>
-                    <!-- Twitter -->
-                    <a id="share-twitter" href="#" title="Share on Twitter" class="text-gray-500 hover:text-blue-400 transition-colors duration-200">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22.46 6c-.77.35-1.6.58-2.46.67.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98-3.56-.18-6.72-1.89-8.84-4.48-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.22-1.95-.55v.05c0 2.08 1.48 3.82 3.44 4.21-.36.1-.74.15-1.14.15-.28 0-.55-.03-.81-.08.55 1.7 2.14 2.94 4.03 2.97-1.47 1.15-3.32 1.83-5.33 1.83-.35 0-.69-.02-1.03-.06 1.9 1.23 4.16 1.95 6.58 1.95 7.89 0 12.21-6.54 12.21-12.21 0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"></path></svg>
-                        <span class="sr-only">Share on Twitter</span>
-                    </a>
-                    <!-- Copy Link -->
-                    <button id="copy-link-btn" title="Copy Link" class="text-gray-500 hover:text-red-600 transition-colors duration-200 focus:outline-none">
-                         <div id="copy-link-default">
-                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                         </div>
-                         <div id="copy-link-success" class="hidden">
-                             <svg class="w-7 h-7 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                         </div>
-                         <span class="sr-only">Copy Link</span>
-                    </button>
-                </div>
-            </div>
-
-             <p class="text-center text-xs text-gray-500 mt-4"><strong>Disclaimer:</strong> This calculator is for informational purposes only and does not constitute financial advice.</p>
+             <hr class="border-t border-gray-200 my-2">
+             <p class="text-center text-xs text-gray-500"><strong>Disclaimer:</strong> This calculator is for informational purposes only and does not constitute financial advice.</p>
         </div>
     </main>
 
     <div class="content-wrapper">
-        <div class="text-center pt-4 mb-6">
-            <h2 class="text-xl md:text-2xl font-bold text-gray-700">Your Guide to <strong>Smart SIP Planning</strong></h2>
-            <p class="mt-2 text-base text-gray-600">Let's break down the key ideas to help you plan your financial future with confidence.</p>
-        </div>
-        
+        <hr class="my-8 border-t border-red-200">
         <div class="space-y-4">
-            <!-- Section: What is a SIP? -->
-            <div class="section-card">
-                <div class="space-y-3">
-                    <h3 class="text-lg font-bold text-gray-800">So, What Exactly is a SIP?</h3>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
-                        <p class="text-sm text-gray-600">Think of it as a <strong>smart saving habit</strong> for your investments. You put in a fixed amount of money automatically every month, which helps you invest consistently without even thinking about it.</p>
-                    </div>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 0v6m0-6L9 13" /></svg></div>
-                        <p class="text-sm text-gray-600">It helps you benefit from something called <strong>'Rupee Cost Averaging'</strong>. In simple terms, you buy more when prices are low and less when they're high, which can lower your average cost over time.</p>
-                    </div>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg></div>
-                        <p class="text-sm text-gray-600">Best of all, it unleashes the <strong>magic of compounding</strong>. This is where your investment earnings start making their own earnings. It's how small, regular investments can grow into a large sum over the years!</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section: SIP vs Lumpsum -->
-            <div class="section-card">
-                <div class="space-y-3">
-                    <h3 class="text-lg font-bold text-gray-800">Why SIPs are a Great Choice</h3>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg></div>
-                        <p class="text-sm text-gray-600"><strong>No Need to Time the Market:</strong> With SIPs, you don't have to stress about when to invest. Your money goes in automatically, averaging out the cost and removing the guesswork that comes with a one-time, lumpsum investment.</p>
-                    </div>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M12 12.75h.008v.008H12v-.008z" /></svg></div>
-                        <p class="text-sm text-gray-600"><strong>Builds a Healthy Habit:</strong> Because it's automatic, a SIP helps you stay disciplined with your savings. It turns investing from a chore into a consistent, powerful habit for building wealth.</p>
-                    </div>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
-                        <p class="text-sm text-gray-600"><strong>Start Small, Dream Big:</strong> You can start a SIP with just ₹500! It makes investing accessible to everyone, no matter how much you have to start with. You don't need a huge amount of cash to begin.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section: Why Inflation Matters -->
-            <div class="section-card">
-                 <div class="space-y-3">
-                    <h3 class="text-lg font-bold text-gray-800">The Silent Wealth-Eater: Inflation</h3>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" /></svg></div>
-                        <p class="text-sm text-gray-600">Inflation slowly eats away at your money's buying power. That means ₹1 Lakh today won't buy you nearly as much in 10 or 20 years. It's crucial to account for this!</p>
-                    </div>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm3-6h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm3-6h.008v.008H14.25v-.008zm0 3h.008v.008H14.25v-.008zM4.5 21V5.75A2.25 2.25 0 016.75 3.5h10.5A2.25 2.25 0 0119.5 5.75V21" /></svg></div>
-                        <p class="text-sm text-gray-600">Your <strong>'Real Rate of Return'</strong> is what truly matters. It's the return you get after subtracting inflation. If your investments aren't growing faster than inflation, you're actually losing money.</p>
-                    </div>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg></div>
-                        <p class="text-sm text-gray-600">That's why a <strong>SIP calculator that includes inflation</strong> is so important. It gives you a realistic view of your future wealth, not just a big, flashy number.</p>
-                    </div>
-                 </div>
+            <div class="text-center mb-4">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-700">A Guide to the <strong>SIP Calculator with Inflation</strong></h2>
+                <p class="mt-1 text-sm text-gray-600">Unlock the power of your investments by understanding these key concepts.</p>
             </div>
             
-            <!-- How To Section -->
-            <div class="section-card">
-                <div class="space-y-3">
-                    <h3 class="text-lg font-bold text-gray-800">How to Use the Calculator</h3>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" /></svg></div>
-                        <p class="text-sm text-gray-600"><strong>1. Pop in Your Details:</strong> Just use the sliders or type in your monthly investment amount, how much return you expect, and for how many years you plan to invest.</p>
-                    </div>
-                     <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg></div>
-                        <p class="text-sm text-gray-600"><strong>2. Factor in Inflation:</strong> Flick the switch to "Adjust for Inflation" and add an expected rate. A good starting point for India is around 6%.</p>
-                    </div>
-                     <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" /><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a4 4 0 00-3.446 6.032l-2.261 2.26a1 1 0 101.414 1.415l2.261-2.261A4 4 0 1011 5z" clip-rule="evenodd" /></svg></div>
-                        <p class="text-sm text-gray-600"><strong>3. See Your True Future Value:</strong> The calculator will instantly show you both the total final amount and what that money will be worth in today's terms—your <strong>'Real Value'</strong>.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Formula Section -->
-            <div class="section-card">
-                <div class="space-y-4">
-                    <h3 class="text-lg font-bold text-gray-800">The Math Behind the Magic</h3>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h13.5m-13.5 7.5h13.5m-13.5-3.75h13.5M3.75 6.75h16.5v10.5h-16.5V6.75z" /></svg></div>
-                        <div class="text-sm text-gray-600">
-                           <p><strong>Calculating the Future Value:</strong> We use a standard formula to figure out how much your SIPs will grow to over time.</p>
-                           <p class="mt-2 text-xs">$$FV = P \times \frac{((1 + i)^n - 1)}{i} \times (1 + i)$$</p>
-                           <p class="mt-2 text-xs">Where: <strong>P</strong> is your monthly investment, <strong>i</strong> is the monthly rate of return, and <strong>n</strong> is how many months you invest for.</p>
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Section: What is a SIP? -->
+                <div class="section-card">
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-gray-800">What Exactly is a SIP?</h3>
+                         <p class="text-xs text-gray-600">Think of a Systematic Investment Plan (SIP) as putting your investments on autopilot. It's a smart and simple way to invest in mutual funds.</p>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                            <p class="text-xs text-gray-600">You invest a <strong>fixed amount automatically</strong> every month, building a disciplined saving habit without even trying.</p>
+                        </div>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg></div>
+                            <p class="text-xs text-gray-600">It lets you harness the <strong>power of compounding</strong>, where your earnings start making their own money. It’s the secret sauce to long-term growth!</p>
                         </div>
                     </div>
-                     <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg></div>
-                        <div class="text-sm text-gray-600">
-                           <p><strong>Finding the "Real" Value:</strong> Then, we adjust that future amount for inflation to show you its actual purchasing power in today's money.</p>
-                           <p class="mt-2 text-xs">$$\text{Real Value} = \frac{FV}{(1 + r)^t}$$</p>
-                            <p class="mt-2 text-xs">Where: <strong>FV</strong> is the future value, <strong>r</strong> is the annual inflation rate, and <strong>t</strong> is the number of years.</p>
+                </div>
+
+                <!-- Section: SIP vs Lumpsum -->
+                <div class="section-card">
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-gray-800">SIP vs. Lumpsum Investment</h3>
+                        <p class="text-xs text-gray-600">Wondering whether to invest a little every month (SIP) or a big chunk at once (lumpsum)? Here's why SIPs are often a smarter choice for most people.</p>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg></div>
+                            <p class="text-xs text-gray-600"><strong>No Need to Time the Market:</strong> SIPs benefit from "Rupee Cost Averaging." This means you automatically buy more when prices are low and less when they're high, averaging out your cost and reducing stress.</p>
+                        </div>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                            <p class="text-xs text-gray-600"><strong>Start Small:</strong> You can start a SIP with as little as ₹500, making investing accessible to everyone, unlike lumpsum which often needs a large amount upfront.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Why Inflation Matters -->
+                <div class="section-card">
+                     <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-gray-800">Why Can't I Ignore Inflation?</h3>
+                        <p class="text-xs text-gray-600">Inflation is the silent thief that reduces your money's buying power over time. What seems like a lot today might not be enough for your goals tomorrow.</p>
+                         <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm3-6h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm3-6h.008v.008H14.25v-.008zm0 3h.008v.008H14.25v-.008zM4.5 21V5.75A2.25 2.25 0 016.75 3.5h10.5A2.25 2.25 0 0119.5 5.75V21" /></svg></div>
+                            <p class="text-xs text-gray-600">The <strong>'Real Rate of Return'</strong> is what truly matters. It's your investment return minus the inflation rate, showing your actual growth in purchasing power.</p>
+                        </div>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" /></svg></div>
+                            <p class="text-xs text-gray-600">Our <strong>sip with inflation calculator</strong> shows you the 'Real Value' of your money, so you get a true picture of your future wealth. It's the key to making sure your financial goals are truly achievable.</p>
+                        </div>
+                     </div>
+                </div>
+
+                 <!-- How To Section -->
+                <div class="section-card">
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-gray-800">How Do I Use the Calculator?</h3>
+                        <p class="text-xs text-gray-600">Getting started is easy. Our tool is more than a simple calculator; it's a <strong>sip calculator with step up and inflation</strong> features built right in.</p>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" /></svg></div>
+                            <p class="text-xs text-gray-600"><strong>1. Choose Your Mode:</strong> Decide if you want to 'Calculate Wealth' or 'Plan a Goal'.</p>
+                        </div>
+                         <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg></div>
+                            <p class="text-xs text-gray-600"><strong>2. Enter Your Numbers:</strong> Input your investment details like monthly amount, expected returns, and time period.</p>
+                        </div>
+                         <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" /><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a4 4 0 00-3.446 6.032l-2.261 2.26a1 1 0 101.414 1.415l2.261-2.261A4 4 0 1011 5z" clip-rule="evenodd" /></svg></div>
+                            <p class="text-xs text-gray-600"><strong>3. See Your Future:</strong> The calculator instantly shows your results. Don't forget to toggle on inflation to see the 'Real Value'!</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- New Sections -->
+             <div class="grid md:grid-cols-2 gap-4 mt-4">
+                 <div class="section-card">
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-gray-800">Choosing the Right Fund</h3>
+                         <p class="text-xs text-gray-600">A calculator is a great tool, but it works best when you invest in the right places.</p>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg></div>
+                            <p class="text-xs text-gray-600">Align your fund choice with your <strong>risk appetite</strong>. <strong>Equity funds</strong> offer higher growth potential for <strong>long-term goals</strong> but come with higher risk. <strong>Debt funds</strong> are safer and better for <strong>shorter goals</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-card">
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-gray-800">What About Taxes?</h3>
+                         <p class="text-xs text-gray-600">It's important to remember that your investment returns are <strong>taxable</strong>.</p>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" /></svg></div>
+                            <p class="text-xs text-gray-600">Gains from mutual funds are subject to <strong>Short-Term or Long-Term Capital Gains tax</strong>. The rules can be complex, so it's always a good idea to consult a <strong>financial advisor</strong> for personalized advice.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Section: Strategies -->
-            <div class="section-card">
-                <div class="space-y-3">
-                    <h3 class="text-lg font-bold text-gray-800">Tips for Building Real Wealth</h3>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M14.732 9.42a1 1 0 00-1.405-1.442l-2.43 2.384V2a1 1 0 00-2 0v8.362l-2.43-2.384a1 1 0 10-1.405 1.442l4.133 4.062a1 1 0 001.406 0l4.131-4.062zM18 17a1 1 0 01-1 1H3a1 1 0 110-2h14a1 1 0 011 1z" /></svg></div>
-                        <p class="text-sm text-gray-600"><strong>Level Up with Step-Up SIPs:</strong> As your income grows, try to increase your SIP amount each year. This is a super-effective way to make sure your savings always stay ahead of inflation.</p>
+            <!-- Formula and Strategy Sections -->
+            <div class="grid md:grid-cols-2 gap-4 mt-4">
+                 <!-- Formula Section -->
+                <div class="section-card">
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-gray-800">The Magic Behind the Math</h3>
+                        <p class="text-xs text-gray-600">Curious how it works? Here's a peek at the formulas that power your calculations.</p>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h13.5m-13.5 7.5h13.5m-13.5-3.75h13.5M3.75 6.75h16.5v10.5h-16.5V6.75z" /></svg></div>
+                            <div class="text-xs text-gray-600">
+                               <p><strong>Future Value (FV) of SIP:</strong> This is the total money you'll have at the end.</p>
+                               <p class="mt-2 text-xxs">$$FV = P \times \frac{((1 + i)^n - 1)}{i} \times (1 + i)$$</p>
+                            </div>
+                        </div>
+                         <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg></div>
+                            <div class="text-xs text-gray-600">
+                               <p><strong>Inflation-Adjusted Value:</strong> This formula shows what that future money is worth in today's terms.</p>
+                               <p class="mt-2 text-xxs">$$\text{Real Value} = \frac{FV}{(1 + r)^t}$$</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg></div>
-                        <p class="text-sm text-gray-600"><strong>Play the Long Game:</strong> The longer you stay invested, the more time your money has to grow. Aim for at least 10 years to really see the power of compounding and ride out any market bumps.</p>
+                </div>
+
+                <!-- Section: Strategies -->
+                <div class="section-card">
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-gray-800">Strategies to Build Real Wealth</h3>
+                        <p class="text-xs text-gray-600">Here are a few pro tips to get the most out of your SIP investments.</p>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M14.732 9.42a1 1 0 00-1.405-1.442l-2.43 2.384V2a1 1 0 00-2 0v8.362l-2.43-2.384a1 1 0 10-1.405 1.442l4.133 4.062a1 1 0 001.406 0l4.131-4.062zM18 17a1 1 0 01-1 1H3a1 1 0 110-2h14a1 1 0 011 1z" /></svg></div>
+                            <p class="text-xs text-gray-600"><strong>Use a Step-Up SIP:</strong> Increase your investment amount a little each year. This is a powerful way to make sure your savings always outpace inflation.</p>
+                        </div>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg></div>
+                            <p class="text-xs text-gray-600"><strong>Stay Invested Long-Term:</strong> Give your money at least 10 years to grow. This smooths out market ups and downs and lets compounding really work its magic.</p>
+                        </div>
+                        <div class="listicle">
+                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg></div>
+                            <p class="text-xs text-gray-600"><strong>Choose Equity for Growth:</strong> For long-term goals, equity mutual funds have historically delivered returns that comfortably beat inflation.</p>
+                        </div>
                     </div>
-                    <div class="listicle">
-                        <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg></div>
-                        <p class="text-sm text-gray-600"><strong>Aim for Growth:</strong> For long-term goals, investments like equity mutual funds have a strong track record of beating inflation and delivering solid growth.</p>
+                </div>
+            </div>
+
+             <!-- Visual Insights Section -->
+            <div class="mt-6 bg-red-50 p-3 rounded-lg border border-red-200">
+                <div class="text-center mb-2">
+                    <h2 class="text-xl md:text-2xl font-extrabold text-gray-900">Smart Investing at a Glance</h2>
+                    <p class="text-sm text-gray-600">Grasp these core principles to build lasting wealth.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
+                    <!-- Insight 1: Compounding -->
+                    <div class="flex flex-col items-center">
+                        <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
+                            <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-sm">Power of Compounding</h3>
+                        <p class="text-xs text-gray-600 mt-1">Your earnings generate their own earnings, creating exponential growth.</p>
+                    </div>
+                    <!-- Insight 2: Rupee Cost Averaging -->
+                    <div class="flex flex-col items-center">
+                        <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
+                            <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-sm">Rupee Cost Averaging</h3>
+                        <p class="text-xs text-gray-600 mt-1">Investing regularly averages your cost and reduces market timing risks.</p>
+                    </div>
+                    <!-- Insight 3: Long-Term Growth -->
+                    <div class="flex flex-col items-center">
+                        <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
+                           <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-sm">Patience Pays Off</h3>
+                        <p class="text-xs text-gray-600 mt-1">Long-term investing maximizes compounding and smooths out volatility.</p>
+                    </div>
+                     <!-- Insight 4: Diversification -->
+                    <div class="flex flex-col items-center">
+                        <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
+                           <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-sm">Diversification is Key</h3>
+                        <p class="text-xs text-gray-600 mt-1">Spread investments across different assets to reduce overall risk.</p>
                     </div>
                 </div>
             </div>
 
             <!-- FAQ Section -->
-            <div class="section-card">
-                <div class="space-y-3">
-                    <h3 class="text-lg font-bold text-gray-800">Your Questions Answered</h3>
-                    <div class="space-y-3">
-                        <!-- FAQ 1 -->
-                        <div class="border border-gray-200 rounded-md">
-                            <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
-                                Why should I care about an "inflation-adjusted" calculator?
-                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                            </button>
-                            <div class="faq-answer">
-                                <p class="p-3 pt-0 text-sm text-gray-600">Great question! A basic calculator might show you a huge number for the future, which feels great but can be misleading. Our <strong>inflation-adjusted calculator</strong> is much more honest. It shows you the <strong>'real value'</strong> of your future money—meaning what it will actually be able to buy. This gives you a much more realistic picture for planning big goals like retirement.</p>
-                            </div>
-                        </div>
-                        <!-- FAQ 2 -->
-                        <div class="border border-gray-200 rounded-md">
-                            <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
-                                What's a good inflation rate to use for India?
-                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                            </button>
-                            <div class="faq-answer">
-                                <p class="p-3 pt-0 text-sm text-gray-600">It changes over time, but a good, safe number to use for long-term planning in India is around <strong>5-6%</strong>. Using 6% in the calculator is a smart choice to be on the safe side, especially for important goals like education where costs tend to rise faster.</p>
-                            </div>
-                        </div>
-                        <!-- FAQ 3 -->
-                        <div class="border border-gray-200 rounded-md">
-                            <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
-                               Can my SIPs actually grow faster than inflation?
-                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                            </button>
-                            <div class="faq-answer">
-                                 <p class="p-3 pt-0 text-sm text-gray-600"><strong>Absolutely!</strong> Historically, investing in things like equity mutual funds through a disciplined, long-term SIP has provided returns well above the average inflation rate. The secret is patience—staying invested for 10+ years helps you take advantage of growth and smooths out the market's ups and downs.</p>
-                            </div>
-                        </div>
-                        <!-- FAQ 4 -->
-                        <div class="border border-gray-200 rounded-md">
-                            <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
-                               What's the difference between nominal and real return?
-                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                            </button>
-                            <div class="faq-answer">
-                                <p class="p-3 pt-0 text-sm text-gray-600">Think of it this way: <strong>Nominal return</strong> is the sticker price of your growth (e.g., your investment grew by 12%). <strong>Real return</strong> is what's left after you pay the 'cost' of inflation (e.g., 12% return - 6% inflation = 6% real return). Our calculator focuses on this 'real return' because it's the true measure of how much your wealth is actually increasing.</p>
-                            </div>
-                        </div>
-                         <!-- FAQ 5 -->
-                        <div class="border border-gray-200 rounded-md">
-                            <button class="faq-question-button flex justify-between items-center w-full p-3 text-left text-sm font-semibold text-gray-800">
-                                How does increasing my SIP amount help?
-                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                            </button>
-                            <div class="faq-answer">
-                                <p class="p-3 pt-0 text-sm text-gray-600">Increasing your SIP amount every year (a "Step-Up SIP") is a fantastic strategy. It ensures that the amount you're saving keeps pace with both inflation and your rising income. This accelerates your wealth creation and prevents your savings from losing value over time. It's one of the most powerful features you can use for your financial goals!</p>
-                            </div>
+            <div class="mt-6">
+                <h2 class="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-3">Frequently Asked Questions</h2>
+                <div class="space-y-2">
+                    <div class="section-card">
+                        <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800">
+                            Why use a SIP calculator with inflation adjustment?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="pt-2 text-xs text-gray-600">A regular calculator can be misleading because it shows a future value that seems huge. An <strong>inflation-adjusted calculator</strong> is better because it shows you the <strong>'real value'</strong>, which tells you what your money will actually be able to buy. It's the only way to accurately plan for big goals like retirement.</p>
                         </div>
                     </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Visual Insights Section -->
-        <div class="mt-6 bg-red-50 p-3 rounded-lg border border-red-200">
-            <div class="text-center mb-3">
-                <h2 class="text-xl md:text-2xl font-extrabold text-gray-900">Smart Investing at a Glance</h2>
-                <p class="text-sm text-gray-600">Grasp these core principles to build lasting wealth.</p>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-                <!-- Insight 1: Compounding -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
-                        <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                    <div class="section-card">
+                        <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800">
+                            What is a realistic inflation rate to use for India?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="pt-2 text-xs text-gray-600">While it changes, the long-term average inflation in India has hovered around <strong>5-6%</strong>. For safe and realistic planning, using 6% in this <strong>sip with inflation calculator</strong> is a smart choice. Keep in mind that for specific goals, like education, inflation can sometimes be even higher!</p>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-gray-800">Power of Compounding</h3>
-                    <p class="text-xs text-gray-600 mt-1">Your earnings generate their own earnings, creating exponential growth.</p>
-                </div>
-                <!-- Insight 2: Rupee Cost Averaging -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
-                        <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
-                        </svg>
+                    <div class="section-card">
+                        <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800">
+                           Can a SIP truly beat inflation over the long term?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                             <p class="pt-2 text-xs text-gray-600"><strong>Absolutely.</strong> Historically, staying invested in equity mutual funds through a SIP for 10+ years has delivered returns that are <strong>significantly higher</strong> than inflation. The secret is patience. It allows compounding to work its magic and helps you ride out any short-term market bumps.</p>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-gray-800">Rupee Cost Averaging</h3>
-                    <p class="text-xs text-gray-600 mt-1">Investing regularly averages your cost and reduces market timing risks.</p>
-                </div>
-                <!-- Insight 3: Long-Term Growth -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
-                       <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                        </svg>
+                    <div class="section-card">
+                        <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800">
+                           What is the difference between nominal and real return?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="pt-2 text-xs text-gray-600"><strong>Nominal return</strong> is the straightforward growth rate of your investment (e.g., 12%). <strong>Real return</strong> is the nominal return minus the inflation rate (e.g., 12% - 6% = 6%). Our <strong>inflation adjusted sip calculator</strong> focuses on showing you the impact on your real return, which is the true measure of your wealth growth.</p>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-gray-800">Patience Pays Off</h3>
-                    <p class="text-xs text-gray-600 mt-1">Long-term investing maximizes compounding and smooths out volatility.</p>
-                </div>
-                 <!-- Insight 4: Diversification -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
-                       <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
-                        </svg>
+                     <div class="section-card">
+                        <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800">
+                            How does a Step-Up SIP help combat inflation?
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="pt-2 text-xs text-gray-600">A step-up SIP involves increasing your monthly investment amount annually, often in line with an increase in your salary. This ensures that the amount you save is <strong>always growing</strong>, preventing the value of your contributions from being eroded by inflation over time. It's a powerful feature, and our <strong>sip calculator with step up and inflation</strong> lets you model this scenario easily.</p>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-gray-800">Diversification is Key</h3>
-                    <p class="text-xs text-gray-600 mt-1">Spread investments across different assets to reduce overall risk.</p>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <footer class="bg-white border-t border-gray-200 py-2">
+    <footer class="bg-white border-t border-gray-200 py-2 mt-8">
         <div class="w-full max-w-[900px] mx-auto px-4">
              <p class="text-center text-xs text-gray-500">&copy; 2025 SipCalculatorWithInflation. All Rights Reserved.</p>
         </div>
