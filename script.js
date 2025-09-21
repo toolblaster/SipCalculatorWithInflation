@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-        updateChart([investedAmount, totalReturns], ['Total Invested', 'Total Returns'], ['#E34037', '#22C55E']);
+        updateChart([investedAmount, totalReturns], ['Total Invested', 'Total Returns'], ['#D97706', '#15803D']); // Using darker, more contrasted colors
         generateGrowthTable(yearlyGrowthData);
     }
 
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
             newRow.innerHTML = `
                 <td class="px-4 py-2 whitespace-nowrap">${row.year}</td>
                 <td class="px-4 py-2 whitespace-nowrap table-cell-right">${formatCurrency(row.invested)}</td>
-                <td class="px-4 py-2 whitespace-nowrap table-cell-right text-green-600 font-semibold">${formatCurrency(row.returns)}</td>
+                <td class="px-4 py-2 whitespace-nowrap table-cell-right text-green-700 font-semibold">${formatCurrency(row.returns)}</td>
                 <td class="px-4 py-2 whitespace-nowrap table-cell-right font-bold">${formatCurrency(row.total)}</td>
             `;
             growthTableBody.appendChild(newRow);
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-        const step = parseFloat(input.step) || 1;
+        const step = parseFloat(slider.step) || 1; // Corrected: Get step from slider
         value = Math.round(value / step) * step;
 
 
@@ -279,6 +279,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const debouncedUpdate = debounce(updateCalculator, 250);
+
+    // Share functionality
+    const shareWhatsappBtn = document.getElementById('share-whatsapp');
+    const shareFacebookBtn = document.getElementById('share-facebook');
+    const shareTwitterBtn = document.getElementById('share-twitter');
+    const copyLinkBtn = document.getElementById('copy-link-btn');
+
+    const shareUrl = window.location.href;
+    const shareText = "Check out this awesome SIP Calculator with Inflation to plan your investments!";
+
+    if(shareWhatsappBtn) {
+        shareWhatsappBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    }
+
+    if(shareFacebookBtn) {
+        shareFacebookBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+            window.open(facebookUrl, '_blank');
+        });
+    }
+
+    if(shareTwitterBtn) {
+        shareTwitterBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+            window.open(twitterUrl, '_blank');
+        });
+    }
+
+    if(copyLinkBtn) {
+        copyLinkBtn.addEventListener('click', () => {
+            const defaultIcon = document.getElementById('copy-link-default');
+            const successIcon = document.getElementById('copy-link-success');
+
+            const tempInput = document.createElement('textarea');
+            tempInput.value = shareUrl;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Visual feedback
+            if (defaultIcon && successIcon) {
+                defaultIcon.classList.add('hidden');
+                successIcon.classList.remove('hidden');
+
+                setTimeout(() => {
+                    successIcon.classList.add('hidden');
+                    defaultIcon.classList.remove('hidden');
+                }, 2000);
+            }
+        });
+    }
 
 
     updateCalculator();
