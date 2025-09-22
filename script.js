@@ -404,7 +404,15 @@ document.addEventListener('DOMContentLoaded', () => {
     stepUpToggle.addEventListener('click', () => {
         isStepUpAmount = !isStepUpAmount;
         stepUpToggle.classList.toggle('active', isStepUpAmount);
+        stepUpToggle.setAttribute('aria-checked', isStepUpAmount);
         updateInputsVisibility();
+    });
+    
+    stepUpToggle.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            stepUpToggle.click();
+        }
     });
    
     toggleTableBtn.addEventListener('click', () => {
