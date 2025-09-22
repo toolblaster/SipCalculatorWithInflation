@@ -320,7 +320,7 @@
                             <label for="sip-amount-slider" class="block text-xs font-medium text-gray-700 mb-1">Monthly SIP Amount (₹)</label>
                             <div class="flex items-center space-x-2">
                                 <input type="range" id="sip-amount-slider" min="500" max="100000" value="10000" step="500" class="range-slider">
-                                <input type="number" id="sip-amount-input" class="manual-input" value="10000">
+                                <input type="number" id="sip-amount-input" class="manual-input" value="10000" aria-label="Monthly SIP Amount (₹)">
                             </div>
                         </div>
                     </div>
@@ -331,26 +331,26 @@
                             <label for="target-amount-slider" class="block text-xs font-medium text-gray-700 mb-1">Your Goal Amount (₹)</label>
                             <div class="flex items-center space-x-2">
                                 <input type="range" id="target-amount-slider" min="100000" max="90000000" value="10000000" step="100000" class="range-slider">
-                                <input type="number" id="target-amount-input" class="manual-input" value="10000000">
+                                <input type="number" id="target-amount-input" class="manual-input" value="10000000" aria-label="Your Goal Amount (₹)">
                             </div>
                         </div>
                     </div>
                    
                     <div class="input-card">
                         <div class="flex justify-between items-center mb-1">
-                            <label id="step-up-label" class="text-xs font-medium text-gray-700">Annual Step-up Amount (₹)</label>
-                            <div id="step-up-toggle" class="switch-toggle-container active">
+                            <span id="step-up-label" class="text-xs font-medium text-gray-700">Annual Step-up Amount (₹)</span>
+                            <div id="step-up-toggle" class="switch-toggle-container active" role="switch" aria-checked="true" aria-label="Switch between amount and percentage step-up" tabindex="0">
                                 <span class="switch-label percent"> % </span>
                                 <span class="switch-label amount"> ₹ </span>
                             </div>
                         </div>
                         <div class="flex items-center space-x-2 hidden" id="step-up-rate-container">
-                            <input type="range" id="sip-increase-rate-slider" min="0" max="20" value="0" step="1" class="range-slider">
-                            <input type="number" id="sip-increase-rate-input" class="manual-input" value="0">
+                            <input type="range" id="sip-increase-rate-slider" min="0" max="20" value="0" step="1" class="range-slider" aria-labelledby="step-up-label">
+                            <input type="number" id="sip-increase-rate-input" class="manual-input" value="0" aria-labelledby="step-up-label">
                         </div>
                         <div class="flex items-center space-x-2" id="step-up-amount-container">
-                             <input type="range" id="sip-increase-amount-slider" min="0" max="50000" value="0" step="100" class="range-slider">
-                             <input type="number" id="sip-increase-amount-input" class="manual-input" value="0">
+                             <input type="range" id="sip-increase-amount-slider" min="0" max="50000" value="0" step="100" class="range-slider" aria-labelledby="step-up-label">
+                             <input type="number" id="sip-increase-amount-input" class="manual-input" value="0" aria-labelledby="step-up-label">
                         </div>
                     </div>
                    
@@ -359,7 +359,7 @@
                         <label for="return-rate-slider" class="block text-xs font-medium text-gray-700 mb-1">Expected Annual Return (%)</label>
                         <div class="flex items-center space-x-2">
                             <input type="range" id="return-rate-slider" min="1" max="30" value="12" step="0.1" class="range-slider">
-                            <input type="number" id="return-rate-input" class="manual-input" value="12">
+                            <input type="number" id="return-rate-input" class="manual-input" value="12" aria-label="Expected Annual Return (%)">
                         </div>
                     </div>
 
@@ -368,7 +368,7 @@
                         <label for="investment-period-slider" class="block text-xs font-medium text-gray-700 mb-1">Investment Period (Years)</label>
                         <div class="flex items-center space-x-2">
                             <input type="range" id="investment-period-slider" min="1" max="40" value="15" step="1" class="range-slider">
-                            <input type="number" id="investment-period-input" class="manual-input" value="15">
+                            <input type="number" id="investment-period-input" class="manual-input" value="15" aria-label="Investment Period (Years)">
                         </div>
                     </div>
 
@@ -385,7 +385,7 @@
                             <label for="inflation-rate-slider" class="block text-xs font-medium text-gray-700 mb-1">Annual Inflation Rate (%)</label>
                             <div class="flex items-center space-x-2">
                                 <input type="range" id="inflation-rate-slider" min="0" max="15" value="6" step="0.1" class="range-slider">
-                                <input type="number" id="inflation-rate-input" class="manual-input" value="6">
+                                <input type="number" id="inflation-rate-input" class="manual-input" value="6" aria-label="Annual Inflation Rate (%)">
                             </div>
                         </div>
                     </div>
