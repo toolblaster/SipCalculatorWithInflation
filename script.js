@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
         realValueContainer: getElem('real-value-container'),
         realValueElem: getElem('real-value'),
         requiredSipAmountElem: getElem('required-sip-amount'),
+        // ENHANCEMENT: Added new element selectors for goal mode
+        futureGoalValueContainer: getElem('future-goal-value-container'),
+        futureGoalValueElem: getElem('future-goal-value'),
         growthTableContainer: getElem('growth-table-container'),
         growthTableBody: getElem('growth-table-body'),
         toggleTableBtn: getElem('toggle-table-btn'),
@@ -126,11 +129,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetAmount = parseFloat(elements.targetAmountInput.value);
         const annualReturnRate = parseFloat(elements.returnRateInput.value) / 100;
         const investmentPeriodYears = parseInt(elements.investmentPeriodInput.value);
-        const annualInflationRate = elements.inflationToggle.checked ? parseFloat(elements.inflationRateInput.value) / 100 : 0;
+        const isInflationOn = elements.inflationToggle.checked;
+        const annualInflationRate = isInflationOn ? parseFloat(elements.inflationRateInput.value) / 100 : 0;
         const stepUpValue = isStepUpAmount ? parseFloat(elements.sipIncreaseAmountInput.value) : parseFloat(elements.sipIncreaseRateInput.value) / 100;
 
-        const futureTargetAmount = elements.inflationToggle.checked ? targetAmount * Math.pow(1 + annualInflationRate, investmentPeriodYears) : targetAmount;
+        const futureTargetAmount = isInflationOn ? targetAmount * Math.pow(1 + annualInflationRate, investmentPeriodYears) : targetAmount;
         
+        // ENHANCEMENT: Show/hide and update the future goal value
+        if (isInflationOn) {
+            elements.futureGoalValueElem.textContent = formatCurrency(futureTargetAmount);
+            elements.futureGoalValueContainer.classList.remove('hidden');
+        } else {
+            elements.futureGoalValueContainer.classList.add('hidden');
+        }
+
         let requiredSip = 0;
         if (isStepUpAmount) {
             let lowSip = 0;
