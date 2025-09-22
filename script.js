@@ -423,18 +423,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const faqButtons = document.querySelectorAll('.faq-question-button');
     faqButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const answer = button.nextElementSibling;
-            const icon = button.querySelector('svg');
-            const isOpening = !answer.style.maxHeight;
+            const answer = document.getElementById(button.getAttribute('aria-controls'));
+            const isOpening = button.getAttribute('aria-expanded') === 'false';
 
-            // Close all other FAQs
-            document.querySelectorAll('.faq-answer').forEach(ans => ans.style.maxHeight = null);
-            document.querySelectorAll('.faq-question-button svg').forEach(icn => icn.style.transform = 'rotate(0deg)');
+            // Close all other FAQs first
+            faqButtons.forEach(btn => {
+                if (btn !== button) {
+                    btn.setAttribute('aria-expanded', 'false');
+                    const otherAnswer = document.getElementById(btn.getAttribute('aria-controls'));
+                    otherAnswer.style.maxHeight = null;
+                    btn.querySelector('svg').style.transform = 'rotate(0deg)';
+                }
+            });
 
-            // Open the clicked one if it was closed
+            // Toggle the clicked FAQ
             if (isOpening) {
+                button.setAttribute('aria-expanded', 'true');
                 answer.style.maxHeight = answer.scrollHeight + 'px';
-                icon.style.transform = 'rotate(180deg)';
+                button.querySelector('svg').style.transform = 'rotate(180deg)';
+            } else {
+                button.setAttribute('aria-expanded', 'false');
+                answer.style.maxHeight = null;
+                button.querySelector('svg').style.transform = 'rotate(0deg)';
             }
         });
     });
