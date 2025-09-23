@@ -337,14 +337,33 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.shareTwitterBtn.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
 
     elements.copyLinkBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(shareUrl).then(() => {
-            elements.copyLinkDefaultIcon.classList.add('hidden');
-            elements.copyLinkSuccessIcon.classList.remove('hidden');
-            setTimeout(() => {
-                elements.copyLinkDefaultIcon.classList.remove('hidden');
-                elements.copyLinkSuccessIcon.classList.add('hidden');
-            }, 2000);
-        });
+        const textArea = document.createElement('textarea');
+        textArea.value = shareUrl;
+        
+        // Avoid scrolling to bottom
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                elements.copyLinkDefaultIcon.classList.add('hidden');
+                elements.copyLinkSuccessIcon.classList.remove('hidden');
+                setTimeout(() => {
+                    elements.copyLinkDefaultIcon.classList.remove('hidden');
+                    elements.copyLinkSuccessIcon.classList.add('hidden');
+                }, 2000);
+            }
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+        }
+
+        document.body.removeChild(textArea);
     });
     
     elements.modeCalculateBtn.addEventListener('click', () => setCalculatorMode(false));
