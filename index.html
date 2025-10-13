@@ -58,7 +58,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
     
-    <!-- Upgraded to Tailwind CSS v4 Play CDN -->
+    <!-- Tailwind CSS v4: Using the Play CDN for the latest features. -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     <!-- Deferred scripts for performance -->
@@ -67,11 +67,17 @@
     <script src="script.js" defer></script>
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            padding-top: 2.75rem; /* Squeezed the space between fixed header and main content */
+            /* This padding is ESSENTIAL for a fixed header. It pushes the entire
+               page content down, preventing the hero section from being hidden
+               underneath the header. */
+            padding-top: 3.25rem;
         }
         .content-wrapper {
             width: 100%;
@@ -292,6 +298,9 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
+    <!-- FINAL HEADER FIX: Using Tailwind's 'fixed' class for a reliable, non-scrolling header.
+         - 'fixed' is more robust than 'sticky' and guarantees the header stays locked to the top.
+    -->
     <header class="bg-white border-b border-gray-200 shadow-sm fixed top-0 w-full z-50">
         <div class="w-full max-w-[900px] mx-auto px-4"> <!-- Removed content-wrapper to ensure header is compact -->
              <div class="flex items-center justify-center py-1"> <!-- Reduced padding for a compact header -->
@@ -308,13 +317,29 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <section class="bg-red-50 border-b border-red-200">
+        <div class="content-wrapper text-center py-3">
+            <h1 class="text-xl md:text-2xl font-extrabold text-gray-800 tracking-tight">
+                Chart Your Financial Future with <span class="text-red-600">Confidence</span>
+            </h1>
+            <p class="mt-1 max-w-2xl mx-auto text-sm text-gray-600">
+                Our advanced SIP calculator reveals the true future value of your wealth by accounting for inflation. Plan smarter and invest wiser.
+            </p>
+            <a href="#calculator-section" class="mt-2 inline-block bg-red-600 text-white font-semibold px-5 py-1.5 rounded-lg shadow-md hover:bg-red-700 transition-transform transform hover:scale-105 text-sm">
+                Start Planning
+            </a>
+        </div>
+    </section>
+
     <main class="content-wrapper">
-        <div class="bg-white shadow-lg rounded-xl p-2 md:p-3 w-full border border-red-300">
+        <div id="calculator-section" class="bg-white shadow-lg rounded-xl p-2 md:p-3 w-full border border-red-300">
             <!-- Header Section -->
             <div class="text-center">
                 <div class="heading-container">
                     <div class="heading-text-wrapper">
-                        <h1 class="text-lg md:text-xl font-extrabold text-gray-800">SIP Calculator with Inflation</h1>
+                        <!-- Changed h1 to h2 for semantic SEO -->
+                        <h2 class="text-lg md:text-xl font-extrabold text-gray-800">SIP Calculator with Inflation</h2>
                     </div>
                     <p class="mt-1 text-xs text-gray-700">Plan your SIP investments for a secure financial future.</p>
                 </div>
@@ -414,7 +439,7 @@
                 <div class="flex flex-col space-y-2 mt-3 lg:mt-0">
                     <div id="standard-result-summary" class="bg-red-50 p-2 rounded-lg border border-red-300 text-center">
                         <div class="heading-container mb-2">
-                            <h2 id="result-title" class="result-heading font-extrabold">SIP Investment Summary</h2>
+                            <h3 id="result-title" class="result-heading font-extrabold">SIP Investment Summary</h3>
                         </div>
                         <div class="space-y-1 text-xs">
                             <div class="flex justify-between">
@@ -437,7 +462,7 @@
                     </div>
 
                      <div id="goal-result-summary" class="hidden text-center p-2 bg-green-50 border border-green-300 rounded-lg">
-                        <h2 class="text-sm font-semibold text-green-800">To Reach Your Goal, You Need to Invest</h2>
+                        <h3 class="text-sm font-semibold text-green-800">To Reach Your Goal, You Need to Invest</h3>
                         <p id="required-sip-amount" class="text-2xl font-bold text-green-700">₹0</p>
                         <p class="text-xs text-gray-600">per month</p>
                         <!-- ENHANCEMENT: Added container for inflation-adjusted goal value -->
