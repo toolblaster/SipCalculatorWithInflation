@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chartCanvas: getElem('investment-chart'),
         shareWhatsappBtn: getElem('share-whatsapp'),
         shareFacebookBtn: getElem('share-facebook'),
+        shareTelegramBtn: getElem('share-telegram'),
         shareTwitterBtn: getElem('share-twitter'),
         copyLinkBtn: getElem('copy-link-btn'),
         copyLinkDefaultIcon: getElem('copy-link-default'),
@@ -101,10 +102,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 total: finalValue
             });
 
-            if (isStepUpAmount) {
-                currentMonthlySip += stepUpValue;
-            } else {
-                currentMonthlySip *= (1 + stepUpValue);
+            if (elements.stepUpToggle.classList.contains('active')) { // Check if step-up is amount
+                 if (isStepUpAmount) {
+                    currentMonthlySip += stepUpValue;
+                } else {
+                    currentMonthlySip *= (1 + stepUpValue);
+                }
+            } else { // Check if step-up is rate
+                 if (!isStepUpAmount) {
+                    currentMonthlySip *= (1 + stepUpValue);
+                }
             }
         }
 
@@ -228,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateInputsVisibility() {
         const isAmount = elements.stepUpToggle.classList.contains('active');
+        isStepUpAmount = isAmount; // Update global state
         elements.stepUpRateContainer.classList.toggle('hidden', isAmount);
         elements.stepUpAmountContainer.classList.toggle('hidden', !isAmount);
         elements.stepUpLabel.textContent = isAmount ? "Annual Step-up Amount (₹)" : "Annual Step-up Rate (%)";
@@ -298,9 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     elements.stepUpToggle.addEventListener('click', () => {
-        isStepUpAmount = !isStepUpAmount;
-        elements.stepUpToggle.classList.toggle('active', isStepUpAmount);
-        elements.stepUpToggle.setAttribute('aria-checked', isStepUpAmount);
+        elements.stepUpToggle.classList.toggle('active');
         updateInputsVisibility();
     });
     
@@ -334,6 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const shareTitle = "Check out this awesome SIP Calculator with Inflation!";
     elements.shareWhatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
     elements.shareFacebookBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+    elements.shareTelegramBtn.href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
     elements.shareTwitterBtn.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
 
     elements.copyLinkBtn.addEventListener('click', () => {
