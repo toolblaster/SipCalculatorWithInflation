@@ -102,16 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 total: finalValue
             });
 
-            if (elements.stepUpToggle.classList.contains('active')) { // Check if step-up is amount
-                 if (isStepUpAmount) {
-                    currentMonthlySip += stepUpValue;
-                } else {
-                    currentMonthlySip *= (1 + stepUpValue);
-                }
-            } else { // Check if step-up is rate
-                 if (!isStepUpAmount) {
-                    currentMonthlySip *= (1 + stepUpValue);
-                }
+            if (isStepUpAmount) {
+                currentMonthlySip += stepUpValue;
+            } else {
+                currentMonthlySip *= (1 + stepUpValue);
             }
         }
 
@@ -235,24 +229,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateInputsVisibility() {
         const isAmount = elements.stepUpToggle.classList.contains('active');
-        isStepUpAmount = isAmount; // Update global state
         elements.stepUpRateContainer.classList.toggle('hidden', isAmount);
         elements.stepUpAmountContainer.classList.toggle('hidden', !isAmount);
         elements.stepUpLabel.textContent = isAmount ? "Annual Step-up Amount (₹)" : "Annual Step-up Rate (%)";
         calculate();
     }
     
+    // FIX: Corrected the logic for toggling active/inactive button styles
     function setCalculatorMode(goalMode) {
         isGoalMode = goalMode;
-        elements.modeGoalBtn.classList.toggle('bg-red-600', isGoalMode);
-        elements.modeGoalBtn.classList.toggle('text-white', isGoalMode);
-        elements.modeGoalBtn.classList.toggle('shadow', isGoalMode);
-        elements.modeGoalBtn.classList.toggle('text-red-700', !isGoalMode);
-        
-        elements.modeCalculateBtn.classList.toggle('bg-red-600', !isGoalMode);
-        elements.modeCalculateBtn.classList.toggle('text-white', !isGoalMode);
-        elements.modeCalculateBtn.classList.toggle('shadow', !isGoalMode);
-        elements.modeCalculateBtn.classList.toggle('text-red-700', isGoalMode);
+
+        const activeClasses = ['bg-gradient-to-r', 'from-red-600', 'to-red-700', 'text-white', 'shadow'];
+        const inactiveClass = 'text-red-700';
+
+        if (isGoalMode) {
+            // Make Goal button active
+            elements.modeGoalBtn.classList.add(...activeClasses);
+            elements.modeGoalBtn.classList.remove(inactiveClass);
+
+            // Make Calculate button inactive
+            elements.modeCalculateBtn.classList.remove(...activeClasses);
+            elements.modeCalculateBtn.classList.add(inactiveClass);
+        } else {
+            // Make Calculate button active
+            elements.modeCalculateBtn.classList.add(...activeClasses);
+            elements.modeCalculateBtn.classList.remove(inactiveClass);
+
+            // Make Goal button inactive
+            elements.modeGoalBtn.classList.remove(...activeClasses);
+            elements.modeGoalBtn.classList.add(inactiveClass);
+        }
         
         elements.calculateWealthInputs.classList.toggle('hidden', isGoalMode);
         elements.planGoalInputs.classList.toggle('hidden', !isGoalMode);
@@ -261,7 +267,12 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.goalResultSummary.classList.toggle('hidden', !isGoalMode);
 
         elements.chartCanvas.parentElement.classList.toggle('hidden', isGoalMode);
-        elements.toggleTableBtn.classList.toggle('hidden', isGoalMode);
+
+        const tableButtonContainer = elements.toggleTableBtn.parentElement;
+        if(tableButtonContainer) {
+            tableButtonContainer.classList.toggle('hidden', isGoalMode);
+        }
+
         elements.growthTableContainer.classList.add('hidden'); // Always hide table on mode switch
         elements.toggleTableBtn.textContent = 'Show Yearly Growth';
 
@@ -306,7 +317,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     elements.stepUpToggle.addEventListener('click', () => {
-        elements.stepUpToggle.classList.toggle('active');
+        isStepUpAmount = !isStepUpAmount;
+        elements.stepUpToggle.classList.toggle('active', isStepUpAmount);
+        elements.stepUpToggle.setAttribute('aria-checked', isStepUpAmount);
         updateInputsVisibility();
     });
     
