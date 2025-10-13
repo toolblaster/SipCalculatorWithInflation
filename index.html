@@ -481,16 +481,20 @@
                         </div>
                     </div>
                     
-                     <!-- NEW: Visually Appealing Goal Result -->
-                     <div id="goal-result-summary" class="hidden text-center p-3 bg-green-50 border border-green-200 rounded-lg flex flex-col justify-center h-full">
-                        <div class="flex items-center justify-center text-green-700 mb-2">
-                           <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a3.002 3.002 0 013.46-2.143 3.001 3.001 0 013.458 2.143m-3.458 0c-.354.673-.67 1.343-.926 2.043M3.34 16c-.77 1.333.192 3 1.732 3h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16z"></path></svg>
-                           <h3 class="text-sm font-semibold text-green-800">Your Monthly SIP Target</h3>
+                    <!-- UPDATED: Visually Appealing Goal Result -->
+                    <div id="goal-result-summary" class="hidden text-center p-3 bg-gradient-to-br from-green-50 to-emerald-100 border border-green-200 rounded-lg flex flex-col justify-center h-full shadow-inner">
+                        <div class="flex items-center justify-center text-green-800 mb-2">
+                           <!-- NEW ICON: Simple, reliable target icon -->
+                           <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                           <h3 class="text-sm font-semibold">Your Monthly SIP Target</h3>
                         </div>
-                        <p id="required-sip-amount" class="text-3xl font-bold text-green-700">₹0</p>
-                        <div id="future-goal-value-container" class="hidden mt-2 pt-2 border-t border-green-200">
-                             <p class="text-xs text-gray-600">To reach your future goal of</p>
-                             <p id="future-goal-value" class="text-lg font-bold text-green-700">₹0</p>
+                        <div class="bg-white/60 backdrop-blur-sm p-2 rounded-lg border border-green-300">
+                            <p id="required-sip-amount" class="text-3xl font-extrabold text-green-700">₹0</p>
+                            <p class="text-xs text-gray-600 font-medium">per month</p>
+                            <div id="future-goal-value-container" class="hidden mt-2 pt-2 border-t border-green-200">
+                                 <p class="text-xxs text-gray-500">To reach your inflation-adjusted goal of</p>
+                                 <p id="future-goal-value" class="text-base font-bold text-green-600">₹0</p>
+                            </div>
                         </div>
                     </div>
                    
@@ -790,7 +794,21 @@
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div id="faq-answer-4" class="faq-answer">
-                            <p class="pt-2 text-xs text-gray-600"><strong>Nominal return</strong> is the straightforward growth rate of your investment (e.g., 12%). <strong>Real return</strong> is the nominal return minus the inflation rate (e.g., 12% - 6% = 6%). Our <strong>inflation adjusted sip calculator</strong> focuses on showing you the impact on your real return, which is the true measure of your wealth growth.</p>
+                            <div class="pt-2 text-xs text-gray-600 space-y-2">
+                                <p>Understanding this difference is key to smart investing. Here's a simple breakdown:</p>
+                                <p><strong>Nominal Return</strong> is the headline number—the percentage growth of your investment on paper. If you invest ₹100 and it becomes ₹112 in a year, your nominal return is 12%.</p>
+                                <p><strong>Real Return</strong> is what truly matters. It's your return after accounting for inflation. It tells you how much your <strong>purchasing power</strong> has actually increased.</p>
+                                <div class="bg-red-50 p-2 rounded-md border border-red-100">
+                                    <p class="font-semibold">A Simple Example:</p>
+                                    <ul class="list-disc list-inside mt-1 space-y-1">
+                                        <li>Imagine a movie ticket costs <strong>₹100</strong> today. You invest that ₹100.</li>
+                                        <li>After one year, your investment grows to <strong>₹112</strong> (a 12% nominal return).</li>
+                                        <li>However, due to 6% inflation, the same movie ticket now costs <strong>₹106</strong>.</li>
+                                        <li>While your money grew by ₹12, your actual ability to buy things only increased by <strong>₹6</strong> (₹112 - ₹106). Your real return is closer to 6%.</li>
+                                    </ul>
+                                </div>
+                                <p>Our <strong>inflation-adjusted SIP calculator</strong> focuses on this real return, showing you the "Real Value" of your money. This gives you a true picture of your future wealth and ensures you're planning for what your money can actually buy.</p>
+                            </div>
                         </div>
                     </div>
                      <div class="section-card">
