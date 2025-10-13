@@ -150,17 +150,7 @@
         .text-xxs {
             font-size: 0.6rem;
         }
-        .toggle-btn-red {
-            background-color: #FEE2E2;
-            color: #991B1B;
-            border: 1px solid #FCA5A5;
-        }
-        .toggle-btn-red:hover {
-             background-color: #FECACA;
-        }
         .heading-container {
-            background-color: #fee2e2;
-            padding: 0.5rem 0.75rem;
             border-radius: 0.5rem;
             border: 1px solid #fca5a5;
             margin-bottom: 1rem;
@@ -294,6 +284,23 @@
                 filter: drop-shadow(0 0 10px rgba(227, 64, 55, 0.8));
             }
         }
+        .goal-card-aurora::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background-image: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(16, 185, 129, 0) 70%);
+            filter: blur(50px);
+            z-index: 0;
+            animation: aurora-pulse 8s infinite alternate;
+        }
+        @keyframes aurora-pulse {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0.7; }
+            to { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -318,15 +325,15 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-red-50 border-b border-red-200">
-        <div class="content-wrapper text-center py-3">
+    <section class="bg-gradient-to-br from-red-50 to-red-100 border-b border-red-200 py-4">
+        <div class="max-w-[1000px] mx-auto px-4 text-center">
             <h1 class="text-xl md:text-2xl font-extrabold text-gray-800 tracking-tight">
                 Chart Your Financial Future with <span class="text-red-600">Confidence</span>
             </h1>
             <p class="mt-1 max-w-2xl mx-auto text-sm text-gray-600">
                 Our advanced SIP calculator reveals the true future value of your wealth by accounting for inflation. Plan smarter and invest wiser.
             </p>
-            <a href="#calculator-section" class="mt-2 inline-block bg-red-600 text-white font-semibold px-5 py-1.5 rounded-lg shadow-md hover:bg-red-700 transition-transform transform hover:scale-105 text-sm">
+            <a href="#calculator-section" class="mt-2 inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold px-5 py-1.5 rounded-lg shadow-md hover:bg-red-700 transition-transform transform hover:scale-105 text-sm">
                 Start Planning
             </a>
         </div>
@@ -336,7 +343,7 @@
         <div id="calculator-section" class="bg-white shadow-lg rounded-xl p-2 md:p-3 w-full border border-red-300">
             <!-- Header Section -->
             <div class="text-center">
-                <div class="heading-container">
+                <div class="heading-container p-2 bg-gradient-to-r from-red-100 to-red-200">
                     <div class="heading-text-wrapper">
                         <!-- Changed h1 to h2 for semantic SEO -->
                         <h2 class="text-lg md:text-xl font-extrabold text-gray-800">SIP Calculator with Inflation</h2>
@@ -348,7 +355,7 @@
             <!-- Calculator Mode Toggle -->
             <div class="flex justify-center my-3">
                 <div class="flex p-1 rounded-full bg-red-100 border border-red-200">
-                    <button id="mode-calculate" class="px-4 py-1 text-sm font-semibold rounded-full bg-red-600 text-white shadow">Calculate Wealth</button>
+                    <button id="mode-calculate" class="px-4 py-1 text-sm font-semibold rounded-full bg-gradient-to-r from-red-600 to-red-700 text-white shadow">Calculate Wealth</button>
                     <button id="mode-goal" class="px-4 py-1 text-sm font-semibold rounded-full text-red-700">Plan a Goal</button>
                 </div>
             </div>
@@ -438,7 +445,7 @@
                 <!-- Results Section -->
                 <div class="flex flex-col space-y-2 mt-3 lg:mt-0">
                     <!-- NEW: Visually Appealing Result Card -->
-                    <div id="standard-result-summary" class="bg-red-50 p-3 rounded-lg border border-red-200 text-center flex flex-col h-full">
+                    <div id="standard-result-summary" class="bg-gradient-to-tr from-red-50 to-orange-50 p-3 rounded-lg border border-red-200 text-center flex flex-col h-full">
                         <h3 class="text-sm font-semibold text-red-800 mb-2">Your Projected Wealth</h3>
                         <div class="bg-white p-2 rounded-lg border border-red-300 flex-grow">
                             <p class="text-xs text-gray-500">Future Value</p>
@@ -482,18 +489,18 @@
                     </div>
                     
                     <!-- UPDATED: Visually Appealing Goal Result -->
-                    <div id="goal-result-summary" class="hidden text-center p-3 bg-gradient-to-br from-green-50 to-emerald-100 border border-green-200 rounded-lg flex flex-col justify-center h-full shadow-inner">
-                        <div class="flex items-center justify-center text-green-800 mb-2">
-                           <!-- NEW ICON: Simple, reliable target icon -->
-                           <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                           <h3 class="text-sm font-semibold">Your Monthly SIP Target</h3>
-                        </div>
-                        <div class="bg-white/60 backdrop-blur-sm p-2 rounded-lg border border-green-300">
-                            <p id="required-sip-amount" class="text-3xl font-extrabold text-green-700">₹0</p>
-                            <p class="text-xs text-gray-600 font-medium">per month</p>
-                            <div id="future-goal-value-container" class="hidden mt-2 pt-2 border-t border-green-200">
-                                 <p class="text-xxs text-gray-500">To reach your inflation-adjusted goal of</p>
-                                 <p id="future-goal-value" class="text-base font-bold text-green-600">₹0</p>
+                    <div id="goal-result-summary" class="hidden relative text-center p-3 bg-gradient-to-tr from-green-50 via-emerald-100 to-teal-50 border border-green-200 rounded-lg flex flex-col justify-center h-full overflow-hidden goal-card-aurora">
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-center text-green-800 mb-2">
+                                <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75c-.621 0-1.125.504-1.125 1.125V18.75m1.125-1.125h6.75" /></svg>
+                                <h3 class="text-sm font-bold">Your Monthly SIP Target</h3>
+                            </div>
+                            <div class="bg-white/30 backdrop-blur-md p-2 rounded-lg border border-white/40 shadow-inner">
+                                <p id="required-sip-amount" class="text-3xl font-bold text-green-800">₹0</p>
+                            </div>
+                            <div id="future-goal-value-container" class="hidden mt-2 pt-2 border-t border-green-200/50">
+                                <p class="text-xs text-gray-700">To reach your future goal of</p>
+                                <p id="future-goal-value" class="text-lg font-bold text-green-700">₹0</p>
                             </div>
                         </div>
                     </div>
@@ -501,24 +508,29 @@
                     <div class="flex items-center justify-center h-40 w-full relative">
                         <canvas id="investment-chart"></canvas>
                     </div>
+                </div>
+            </div>
 
-                    <button id="toggle-table-btn" class="w-full px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out toggle-btn-red">Show Yearly Growth</button>
+            <!-- FIX: Moved yearly growth button and table outside the main grid -->
+            <div class="mt-4 text-center">
+                 <button id="toggle-table-btn" class="w-full max-w-xs mx-auto px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-md">Show Yearly Growth</button>
+            </div>
 
-                    <div id="growth-table-container" class="mt-3 hidden bg-blue-50 rounded-lg shadow-md border border-blue-200 p-3 overflow-x-auto">
-                        <h3 class="text-center text-sm font-bold text-blue-700 mb-2">Yearly Investment Growth</h3>
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-2 py-1 text-left text-xxs font-medium text-gray-500 uppercase">Year</th>
-                                    <th id="growth-table-invested-header" class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Invested</th>
-                                    <th class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Returns</th>
-                                    <th class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Total Value</th>
-                                </tr>
-                            </thead>
-                            <tbody id="growth-table-body" class="bg-white divide-y divide-gray-200 text-xxs">
-                            </tbody>
-                        </table>
-                    </div>
+            <div id="growth-table-container" class="mt-3 hidden bg-blue-50 rounded-lg shadow-md border border-blue-200 p-3">
+                <h3 class="text-center text-sm font-bold text-blue-700 mb-2">Yearly Investment Growth</h3>
+                <div class="max-h-80 overflow-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-2 py-1 text-left text-xxs font-medium text-gray-500 uppercase">Year</th>
+                                <th id="growth-table-invested-header" class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Invested</th>
+                                <th class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Returns</th>
+                                <th class="px-2 py-1 text-right text-xxs font-medium text-gray-500 uppercase">Total Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="growth-table-body" class="bg-white divide-y divide-gray-200 text-xxs">
+                        </tbody>
+                    </table>
                 </div>
             </div>
              <hr class="border-t border-gray-200 my-2">
@@ -795,19 +807,18 @@
                         </button>
                         <div id="faq-answer-4" class="faq-answer">
                             <div class="pt-2 text-xs text-gray-600 space-y-2">
-                                <p>Understanding this difference is key to smart investing. Here's a simple breakdown:</p>
-                                <p><strong>Nominal Return</strong> is the headline number—the percentage growth of your investment on paper. If you invest ₹100 and it becomes ₹112 in a year, your nominal return is 12%.</p>
-                                <p><strong>Real Return</strong> is what truly matters. It's your return after accounting for inflation. It tells you how much your <strong>purchasing power</strong> has actually increased.</p>
-                                <div class="bg-red-50 p-2 rounded-md border border-red-100">
-                                    <p class="font-semibold">A Simple Example:</p>
-                                    <ul class="list-disc list-inside mt-1 space-y-1">
-                                        <li>Imagine a movie ticket costs <strong>₹100</strong> today. You invest that ₹100.</li>
-                                        <li>After one year, your investment grows to <strong>₹112</strong> (a 12% nominal return).</li>
-                                        <li>However, due to 6% inflation, the same movie ticket now costs <strong>₹106</strong>.</li>
-                                        <li>While your money grew by ₹12, your actual ability to buy things only increased by <strong>₹6</strong> (₹112 - ₹106). Your real return is closer to 6%.</li>
-                                    </ul>
-                                </div>
-                                <p>Our <strong>inflation-adjusted SIP calculator</strong> focuses on this real return, showing you the "Real Value" of your money. This gives you a true picture of your future wealth and ensures you're planning for what your money can actually buy.</p>
+                                <p>Understanding the difference between nominal and real return is the key to realistic financial planning. It's the difference between how rich you are on paper versus how much you can actually buy.</p>
+                                <p><strong>Nominal Return:</strong> This is the headline number, the straightforward percentage growth of your investment. If you invest ₹10,000 and it grows to ₹11,200 in a year, your nominal return is 12%.</p>
+                                <p><strong>Real Return:</strong> This is what truly matters. It tells you how much your <strong>purchasing power</strong> has increased after accounting for inflation. It answers the question: "Am I actually wealthier, or can I just buy the same amount of stuff with more money?"</p>
+                                <p><strong>A Simple Example:</strong></p>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>You invest <strong>₹10,000</strong>.</li>
+                                    <li>Your investment earns a <strong>nominal return of 12%</strong>, growing to <strong>₹11,200</strong>. You made ₹1,200!</li>
+                                    <li>However, inflation for that year was <strong>6%</strong>. This means the basket of goods that cost ₹10,000 at the start of the year now costs <strong>₹10,600</strong>.</li>
+                                    <li>Your real increase in purchasing power is only <strong>₹600</strong> (₹11,200 - ₹10,600).</li>
+                                    <li>So, your <strong>real return</strong> is <strong>6%</strong> (₹600 gain on a ₹10,000 investment).</li>
+                                </ul>
+                                <p>Our <strong>inflation adjusted sip calculator</strong> automatically does this math for you, showing you the 'Real Value' of your future wealth to give you a true measure of your financial growth.</p>
                             </div>
                         </div>
                     </div>
