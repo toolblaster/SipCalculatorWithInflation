@@ -301,7 +301,6 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-    <!-- UPDATE: Removed the 'fixed' and 'top-0' classes to make the header static. -->
     <header id="main-header" class="bg-white border-b border-gray-200 shadow-sm w-full z-50">
         <div class="w-full max-w-[1000px] mx-auto px-4"> 
              <div class="flex items-center justify-center py-1"> 
@@ -317,8 +316,6 @@
             </div>
         </div>
     </header>
-
-    <!-- REMOVED: The header spacer div is no longer needed for a static header. -->
 
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-red-50 to-red-100 border-b border-red-200 py-4">
@@ -835,11 +832,16 @@
 
     <footer class="bg-white border-t border-gray-200 py-2 mt-8">
         <div class="w-full max-w-[1000px] mx-auto px-4 text-center">
-             <p class="text-xs text-gray-700">&copy; <span id="copyright-year">2025</span> <strong>SipCalculatorwithInflation</strong> by <strong>Vikas Rana</strong> for <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> | All Rights Reserved | <a href="contact-us-and-legal.html" class="text-red-600 hover:underline"><strong>Contact us & Legal</strong></a></p>
+             <!-- UPDATE: Footer layout changed -->
+             <p class="text-xs text-gray-700">
+                &copy; <span id="copyright-year">2025</span> SipCalculatorWithInflation.toolblaster.com | <a href="contact-us-and-legal.html" class="text-red-600 hover:underline"><strong>Contact us & Legal</strong></a>
+             </p>
+             <div class="border-t border-gray-200 my-1 max-w-xs mx-auto"></div>
+             <p class="text-xs text-gray-700">
+                A proud part of the <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> Network by <strong>Vikas Rana</strong>
+             </p>
         </div>
     </footer>
-
-    <!-- REMOVED: The script for the spacer is no longer needed. -->
 
 </body>
 </html>
