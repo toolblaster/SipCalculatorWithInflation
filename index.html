@@ -74,10 +74,6 @@
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            /* This padding is ESSENTIAL for a fixed header. It pushes the entire
-               page content down, preventing the hero section from being hidden
-               underneath the header. */
-            padding-top: 3.25rem;
         }
         .content-wrapper {
             width: 100%;
@@ -305,8 +301,8 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-    <!-- HEADER FIX: Using Tailwind's built-in utility classes for a reliable fixed header. -->
-    <header class="bg-white border-b border-gray-200 shadow-sm fixed top-0 w-full z-50">
+    <!-- UPDATE: Removed the 'fixed' and 'top-0' classes to make the header static. -->
+    <header id="main-header" class="bg-white border-b border-gray-200 shadow-sm w-full z-50">
         <div class="w-full max-w-[1000px] mx-auto px-4"> 
              <div class="flex items-center justify-center py-1"> 
                 <a href="/" class="flex items-center space-x-2 min-w-0" aria-label="SipCalculatorWithInflation Homepage">
@@ -321,6 +317,8 @@
             </div>
         </div>
     </header>
+
+    <!-- REMOVED: The header spacer div is no longer needed for a static header. -->
 
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-red-50 to-red-100 border-b border-red-200 py-4">
@@ -840,6 +838,8 @@
              <p class="text-xs text-gray-700">&copy; <span id="copyright-year">2025</span> <strong>SipCalculatorwithInflation</strong> by <strong>Vikas Rana</strong> for <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> | All Rights Reserved | <a href="contact-us-and-legal.html" class="text-red-600 hover:underline"><strong>Contact us & Legal</strong></a></p>
         </div>
     </footer>
+
+    <!-- REMOVED: The script for the spacer is no longer needed. -->
 
 </body>
 </html>
