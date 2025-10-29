@@ -252,6 +252,7 @@
         }
         .input-card:hover {
             border-color: #E34037;
+            background-color: #fef2f2; /* red-50 */ /* ADDED subtle hover background */
         }
         .input-card-accent {
             border-color: #E34037;
@@ -613,7 +614,8 @@
                         <!-- UPDATED: Reduced padding from p-2 to p-1.5 -->
                         <div class="bg-white p-1.5 rounded-lg border border-red-300 flex-grow">
                             <p class="text-xs text-gray-500">Future Value</p>
-                            <p id="final-value" class="text-xl font-extrabold text-gray-800">₹0</p>
+                            <!-- UPDATED: Increased font size, weight, and darkness for emphasis -->
+                            <p id="final-value" class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">₹0</p>
                             <!-- UPDATED: Reduced gap from gap-2 to gap-1.5 and mt-1 to mt-1.5 -->
                             <div class="grid grid-cols-2 gap-1.5 mt-1.5 text-left">
                                 <!-- UPDATED: Reduced padding from p-2 to p-1.5 -->
@@ -641,11 +643,11 @@
                                     </div>
                                 </div>
                                 <!-- UPDATED: Real Value container styling -->
-                                <!-- UPDATED: Reduced padding from p-2 to p-1.5 -->
-                                <div id="real-value-container" class="bg-purple-50 border border-purple-200 p-1.5 rounded-lg col-span-2 hidden">
+                                <!-- UPDATED: Reduced padding from p-2 to p-1.5. Changed bg-purple-50 to bg-purple-100 and border-purple-200 to border-purple-300 -->
+                                <div id="real-value-container" class="bg-purple-100 border border-purple-300 p-1.5 rounded-lg col-span-2 hidden">
                                      <div class="flex items-center">
-                                        <div class="bg-purple-100 rounded-full p-1 mr-2">
-                                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                        <div class="bg-purple-200 rounded-full p-1 mr-2"> <!-- Icon background adjusted for contrast -->
+                                            <svg class="w-4 h-4 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                         </div>
                                         <div>
                                             <p class="text-xxs text-gray-500">Real Value (Today's Worth)</p>
