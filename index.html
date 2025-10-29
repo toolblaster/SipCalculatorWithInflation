@@ -9,16 +9,13 @@
     <meta name="description" content="Our free SIP calculator with inflation helps you see the true value of your investments after rising costs. Use this powerful sip with inflation calculator, which includes a step up option, for accurate financial planning.">
     <meta name="keywords" content="sip calculator with inflation, sip calculator with step up and inflation, sip with inflation calculator, sip calculator with inflation adjustment, future value of SIP, investment growth calculator, financial goal planning, real returns calculator">
     <meta name="author" content="SipCalculatorWithInflation">
-    <!-- FIX: Set the canonical URL to the root domain to make it the preferred version for search engines. -->
     <link rel="canonical" href="https://SipCalculatorWithInflation.toolblaster.com/">
     <meta name="robots" content="index, follow">
 
     <!-- Favicon Links -->
-    <!-- FIX: Corrected all paths to point to the /favicon/ folder. -->
-    <link rel="icon" href="/favicon/favicon.ico" sizes="any"> <!-- Standard ICO -->
-    <!-- FIX: Removed link to empty favicon.svg file -->
-    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"> <!-- Apple Touch Icon -->
-    <link rel="manifest" href="/favicon/site.webmanifest"> <!-- FIX: Corrected path to manifest -->
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any"> 
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"> 
+    <link rel="manifest" href="/favicon/site.webmanifest"> 
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon/favicon-48x48.png">
@@ -33,14 +30,12 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-FEF2KPLG5W');
     </script>
 
-    <!-- Browser Integration & Branding -->
-    <meta name="theme-color" content="#E34037">
-    <!-- The SVG icon is now handled by the link tags above -->
-
+    <!-- Browser Integration & Branding - Updated theme color -->
+    <meta name="theme-color" content="#DC2626"> 
+    
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -63,14 +58,12 @@
       "url": "https://SipCalculatorWithInflation.toolblaster.com"
     }
     </script>
-    
-    <!-- UPDATE: Added Calculator (MathSolver) structured data for SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "MathSolver",
       "name": "SIP Investment Calculator",
-      "description": "Calculates the future value of a Systematic Investment Plan (SIP) considering annual step-up and inflation. Solves for future value or required monthly investment based on a financial goal.",
+      "description": "Calculates the future value of a Systematic Investment Plan (SIP) considering annual step-up and inflation. Solves for future value based on inputs.", 
       "mathExpression": "FV = P * [((1 + i)^n - 1) / i] * (1 + i)",
       "url": "https://SipCalculatorWithInflation.toolblaster.com/"
     }
@@ -82,7 +75,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
     
-    <!-- Tailwind CSS v4: Using the Play CDN for the latest features. -->
+    <!-- Tailwind CSS v4: Using the Play CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     <!-- Deferred scripts for performance -->
@@ -91,252 +84,66 @@
     <script src="script.js" defer></script>
 
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .content-wrapper {
-            width: 100%;
-            max-width: 1000px; /* THIS is the rule that creates your "second column". */
-            margin: 1rem auto; /* The 'auto' creates your "first and third columns" by centering the content. */
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        .range-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            background: transparent;
-            cursor: pointer;
-            height: 4px;
-            width: 100%;
-        }
-        .range-slider:disabled {
-            cursor: not-allowed;
-        }
-        .range-slider::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, #E34037 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%));
-            border-radius: 3px;
-        }
-        .range-slider::-moz-range-track {
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, #E34037 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%));
-            border-radius: 3px;
-        }
-        .range-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            margin-top: -8px; /* Adjusted for new size */
-            width: 20px; /* Increased size */
-            height: 20px; /* Increased size */
-            border-radius: 50%;
-            background: #C22D2D;
-            box-shadow: 0 0 0 3px rgba(227, 64, 55, 0.3); /* Slightly larger shadow */
-        }
-        .range-slider:disabled::-webkit-slider-thumb {
-            background: #9CA3AF;
-            box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3);
-        }
-        .range-slider::-moz-range-thumb {
-            width: 20px; /* Increased size */
-            height: 20px; /* Increased size */
-            border-radius: 50%;
-            background: #C22D2D;
-            border: none;
-            box-shadow: 0 0 0 3px rgba(227, 64, 55, 0.3); /* Slightly larger shadow */
-        }
-        .range-slider:disabled::-moz-range-thumb {
-            background: #9CA3AF;
-            box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3);
-        }
-        .manual-input {
-            width: 80px;
-            padding: 0.25rem;
-            border: 1px solid #E34037;
-            border-radius: 0.375rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-align: center;
-            background-color: #f9fafb;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
-        }
-        .manual-input:disabled {
-            background-color: #E5E7EB;
-            border-color: #D1D5DB;
-            color: #6B7280;
-            cursor: not-allowed;
-        }
-        .manual-input:focus {
-            outline: none;
-            border-color: #C22D2D;
-            box-shadow: 0 1px 3px rgba(227, 64, 55, 0.2);
-        }
-        @media (min-width: 768px) {
-             .manual-input {
-                width: 100px;
-                font-size: 0.875rem;
-             }
-        }
-        .text-xxs {
-            font-size: 0.6rem;
-        }
-        .heading-container {
-            border-radius: 0.5rem;
-            border: 1px solid #fca5a5;
-            margin-bottom: 1rem;
-        }
-        .table-cell-right {
-            text-align: right;
-        }
-        .input-card {
-            background-color: #f9fafb;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            border: 1px solid #fca5a5;
-            transition: all 0.2s ease;
-        }
-        .input-card:hover {
-            border-color: #E34037;
-        }
-        .input-card-accent {
-            border-color: #E34037;
-            box-shadow: 0 0 0 1px #FCA5A5;
-        }
-        .switch-toggle-container {
-            position: relative;
-            width: 90px;
-            height: 28px;
-            background-color: #E5E7EB;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .switch-toggle-container::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 41px;
-            height: 24px;
-            background-color: white;
-            border-radius: 999px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .switch-toggle-container.active::before {
-            transform: translateX(41px);
-        }
-        .switch-label {
-            position: relative;
-            flex-grow: 1;
-            text-align: center;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #6B7280;
-            transition: color 0.2s;
-            user-select: none;
-        }
+        /* Updated styles with new triadic color scheme */
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .content-wrapper { width: 100%; max-width: 1000px; margin: 1rem auto; padding-left: 1rem; padding-right: 1rem; }
+        
+        /* Range Slider Styles - Updated with red-600 */
+        .range-slider { -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; height: 4px; width: 100%; }
+        .range-slider:disabled { cursor: not-allowed; }
+        .range-slider::-webkit-slider-runnable-track { width: 100%; height: 4px; background: linear-gradient(to right, #DC2626 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%)); border-radius: 3px; }
+        .range-slider::-moz-range-track { width: 100%; height: 4px; background: linear-gradient(to right, #DC2626 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%)); border-radius: 3px; }
+        .range-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; margin-top: -8px; width: 20px; height: 20px; border-radius: 50%; background: #B91C1C; /* Darker red */ box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3); }
+        .range-slider:disabled::-webkit-slider-thumb { background: #9CA3AF; box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3); }
+        .range-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #B91C1C; /* Darker red */ border: none; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3); }
+        .range-slider:disabled::-moz-range-thumb { background: #9CA3AF; box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3); }
+        
+        /* Manual Input Styles - Updated with red-600 */
+        .manual-input { width: 80px; padding: 0.25rem; border: 1px solid #DC2626; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600; text-align: center; background-color: #f9fafb; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s ease; }
+        .manual-input:disabled { background-color: #E5E7EB; border-color: #D1D5DB; color: #6B7280; cursor: not-allowed; }
+        .manual-input:focus { outline: none; border-color: #B91C1C; /* Darker red */ box-shadow: 0 1px 3px rgba(220, 38, 38, 0.2); }
+        @media (min-width: 768px) { .manual-input { width: 100px; font-size: 0.875rem; } }
+        
+        .text-xxs { font-size: 0.6rem; } /* Kept xxs for table/card data */
+        
+        /* Heading Styles - Updated with red-600 */
+        .heading-container { border-radius: 0.5rem; border: 1px solid #FCA5A5; /* Lighter red */ margin-bottom: 1rem; }
+        .heading-text-wrapper { position: relative; display: inline-block; }
+        .heading-text-wrapper::after { content: ''; position: absolute; bottom: -0.2rem; left: 50%; transform: translateX(-50%); width: 60%; height: 1px; background-color: #DC2626; }
+        
+        .table-cell-right { text-align: right; }
+        
+        /* Input Card Styles - Updated with red-600 */
+        .input-card { background-color: #f9fafb; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #FCA5A5; /* Lighter red */ transition: all 0.2s ease; }
+        .input-card:hover { border-color: #DC2626; }
+        .input-card-accent { border-color: #DC2626; box-shadow: 0 0 0 1px #FCA5A5; /* Lighter red */ }
+        
+        /* Switch Toggle Styles - Updated with red-600 */
+        .switch-toggle-container { position: relative; width: 90px; height: 28px; background-color: #E5E7EB; border-radius: 999px; cursor: pointer; transition: background-color 0.2s; display: flex; align-items: center; justify-content: space-between; }
+        .switch-toggle-container::before { content: ''; position: absolute; top: 2px; left: 2px; width: 41px; height: 24px; background-color: white; border-radius: 999px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .switch-toggle-container.active::before { transform: translateX(41px); }
+        .switch-label { position: relative; flex-grow: 1; text-align: center; font-size: 0.75rem; font-weight: 600; color: #6B7280; transition: color 0.2s; user-select: none; }
         .switch-toggle-container.active .switch-label.amount,
-        .switch-toggle-container:not(.active) .switch-label.percent {
-            color: #C22D2D;
-        }
-        .heading-text-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        .heading-text-wrapper::after {
-            content: '';
-            position: absolute;
-            bottom: -0.2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 1px;
-            background-color: #E34037;
-        }
-        .result-heading {
-            font-size: 1rem;
-            line-height: 1.5rem;
-            color: #991B1B; /* A darker red for better accessibility */
-        }
-        .section-card {
-            background-color: #fff;
-            border: 1px solid #fee2e2;
-            border-left: 4px solid #fca5a5;
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
-        }
-        .listicle {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-        }
-        .listicle-icon {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 0.375rem;
-            background-color: #fee2e2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #dc2626;
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-in-out;
-        }
-        .faq-question-button svg {
-            transition: transform 0.3s ease-in-out;
-        }
-        .share-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            transition: background-color 0.2s;
-        }
-        .logo-icon {
-            animation: glow 2.5s infinite alternate;
-        }
+        .switch-toggle-container:not(.active) .switch-label.percent { color: #B91C1C; /* Darker red */ }
+        
+        .result-heading { font-size: 1rem; line-height: 1.5rem; color: #991B1B; /* Darker red for accessibility */ }
+        
+        /* Section Card Styles - Using Blue as an accent for info sections */
+        .section-card { background-color: #fff; border: 1px solid #DBEAFE; /* Light blue */ border-left: 4px solid #BFDBFE; /* Lighter blue */ border-radius: 0.5rem; padding: 0.75rem; box-shadow: 0 2px 4px rgb(0 0 0 / 0.05); }
+        .listicle { display: flex; align-items: flex-start; gap: 0.5rem; }
+        .listicle-icon { flex-shrink: 0; width: 1.5rem; height: 1.5rem; border-radius: 0.375rem; background-color: #DBEAFE; /* Light blue */ display: flex; align-items: center; justify-content: center; color: #2563EB; /* Blue-600 */ }
+        
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
+        .faq-question-button svg { transition: transform 0.3s ease-in-out; }
+        
+        .share-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; transition: background-color 0.2s; }
+        
+        /* Logo Icon Animation - Updated glow with red-600 */
+        .logo-icon { animation: glow 2.5s infinite alternate; }
         @keyframes glow {
-            from {
-                filter: drop-shadow(0 0 3px rgba(227, 64, 55, 0.4));
-            }
-            to {
-                filter: drop-shadow(0 0 10px rgba(227, 64, 55, 0.8));
-            }
-        }
-        .goal-card-aurora::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            background-image: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(16, 185, 129, 0) 70%);
-            filter: blur(50px);
-            z-index: 0;
-            animation: aurora-pulse 8s infinite alternate;
-        }
-        @keyframes aurora-pulse {
-            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0.7; }
-            to { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            from { filter: drop-shadow(0 0 3px rgba(220, 38, 38, 0.4)); }
+            to { filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.8)); }
         }
     </style>
 </head>
@@ -346,11 +153,14 @@
         <div class="w-full max-w-[1000px] mx-auto px-4"> 
              <div class="flex items-center justify-center py-1"> 
                 <a href="/" class="flex items-center space-x-2 min-w-0" aria-label="SipCalculatorWithInflation Homepage">
+                    <!-- Updated SVG color to red-600 -->
                     <svg class="w-6 h-6 text-red-600 flex-shrink-0 logo-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
                     </svg>
                     <div class="flex flex-col min-w-0">
+                         <!-- Updated text color to red-600 -->
                         <span class="text-lg font-bold text-gray-800 truncate">SipCalculator<span class="font-extrabold text-red-600">WithInflation</span></span>
+                        <!-- Updated underline color to red-500 (slightly lighter) -->
                         <div class="h-px w-1/2 bg-red-500 mt-0.5"></div>
                     </div>
                 </a>
@@ -358,7 +168,7 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - Updated gradient and text color -->
     <section class="bg-gradient-to-br from-red-50 to-red-100 border-b border-red-200 py-4">
         <div class="max-w-[1000px] mx-auto px-4 text-center">
             <h1 class="text-xl md:text-2xl font-extrabold text-gray-800 tracking-tight">
@@ -367,62 +177,34 @@
             <p class="mt-1 max-w-2xl mx-auto text-sm text-gray-600">
                 Our advanced SIP calculator reveals the true future value of your wealth by accounting for inflation. Plan smarter and invest wiser.
             </p>
-            <a href="#calculator-section" class="mt-2 inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold px-5 py-1.5 rounded-lg shadow-md hover:bg-red-700 transition-transform transform hover:scale-105 text-sm">
+            <!-- Updated button gradient -->
+            <a href="#calculator-section" class="mt-2 inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold px-5 py-1.5 rounded-lg shadow-md transition-transform transform hover:scale-105 text-sm">
                 Start Planning
             </a>
         </div>
     </section>
 
     <main class="content-wrapper">
-        <div id="calculator-section" class="bg-white shadow-lg rounded-xl p-2 md:p-3 w-full border border-red-300">
-            <!-- Header Section -->
+         <!-- Updated main calculator border -->
+        <div id="calculator-section" class="bg-white shadow-lg rounded-xl p-2 md:p-3 w-full border border-red-300"> 
+            <!-- Header Section - Updated gradient -->
             <div class="text-center">
                 <div class="heading-container p-2 bg-gradient-to-r from-red-100 to-red-200">
                     <div class="heading-text-wrapper">
-                        <!-- Changed h1 to h2 for semantic SEO -->
                         <h2 class="text-lg md:text-xl font-extrabold text-gray-800">SIP Calculator with Inflation</h2>
                     </div>
                     <p class="mt-1 text-xs text-gray-700">Plan your SIP investments for a secure financial future.</p>
                 </div>
             </div>
 
-            <!-- Calculator Mode Toggle -->
-            <div class="flex justify-center my-3">
-                <div class="flex p-1 rounded-full bg-red-100 border border-red-200">
-                    <button id="mode-calculate" class="px-4 py-1 text-sm font-semibold rounded-full bg-gradient-to-r from-red-600 to-red-700 text-white shadow">Calculate Wealth</button>
-                    <button id="mode-goal" class="px-4 py-1 text-sm font-semibold rounded-full text-red-700">Plan a Goal</button>
-                </div>
-            </div>
-
-            <!-- NEW: Goal Sub-Mode Toggle -->
-            <div id="goal-sub-mode-toggle" class="hidden flex justify-center mb-3">
-                <div class="flex p-1 rounded-full bg-green-100 border border-green-200">
-                    <button id="goal-mode-sip" class="px-4 py-1 text-xs font-semibold rounded-full bg-gradient-to-r from-green-600 to-green-700 text-white shadow">Calculate SIP</button>
-                    <button id="goal-mode-time" class="px-4 py-1 text-xs font-semibold rounded-full text-green-700">Calculate Time</button>
-                </div>
-            </div>
-
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3 mt-3">
-                <!-- Input Section -->
+                <!-- Input Section - Borders updated via input-card style -->
                 <div class="space-y-2">
-                    <!-- Standard "Calculate Wealth" Inputs -->
-                    <!-- MODIFIED: Removed wrapper div, added id to card -->
                     <div id="sip-amount-card" class="input-card">
                         <label for="sip-amount-slider" class="block text-xs font-medium text-gray-700 mb-1">Monthly SIP Amount (₹)</label>
                         <div class="flex items-center space-x-2">
                             <input type="range" id="sip-amount-slider" min="500" max="100000" value="10000" step="500" class="range-slider">
                             <input type="number" id="sip-amount-input" class="manual-input" value="10000" aria-label="Monthly SIP Amount (₹)">
-                        </div>
-                    </div>
-
-                    <!-- "Plan a Goal" Inputs -->
-                    <!-- MODIFIED: Removed wrapper div, added id to card -->
-                    <div id="target-amount-card" class="hidden input-card">
-                        <label for="target-amount-slider" class="block text-xs font-medium text-gray-700 mb-1">Your Goal Amount (₹)</label>
-                        <div class="flex items-center space-x-2">
-                            <input type="range" id="target-amount-slider" min="100000" max="90000000" value="10000000" step="100000" class="range-slider">
-                            <input type="number" id="target-amount-input" class="manual-input" value="10000000" aria-label="Your Goal Amount (₹)">
                         </div>
                     </div>
                    
@@ -444,7 +226,6 @@
                         </div>
                     </div>
                    
-                    <!-- Common Inputs -->
                     <div class="input-card">
                         <label for="return-rate-slider" class="block text-xs font-medium text-gray-700 mb-1">Expected Annual Return (%)</label>
                         <div class="flex items-center space-x-2">
@@ -453,8 +234,6 @@
                         </div>
                     </div>
 
-
-                    <!-- MODIFIED: Added id to card -->
                     <div id="investment-period-card" class="input-card">
                         <label for="investment-period-slider" class="block text-xs font-medium text-gray-700 mb-1">Investment Period (Years)</label>
                         <div class="flex items-center space-x-2">
@@ -463,12 +242,12 @@
                         </div>
                     </div>
 
-
                     <div class="input-card">
                         <div class="flex items-center justify-between">
                             <label for="inflation-toggle" class="text-xs font-medium text-gray-700">Adjust for Inflation</label>
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="checkbox" id="inflation-toggle" class="sr-only peer">
+                                <!-- Updated toggle colors -->
                                 <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                             </label>
                         </div>
@@ -483,9 +262,8 @@
                 </div>
 
 
-                <!-- Results Section -->
+                <!-- Results Section - Updated backgrounds and text colors -->
                 <div class="flex flex-col space-y-2 mt-3 lg:mt-0">
-                    <!-- NEW: Visually Appealing Result Card -->
                     <div id="standard-result-summary" class="bg-gradient-to-tr from-red-50 to-orange-50 p-3 rounded-lg border border-red-200 text-center flex flex-col h-full">
                         <h3 class="text-sm font-semibold text-red-800 mb-2">Your Projected Wealth</h3>
                         <div class="bg-white p-2 rounded-lg border border-red-300 flex-grow">
@@ -494,27 +272,32 @@
                             <div class="grid grid-cols-2 gap-2 mt-1 text-left">
                                 <div class="bg-gray-50 p-2 rounded-lg">
                                     <div class="flex items-center">
+                                        <!-- Updated Invested icon color -->
                                         <div class="bg-red-100 rounded-full p-1 mr-2">
                                             <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                         </div>
                                         <div>
                                             <p class="text-xxs text-gray-500">Invested</p>
+                                            <!-- Updated Invested amount color -->
                                             <p id="invested-amount" class="text-xs font-bold text-red-700">₹0</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="bg-gray-50 p-2 rounded-lg">
                                     <div class="flex items-center">
+                                        <!-- Kept Returns icon green -->
                                         <div class="bg-green-100 rounded-full p-1 mr-2">
                                             <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                                         </div>
                                         <div>
                                             <p class="text-xxs text-gray-500">Returns</p>
+                                            <!-- Kept Returns amount green -->
                                             <p id="total-returns" class="text-xs font-bold text-green-700">₹0</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="real-value-container" class="bg-gray-50 p-2 rounded-lg col-span-2 hidden">
+                                <!-- Kept Real Value purple for emphasis -->
+                                <div id="real-value-container" class="bg-purple-50 border border-purple-200 p-2 rounded-lg col-span-2 hidden">
                                      <div class="flex items-center">
                                         <div class="bg-purple-100 rounded-full p-1 mr-2">
                                             <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
@@ -529,55 +312,24 @@
                         </div>
                     </div>
                     
-                    <!-- UPDATED: Visually Appealing Goal Result -->
-                    <div id="goal-result-summary" class="hidden relative text-center p-3 bg-gradient-to-tr from-green-50 via-emerald-100 to-teal-50 border border-green-200 rounded-lg flex flex-col justify-center h-full overflow-hidden goal-card-aurora">
-                        <div class="relative z-10">
-                            <div class="flex items-center justify-center text-green-800 mb-2">
-                                <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75c-.621 0-1.125.504-1.125 1.125V18.75m1.125-1.125h6.75" /></svg>
-                                <h3 class="text-sm font-bold">Your Monthly SIP Target</h3>
-                            </div>
-                            <div class="bg-white/30 backdrop-blur-md p-2 rounded-lg border border-white/40 shadow-inner">
-                                <p id="required-sip-amount" class="text-3xl font-bold text-green-800">₹0</p>
-                            </div>
-                            <div id="future-goal-value-container" class="hidden mt-2 pt-2 border-t border-green-200/50">
-                                <p class="text-xs text-gray-700">To reach your future goal of</p>
-                                <p id="future-goal-value" class="text-lg font-bold text-green-700">₹0</p>
-                            </div>
-                        </div>
-                    </div>
-                   
-                    <!-- NEW: Result card for Calculate Time -->
-                    <div id="goal-time-result-summary" class="hidden relative text-center p-3 bg-gradient-to-tr from-green-50 via-emerald-100 to-teal-50 border border-green-200 rounded-lg flex flex-col justify-center h-full overflow-hidden goal-card-aurora">
-                        <div class="relative z-10">
-                            <div class="flex items-center justify-center text-green-800 mb-2">
-                                <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <h3 class="text-sm font-bold">Required Time to Goal</h3>
-                            </div>
-                            <div class="bg-white/30 backdrop-blur-md p-2 rounded-lg border border-white/40 shadow-inner">
-                                <p id="required-time" class="text-3xl font-bold text-green-800">0 Years</p>
-                            </div>
-                            <div id="future-goal-value-container-time" class="hidden mt-2 pt-2 border-t border-green-200/50">
-                                <p class="text-xs text-gray-700">To reach your future goal of</p>
-                                <p id="future-goal-value-time" class="text-lg font-bold text-green-700">₹0</p>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="flex items-center justify-center h-40 w-full relative">
-                        <canvas id="investment-chart"></canvas>
+                        <canvas id="investment-chart"></canvas> <!-- Chart colors updated in script -->
                     </div>
                 </div>
             </div>
 
-            <!-- FIX: Moved yearly growth button and table outside the main grid -->
+            <!-- Updated button gradient -->
             <div class="mt-4 text-center">
-                 <button id="toggle-table-btn" class="w-full max-w-xs mx-auto px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-md">Show Yearly Growth</button>
+                 <button id="toggle-table-btn" class="w-full max-w-xs mx-auto px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-md">Show Yearly Growth</button>
             </div>
 
+             <!-- Updated table container background/border (blue) -->
+             <!-- MODIFIED: Added separate containers for table (desktop) and cards (mobile) -->
             <div id="growth-table-container" class="mt-3 hidden bg-blue-50 rounded-lg shadow-md border border-blue-200 p-3">
                 <h3 class="text-center text-sm font-bold text-blue-700 mb-2">Yearly Investment Growth</h3>
                 <div class="max-h-80 overflow-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
+                    <!-- Desktop Table View -->
+                    <table class="min-w-full divide-y divide-gray-200 hidden md:table">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th class="px-2 py-1 text-left text-xxs font-medium text-gray-500 uppercase">Year</th>
@@ -587,14 +339,20 @@
                             </tr>
                         </thead>
                         <tbody id="growth-table-body" class="bg-white divide-y divide-gray-200 text-xxs">
+                            <!-- Table rows generated by JS -->
                         </tbody>
                     </table>
+                    <!-- Mobile Card View Container -->
+                    <div id="growth-cards-container" class="space-y-2 md:hidden">
+                        <!-- Card elements generated by JS -->
+                    </div>
                 </div>
             </div>
              <hr class="border-t border-gray-200 my-2">
              <div class="text-center text-gray-500">
                 <p class="text-xs"><strong>Disclaimer:</strong> This calculator is for informational purposes only and does not constitute financial advice.</p>
                 <p class="mt-1">
+                    <!-- Updated link color -->
                     <a href="https://www.5paisa.com/demat-account?ReferralCode=54285431&ReturnUrl=invest-open-account" target="_blank" rel="noopener noreferrer nofollow" class="inline-flex items-center text-red-600 hover:underline font-semibold text-[.7rem] sm:text-xs">
                         <span>Ready to start investing? Open a free Demat account.</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -605,7 +363,7 @@
             </div>
         </div>
         
-        <!-- Share Section -->
+        <!-- Share Section - Updated colors -->
         <div class="mt-4 bg-white shadow-lg rounded-xl p-3 w-full border border-gray-200 max-w-sm mx-auto">
             <p class="text-center text-sm font-semibold text-gray-700 mb-2">Enjoying the tool? Share it!</p>
             <div class="flex justify-center items-center space-x-2">
@@ -630,15 +388,16 @@
     </main>
 
     <div class="content-wrapper">
-        <hr class="my-8 border-t border-red-200">
+        <!-- Updated HR color -->
+        <hr class="my-8 border-t border-red-200"> 
         <div class="space-y-4">
             <div class="text-center mb-4">
                 <h2 class="text-xl md:text-2xl font-bold text-gray-700">A Guide to the <strong>SIP Calculator with Inflation</strong></h2>
                 <p class="mt-1 text-sm text-gray-600">Unlock the power of your investments by understanding these key concepts.</p>
             </div>
             
+             <!-- Updated section card borders/icons (blue) -->
             <div class="grid md:grid-cols-2 gap-4">
-                <!-- Section: What is a SIP? -->
                 <div class="section-card">
                     <div class="space-y-2">
                         <h3 class="text-lg font-bold text-gray-800">What Exactly is a SIP?</h3>
@@ -654,7 +413,6 @@
                     </div>
                 </div>
 
-                <!-- Section: SIP vs Lumpsum -->
                 <div class="section-card">
                     <div class="space-y-2">
                         <h3 class="text-lg font-bold text-gray-800">SIP vs. Lumpsum Investment</h3>
@@ -670,7 +428,6 @@
                     </div>
                 </div>
 
-                <!-- Section: Why Inflation Matters -->
                 <div class="section-card">
                      <div class="space-y-2">
                         <h3 class="text-lg font-bold text-gray-800">Why Can't I Ignore Inflation?</h3>
@@ -686,29 +443,27 @@
                      </div>
                 </div>
 
-                 <!-- How To Section -->
                 <div class="section-card">
                     <div class="space-y-2">
                         <h3 class="text-lg font-bold text-gray-800">How Do I Use the Calculator?</h3>
                         <p class="text-xs text-gray-600">Getting started is easy. Our tool is more than a simple calculator; it's a <strong>sip calculator with step up and inflation</strong> features built right in.</p>
                         <div class="listicle">
                             <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" /></svg></div>
-                            <p class="text-xs text-gray-600"><strong>1. Choose Your Mode:</strong> Decide if you want to 'Calculate Wealth' or 'Plan a Goal'.</p>
+                            <p class="text-xs text-gray-600"><strong>1. Enter Your Numbers:</strong> Input your investment details like monthly amount, expected returns, and time period.</p>
                         </div>
                          <div class="listicle">
                             <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg></div>
-                            <p class="text-xs text-gray-600"><strong>2. Enter Your Numbers:</strong> Input your investment details like monthly amount, expected returns, and time period.</p>
+                            <p class="text-xs text-gray-600"><strong>2. Adjust Step-Up & Inflation:</strong> Use the toggles and sliders to refine your calculation.</p>
                         </div>
                          <div class="listicle">
                             <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" /><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a4 4 0 00-3.446 6.032l-2.261 2.26a1 1 0 101.414 1.415l2.261-2.261A4 4 0 1011 5z" clip-rule="evenodd" /></svg></div>
-                            <p class="text-xs text-gray-600"><strong>3. See Your Future:</strong> The calculator instantly shows your results. Don't forget to toggle on inflation to see the 'Real Value'!</p>
+                            <p class="text-xs text-gray-600"><strong>3. See Your Future:</strong> The calculator instantly shows your projected wealth, including the crucial 'Real Value'!</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- New Sections -->
-             <div class="grid md:grid-cols-2 gap-4 mt-4">
+            <div class="grid md:grid-cols-2 gap-4 mt-4">
                  <div class="section-card">
                     <div class="space-y-2">
                         <h3 class="text-lg font-bold text-gray-800">Choosing the Right Fund</h3>
@@ -731,9 +486,7 @@
                 </div>
             </div>
 
-            <!-- Formula and Strategy Sections -->
             <div class="grid md:grid-cols-2 gap-4 mt-4">
-                 <!-- Formula Section -->
                 <div class="section-card">
                     <div class="space-y-2">
                         <h3 class="text-lg font-bold text-gray-800">The Magic Behind the Math</h3>
@@ -755,7 +508,6 @@
                     </div>
                 </div>
 
-                <!-- Section: Strategies -->
                 <div class="section-card">
                     <div class="space-y-2">
                         <h3 class="text-lg font-bold text-gray-800">Strategies to Build Real Wealth</h3>
@@ -776,14 +528,13 @@
                 </div>
             </div>
 
-             <!-- Visual Insights Section -->
+             <!-- Visual Insights Section - Updated colors -->
             <div class="mt-6 bg-red-50 p-3 rounded-lg border border-red-200">
                 <div class="text-center mb-2">
                     <h2 class="text-xl md:text-2xl font-extrabold text-gray-900">Smart Investing at a Glance</h2>
                     <p class="text-sm text-gray-600">Grasp these core principles to build lasting wealth.</p>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
-                    <!-- Insight 1: Compounding -->
                     <div class="flex flex-col items-center">
                         <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
                             <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -793,7 +544,6 @@
                         <h3 class="font-bold text-gray-800 text-sm">Power of Compounding</h3>
                         <p class="text-xs text-gray-600 mt-1">Your earnings generate their own earnings, creating exponential growth.</p>
                     </div>
-                    <!-- Insight 2: Rupee Cost Averaging -->
                     <div class="flex flex-col items-center">
                         <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
                             <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -803,7 +553,6 @@
                         <h3 class="font-bold text-gray-800 text-sm">Rupee Cost Averaging</h3>
                         <p class="text-xs text-gray-600 mt-1">Investing regularly averages your cost and reduces market timing risks.</p>
                     </div>
-                    <!-- Insight 3: Long-Term Growth -->
                     <div class="flex flex-col items-center">
                         <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
                            <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -813,7 +562,6 @@
                         <h3 class="font-bold text-gray-800 text-sm">Patience Pays Off</h3>
                         <p class="text-xs text-gray-600 mt-1">Long-term investing maximizes compounding and smooths out volatility.</p>
                     </div>
-                     <!-- Insight 4: Diversification -->
                     <div class="flex flex-col items-center">
                         <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
                            <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -827,7 +575,7 @@
                 </div>
             </div>
 
-            <!-- FAQ Section -->
+            <!-- FAQ Section - Updated border/icon colors (blue) -->
             <div class="mt-6">
                 <h2 class="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-3">Frequently Asked Questions</h2>
                 <div class="space-y-2">
@@ -891,18 +639,70 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Related Tools Section - Updated accent colors -->
+            <div class="mt-6">
+                <h2 class="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-3">Explore Our Other Tools</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <!-- Lumpsum Calculator - Blue Accent -->
+                    <a href="https://calculator.toolblaster.com/?mode=lumpsum" target="_blank" rel="noopener noreferrer" class="group section-card !border !border-blue-200 !border-l-4 !border-l-blue-500 hover:!border-blue-600 transition-all duration-200 block">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-800 group-hover:text-blue-700">Lumpsum Calculator</h3>
+                                <p class="text-xs text-gray-600">See the future value of a one-time investment.</p>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- PPF Calculator - Green Accent -->
+                    <a href="https://calculator.toolblaster.com/calculators/ppf-calculator/" target="_blank" rel="noopener noreferrer" class="group section-card !border !border-green-200 !border-l-4 !border-l-green-500 hover:!border-green-600 transition-all duration-200 block">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-800 group-hover:text-green-700">PPF Calculator</h3>
+                                <p class="text-xs text-gray-600">Plan your tax-free returns with PPF investments.</p>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Home Loan EMI Calculator - Kept Purple Accent -->
+                    <a href="https://calculator.toolblaster.com/calculators/emi-calculator/" target="_blank" rel="noopener noreferrer" class="group section-card !border !border-purple-200 !border-l-4 !border-l-purple-500 hover:!border-purple-600 transition-all duration-200 block">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-50 border border-purple-200 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-800 group-hover:text-purple-700">Home Loan EMI</h3>
+                                <p class="text-xs text-gray-600">Calculate your monthly payments for your dream home.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- End Related Tools Section -->
+
         </div>
     </div>
 
 
     <footer class="bg-white border-t border-gray-200 py-2 mt-8">
         <div class="w-full max-w-[1000px] mx-auto px-4 text-center">
-             <!-- UPDATE: Footer layout changed -->
+             <!-- Updated link color -->
              <p class="text-xs text-gray-700">
                 &copy; <span id="copyright-year">2025</span> SipCalculatorWithInflation.toolblaster.com | <a href="contact-us-and-legal.html" class="text-red-600 hover:underline"><strong>Contact us & Legal</strong></a>
              </p>
              <div class="border-t border-gray-200 my-1 max-w-xs mx-auto"></div>
              <p class="text-xs text-gray-700">
+                 <!-- Updated link color -->
                 A proud part of the <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> Network by <strong>Vikas Rana</strong>
              </p>
         </div>
