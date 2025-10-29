@@ -68,6 +68,14 @@
             padding-left: 1rem;
             padding-right: 1rem;
         }
+         /* UPDATED: Copied heading container style from index.html */
+        .heading-container {
+            border-radius: 0.5rem;
+            border: 1px solid #fecaca; /* red-200 */ /* Lighter border */
+            margin-bottom: 1rem;
+            /* UPDATED: Lighter background gradient */
+            background-image: linear-gradient(to top right, #fee2e2, #fef2f2); /* red-100 to red-50 */
+        }
         .section-card {
             background-color: #fff;
             border: 1px solid #fee2e2;
@@ -118,7 +126,8 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-    <header id="main-header" class="bg-white border-b border-gray-200 shadow-sm w-full z-50">
+    <!-- UPDATED: Changed shadow-sm to shadow-lg -->
+    <header id="main-header" class="bg-white border-b border-gray-200 shadow-lg w-full z-50">
         <!-- UPDATED: Max-width consistency -->
         <div class="w-full max-w-[1000px] mx-auto px-4">
              <!-- UPDATED: Changed justify-center to justify-between and added link -->
@@ -130,12 +139,14 @@
                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
                     </svg>
                     <div class="flex flex-col min-w-0">
-                        <!-- UPDATED: Reduced text size: text-base (default), md:text-lg (medium screens) -->
-                        <span class="text-base md:text-lg font-bold text-gray-800 truncate">SipCalculator<span class="font-extrabold text-red-600">WithInflation</span></span>
+                        <!-- UPDATED: Adjusted text size for "WithInflation" -->
+                        <span class="text-base md:text-lg font-bold text-gray-800 truncate">
+                            SipCalculator<span class="text-sm md:text-base font-semibold text-red-600">WithInflation</span>
+                        </span>
                         <div class="h-px w-1/2 bg-red-500 mt-0.5"></div>
                     </div>
                 </a>
-                <!-- NEW: Added Contact/Legal Link -->
+                <!-- Link points to self, which is fine -->
                 <a href="contact-us-and-legal.html" class="text-xs font-semibold text-red-600 hover:text-red-800 hover:underline transition-colors">
                     Contact & Legal
                 </a>
@@ -145,9 +156,10 @@
 
     <main class="content-wrapper">
         <div class="space-y-4">
-            <div class="text-center mb-4">
-                <h1 class="text-lg md:text-xl font-bold text-gray-700">Contact Us and Legal</h1>
-                <p class="mt-1 text-sm text-gray-600">Important details about our tool and how to reach us.</p>
+             <!-- UPDATED: Applied heading-container style, changed h1 color -->
+             <div class="heading-container text-center p-2 mb-4">
+                <h1 class="text-lg md:text-xl font-extrabold text-gray-900">Contact Us and Legal</h1>
+                <p class="mt-1 text-sm text-gray-800">Important details about our tool and how to reach us.</p>
             </div>
 
             <!-- Section: Contact Us -->
@@ -250,13 +262,18 @@
 
     <footer class="bg-white border-t border-gray-200 py-2">
         <div class="w-full max-w-[1000px] mx-auto px-4 text-center"> <!-- Changed max-w -->
-             <!-- UPDATE: Footer layout changed - removed Contact link -->
+             <!-- UPDATED: Added affiliate disclaimer -->
              <p class="text-xs text-gray-700">
                 &copy; <span id="copyright-year">2025</span> SipCalculatorWithInflation.toolblaster.com
              </p>
              <div class="border-t border-gray-200 my-1 max-w-xs mx-auto"></div>
              <p class="text-xs text-gray-700">
                 A proud part of the <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> Network by <strong>Vikas Rana</strong>
+             </p>
+             <!-- Affiliate Disclaimer -->
+             <div class="border-t border-gray-200 my-1 max-w-xs mx-auto"></div>
+             <p class="text-xs text-gray-600 italic">
+                As an affiliate, we may earn from qualifying purchases.
              </p>
         </div>
     </footer>
