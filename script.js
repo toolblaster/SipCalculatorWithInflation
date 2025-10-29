@@ -5,10 +5,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const elements = {
         modeCalculateBtn: getElem('mode-calculate'),
         modeGoalBtn: getElem('mode-goal'),
-        calculateWealthInputs: getElem('calculate-wealth-inputs'),
-        planGoalInputs: getElem('plan-goal-inputs'),
+        // NEW: Goal sub-mode buttons
+        goalSubModeToggle: getElem('goal-sub-mode-toggle'),
+        goalModeSipBtn: getElem('goal-mode-sip'),
+        goalModeTimeBtn: getElem('goal-mode-time'),
+        // MODIFIED: Removed wrapper divs, using direct cards
+        sipAmountCard: getElem('sip-amount-card'),
+        targetAmountCard: getElem('target-amount-card'),
+        investmentPeriodCard: getElem('investment-period-card'),
+        // END MODIFIED
         standardResultSummary: getElem('standard-result-summary'),
         goalResultSummary: getElem('goal-result-summary'),
+        // NEW: Goal time result
+        goalTimeResultSummary: getElem('goal-time-result-summary'),
+        requiredTimeElem: getElem('required-time'),
+        futureGoalValueContainerTime: getElem('future-goal-value-container-time'),
+        futureGoalValueTime: getElem('future-goal-value-time'),
+        // END NEW
         sipAmountSlider: getElem('sip-amount-slider'),
         sipAmountInput: getElem('sip-amount-input'),
         targetAmountSlider: getElem('target-amount-slider'),
@@ -57,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let investmentChart;
     let isStepUpAmount = true;
     let isGoalMode = false;
+    let isGoalModeCalculateSip = true; // NEW: State for goal sub-mode
 
     // --- UTILITY FUNCTIONS ---
     const debounce = (func, delay) => { let timeout; return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), delay); }; };
@@ -70,7 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CORE CALCULATION LOGIC ---
     function calculate() {
         if (isGoalMode) {
-            calculateRequiredSIP();
+            // MODIFIED: Check sub-mode
+            if (isGoalModeCalculateSip) {
+                calculateRequiredSIP();
+            } else {
+                calculateRequiredTime(); // NEW function
+            }
         } else {
             calculateWealth();
         }
@@ -173,6 +192,68 @@ document.addEventListener('DOMContentLoaded', () => {
         updateURLParameters(); // ADDED
     }
     
+    // --- NEW: Calculate Time Function ---
+    function calculateRequiredTime() {
+        const targetAmount = parseFloat(elements.targetAmountInput.value);
+        const annualReturnRate = parseFloat(elements.returnRateInput.value) / 100;
+        const monthlySipAmount = parseFloat(elements.sipAmountInput.value); // Input
+        const isInflationOn = elements.inflationToggle.checked;
+        const annualInflationRate = isInflationOn ? parseFloat(elements.inflationRateInput.value) / 100 : 0;
+        const stepUpValue = isStepUpAmount ? parseFloat(elements.sipIncreaseAmountInput.value) : parseFloat(elements.sipIncreaseRateInput.value) / 100;
+        
+        let years = 0;
+        let currentValue = 0;
+        let currentMonthlySip = monthlySipAmount;
+        const monthlyRate = annualReturnRate / 12;
+
+        // Safety check
+        if (monthlySipAmount <= 0) {
+            elements.requiredTimeElem.textContent = "N/A";
+            elements.futureGoalValueContainerTime.classList.add('hidden');
+            updateURLParameters();
+            return;
+        }
+        
+        // We can't calculate future target amount without 'years', so we calculate it iteratively
+        let futureTargetAmount = targetAmount;
+
+        while (currentValue < futureTargetAmount && years < 100) {
+            years++;
+            
+            // Recalculate the future target amount for the *current* year
+            futureTargetAmount = isInflationOn ? targetAmount * Math.pow(1 + annualInflationRate, years) : targetAmount;
+            
+            // Calculate the value of investments made *up to* the beginning of this year
+            // This requires re-calculating FV from scratch for 'years'
+            currentValue = 0;
+            currentMonthlySip = monthlySipAmount; // Reset for full calculation
+            
+            for (let y = 0; y < years; y++) {
+                for (let m = 0; m < 12; m++) {
+                    currentValue = currentValue * (1 + monthlyRate) + currentMonthlySip;
+                }
+                // Apply step-up at the end of the year
+                if (isStepUpAmount) {
+                    currentMonthlySip += stepUpValue;
+                } else {
+                    currentMonthlySip *= (1 + stepUpValue);
+                }
+            }
+        }
+        
+        elements.requiredTimeElem.textContent = years >= 100 ? "100+ Years" : `${years} Years`;
+
+        // Show the final future goal value
+        if (isInflationOn) {
+            elements.futureGoalValueTime.textContent = formatCurrency(futureTargetAmount);
+            elements.futureGoalValueContainerTime.classList.remove('hidden');
+        } else {
+            elements.futureGoalValueContainerTime.classList.add('hidden');
+        }
+
+        updateURLParameters();
+    }
+    
     function getFutureValue(initialSip, annualReturnRate, years, isAmountStep, stepValue) {
         let fv = 0;
         let currentSip = initialSip;
@@ -239,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
         calculate();
     }
     
-    // FIX: Corrected the logic for toggling active/inactive button styles
+    // MODIFIED: Updated to handle new UI structure
     function setCalculatorMode(goalMode) {
         isGoalMode = goalMode;
 
@@ -250,7 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Make Goal button active
             elements.modeGoalBtn.classList.add(...activeClasses);
             elements.modeGoalBtn.classList.remove(inactiveClass);
-
             // Make Calculate button inactive
             elements.modeCalculateBtn.classList.remove(...activeClasses);
             elements.modeCalculateBtn.classList.add(inactiveClass);
@@ -258,25 +338,62 @@ document.addEventListener('DOMContentLoaded', () => {
             // Make Calculate button active
             elements.modeCalculateBtn.classList.add(...activeClasses);
             elements.modeCalculateBtn.classList.remove(inactiveClass);
-
             // Make Goal button inactive
             elements.modeGoalBtn.classList.remove(...activeClasses);
             elements.modeGoalBtn.classList.add(inactiveClass);
         }
         
-        elements.calculateWealthInputs.classList.toggle('hidden', isGoalMode);
-        elements.planGoalInputs.classList.toggle('hidden', !isGoalMode);
+        // Show/hide the goal sub-mode toggle
+        elements.goalSubModeToggle.classList.toggle('hidden', !isGoalMode);
         
+        // Update the UI based on the sub-mode
+        setGoalSubMode(isGoalModeCalculateSip); // This will call calculate()
+    }
+
+    // NEW: Function to handle goal sub-mode switching
+    function setGoalSubMode(calculateSip) {
+        isGoalModeCalculateSip = calculateSip;
+
+        const activeClasses = ['bg-gradient-to-r', 'from-green-600', 'to-green-700', 'text-white', 'shadow'];
+        const inactiveClass = 'text-green-700';
+
+        if (isGoalModeCalculateSip) {
+            elements.goalModeSipBtn.classList.add(...activeClasses);
+            elements.goalModeSipBtn.classList.remove(inactiveClass);
+            elements.goalModeTimeBtn.classList.remove(...activeClasses);
+            elements.goalModeTimeBtn.classList.add(inactiveClass);
+        } else {
+            elements.goalModeTimeBtn.classList.add(...activeClasses);
+            elements.goalModeTimeBtn.classList.remove(inactiveClass);
+            elements.goalModeSipBtn.classList.remove(...activeClasses);
+            elements.goalModeSipBtn.classList.add(inactiveClass);
+        }
+
+        // --- Toggle UI elements based on all modes ---
+        
+        // SIP Amount Input: Visible in "Wealth" OR "Goal(Time)" mode
+        elements.sipAmountCard.classList.toggle('hidden', isGoalMode && isGoalModeCalculateSip);
+
+        // Target Amount Input: Visible ONLY in "Goal" mode
+        elements.targetAmountCard.classList.toggle('hidden', !isGoalMode);
+
+        // Investment Period: Dim and disable in "Goal(Time)" mode
+        const isTimeMode = isGoalMode && !isGoalModeCalculateSip;
+        elements.investmentPeriodCard.classList.toggle('opacity-50', isTimeMode);
+        if (elements.investmentPeriodSlider) elements.investmentPeriodSlider.disabled = isTimeMode;
+        if (elements.investmentPeriodInput) elements.investmentPeriodInput.disabled = isTimeMode;
+        
+        // Result Cards
         elements.standardResultSummary.classList.toggle('hidden', isGoalMode);
-        elements.goalResultSummary.classList.toggle('hidden', !isGoalMode);
+        elements.goalResultSummary.classList.toggle('hidden', !isGoalMode || (isGoalMode && !isGoalModeCalculateSip));
+        elements.goalTimeResultSummary.classList.toggle('hidden', !isGoalMode || (isGoalMode && isGoalModeCalculateSip));
 
+        // Chart & Table (hide in all goal modes)
         elements.chartCanvas.parentElement.classList.toggle('hidden', isGoalMode);
-
         const tableButtonContainer = elements.toggleTableBtn.parentElement;
         if(tableButtonContainer) {
             tableButtonContainer.classList.toggle('hidden', isGoalMode);
         }
-
         elements.growthTableContainer.classList.add('hidden'); // Always hide table on mode switch
         elements.toggleTableBtn.textContent = 'Show Yearly Growth';
 
@@ -389,6 +506,10 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.modeCalculateBtn.addEventListener('click', () => setCalculatorMode(false));
     elements.modeGoalBtn.addEventListener('click', () => setCalculatorMode(true));
 
+    // NEW: Event listeners for sub-mode buttons
+    elements.goalModeSipBtn.addEventListener('click', () => setGoalSubMode(true));
+    elements.goalModeTimeBtn.addEventListener('click', () => setGoalSubMode(false));
+
     // --- URL STATE FUNCTIONS (NEW) ---
     function loadStateFromURL() {
         const params = new URLSearchParams(window.location.search);
@@ -400,6 +521,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mode === 'goal') {
             setCalculatorMode(true); 
             modeChanged = true;
+            
+            // NEW: Check for goal sub-mode
+            const goalSubMode = params.get('goalSubMode');
+            if (goalSubMode === 'time') {
+                // setCalculatorMode calls setGoalSubMode(true), so we override
+                setGoalSubMode(false); 
+            }
+            
         } else if (mode === 'wealth') {
             setCalculatorMode(false);
             modeChanged = true;
@@ -465,6 +594,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // if not, and other params were present, call it now.
         if (needsRecalculate && !modeChanged) {
             calculate();
+        } else if (!needsRecalculate && modeChanged) {
+            // Mode changed but no other params, ensure default calc runs
+            calculate();
         }
     }
 
@@ -474,9 +606,21 @@ document.addEventListener('DOMContentLoaded', () => {
         params.set('mode', isGoalMode ? 'goal' : 'wealth');
         
         if (isGoalMode) {
+            // NEW: Add sub-mode param
+            params.set('goalSubMode', isGoalModeCalculateSip ? 'sip' : 'time');
             params.set('target', elements.targetAmountInput.value);
+            
+            if (isGoalModeCalculateSip) {
+                // We are calculating SIP, so Period is an input
+                params.set('period', elements.investmentPeriodInput.value);
+            } else {
+                // We are calculating Time, so SIP is an input
+                params.set('sip', elements.sipAmountInput.value);
+            }
         } else {
+            // Wealth mode, SIP and Period are inputs
             params.set('sip', elements.sipAmountInput.value);
+            params.set('period', elements.investmentPeriodInput.value);
         }
         
         if (isStepUpAmount) {
@@ -488,7 +632,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         params.set('returns', elements.returnRateInput.value);
-        params.set('period', elements.investmentPeriodInput.value);
+        
+        // Only set period if it's NOT the one we are calculating
+        if (!isGoalMode || (isGoalMode && isGoalModeCalculateSip)) {
+            params.set('period', elements.investmentPeriodInput.value);
+        }
         
         if (elements.inflationToggle.checked) {
             params.set('inflation', 'true');
@@ -519,7 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- INITIALIZATION ---
-    loadStateFromURL(); // ADDED: This will load params and call calculate() if needed.
+    loadStateFromURL(); // MODIFIED: This now handles all modes
     
     // If no params are present, run a default calculation
     if (!new URLSearchParams(window.location.search).toString()) {
