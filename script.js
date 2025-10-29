@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         realValueElem: getElem('real-value'),
         growthTableContainer: getElem('growth-table-container'),
         growthTableBody: getElem('growth-table-body'),
-        growthCardsContainer: getElem('growth-cards-container'), // <-- ADDED: Container for mobile cards
+        growthCardsContainer: getElem('growth-cards-container'), // <-- Container for mobile cards
         toggleTableBtn: getElem('toggle-table-btn'),
         // NEW: Line Chart Elements
         toggleLineChartBtn: getElem('toggle-line-chart-btn'),
@@ -56,10 +56,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let investmentChart;
     let growthLineChart; // NEW: Line chart instance
     let isStepUpAmount = true;
+    
+    // NEW: Map to link input IDs to their sliders for stepper buttons
+    const inputSliderMap = {
+        'sip-amount-input': elements.sipAmountSlider,
+        'sip-increase-rate-input': elements.sipIncreaseRateSlider,
+        'sip-increase-amount-input': elements.sipIncreaseAmountSlider,
+        'return-rate-input': elements.returnRateSlider,
+        'investment-period-input': elements.investmentPeriodSlider,
+        'inflation-rate-input': elements.inflationRateSlider
+    };
 
     // --- UTILITY FUNCTIONS ---
     const debounce = (func, delay) => { let timeout; return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), delay); }; };
     const formatCurrency = (num) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(num));
+    
+    // NEW: Utility to get step precision
+    const getStepPrecision = (step) => {
+        if (Math.floor(step) === step) return 0;
+        return step.toString().split('.')[1]?.length || 0;
+    };
+    
     const updateSliderFill = (slider) => {
         if (!slider) return;
         const percentage = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
@@ -334,26 +351,69 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!slider || !input) return;
         const update = () => { updateSliderFill(slider); debouncedCalculate(); };
         slider.addEventListener('input', () => { input.value = slider.value; update(); });
-        input.addEventListener('input', () => { slider.value = input.value; update(); });
+        input.addEventListener('input', () => { 
+            // Only sync slider if the value is within range, otherwise slider breaks
+            const val = parseFloat(input.value);
+            const min = parseFloat(slider.min);
+            const max = parseFloat(slider.max);
+            if (val >= min && val <= max) {
+                 slider.value = input.value; 
+            }
+            update(); 
+        });
+        
+        // UPDATED: Blur event logic using new precision function
         input.addEventListener('blur', () => {
             let value = parseFloat(input.value) || 0;
             const min = parseFloat(slider.min);
             const max = parseFloat(slider.max);
             const step = parseFloat(slider.step) || 1;
-            // Ensure value snaps to step and respects min/max
-            value = Math.max(min, Math.min(max, Math.round(value / step) * step));
-            // Apply correction for floating point inaccuracies if step is decimal
-            if (step < 1) {
-                const decimalPlaces = step.toString().split('.')[1]?.length || 2;
-                value = parseFloat(value.toFixed(decimalPlaces));
-            }
-            input.value = value;
-            // Only update slider if it's different, to avoid firing 'input' again
-            if (slider.value !== String(value)) {
-                slider.value = value;
+            
+            value = Math.max(min, Math.min(max, value)); // Clamp
+            
+            const precision = getStepPrecision(step);
+            const snappedValue = parseFloat((Math.round(value / step) * step).toFixed(precision));
+            
+            input.value = snappedValue.toFixed(precision); // Apply precision
+            
+            if (slider.value !== String(snappedValue)) {
+                slider.value = snappedValue;
             }
             update();
         });
+    });
+   
+    // NEW: Event listener for all stepper buttons
+    document.body.addEventListener('click', (e) => {
+        const target = e.target.closest('.stepper-btn');
+        if (!target) return;
+
+        const inputId = target.dataset.input;
+        const action = target.dataset.action;
+        const inputElem = getElem(inputId);
+        const sliderElem = inputSliderMap[inputId];
+
+        if (!inputElem || !sliderElem) return;
+
+        const step = parseFloat(sliderElem.step) || 1;
+        const min = parseFloat(sliderElem.min);
+        const max = parseFloat(sliderElem.max);
+        const currentValue = parseFloat(inputElem.value) || 0;
+        const precision = getStepPrecision(step);
+
+        let newValue;
+        if (action === 'increase') {
+            newValue = Math.min(max, currentValue + step);
+        } else {
+            newValue = Math.max(min, currentValue - step);
+        }
+
+        const formattedValue = newValue.toFixed(precision);
+        inputElem.value = formattedValue;
+        sliderElem.value = formattedValue;
+
+        updateSliderFill(sliderElem);
+        debouncedCalculate();
     });
    
     if (elements.inflationToggle) {
@@ -518,8 +578,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const max = parseFloat(sliderElem.max);
                     value = Math.max(min, Math.min(max, value)); // Clamp value
                     
-                    inputElem.value = value;
-                    sliderElem.value = value;
+                    const precision = getStepPrecision(parseFloat(sliderElem.step));
+                    const formattedValue = value.toFixed(precision);
+
+                    inputElem.value = formattedValue;
+                    sliderElem.value = formattedValue;
                     updateSliderFill(sliderElem);
                     needsRecalculate = true;
                 }
