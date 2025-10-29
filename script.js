@@ -124,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateChart([totalInvested, totalReturns], ['Total Invested', 'Total Returns'], ['#EF4444', '#22C55E']);
         generateGrowthTable(yearlyGrowthData);
+        
+        updateURLParameters(); // ADDED
     }
 
     function calculateRequiredSIP() {
@@ -167,6 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         elements.requiredSipAmountElem.textContent = formatCurrency(requiredSip);
+        
+        updateURLParameters(); // ADDED
     }
     
     function getFutureValue(initialSip, annualReturnRate, years, isAmountStep, stepValue) {
@@ -349,16 +353,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const shareUrl = window.location.href;
-    const shareTitle = "Check out this awesome SIP Calculator with Inflation!";
-    elements.shareWhatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
-    elements.shareFacebookBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-    elements.shareTelegramBtn.href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
-    elements.shareTwitterBtn.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
-
+    // --- Share links are updated dynamically by updateShareLinks() ---
+    
     elements.copyLinkBtn.addEventListener('click', () => {
         const textArea = document.createElement('textarea');
-        textArea.value = shareUrl;
+        // Get the URL from the browser's current state
+        textArea.value = window.location.href; 
         
         // Avoid scrolling to bottom
         textArea.style.top = "0";
@@ -389,8 +389,144 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.modeCalculateBtn.addEventListener('click', () => setCalculatorMode(false));
     elements.modeGoalBtn.addEventListener('click', () => setCalculatorMode(true));
 
+    // --- URL STATE FUNCTIONS (NEW) ---
+    function loadStateFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        let needsRecalculate = false;
+        let modeChanged = false;
+
+        // Set Mode
+        const mode = params.get('mode');
+        if (mode === 'goal') {
+            setCalculatorMode(true); 
+            modeChanged = true;
+        } else if (mode === 'wealth') {
+            setCalculatorMode(false);
+            modeChanged = true;
+        }
+
+        // Helper to set value for slider and input
+        const setValue = (param, inputElem, sliderElem) => {
+            if (params.has(param)) {
+                const value = parseFloat(params.get(param));
+                if (!isNaN(value) && inputElem && sliderElem) {
+                    inputElem.value = value;
+                    sliderElem.value = value;
+                    updateSliderFill(sliderElem);
+                    needsRecalculate = true;
+                }
+            }
+        };
+
+        // Set values
+        setValue('sip', elements.sipAmountInput, elements.sipAmountSlider);
+        setValue('target', elements.targetAmountInput, elements.targetAmountSlider);
+        setValue('returns', elements.returnRateInput, elements.returnRateSlider);
+        setValue('period', elements.investmentPeriodInput, elements.investmentPeriodSlider);
+        
+        // Handle Step-Up
+        const stepUpMode = params.get('stepUpMode');
+        if (stepUpMode === 'rate') {
+            isStepUpAmount = false;
+            elements.stepUpToggle.classList.remove('active');
+            setValue('stepUp', elements.sipIncreaseRateInput, elements.sipIncreaseRateSlider);
+        } else {
+            // Default to amount mode if param is 'amount' or not present
+            isStepUpAmount = true;
+            elements.stepUpToggle.classList.add('active');
+            setValue('stepUp', elements.sipIncreaseAmountInput, elements.sipIncreaseAmountSlider);
+        }
+        // Update visibility based on loaded state
+        elements.stepUpToggle.setAttribute('aria-checked', isStepUpAmount);
+        elements.stepUpRateContainer.classList.toggle('hidden', isStepUpAmount);
+        elements.stepUpAmountContainer.classList.toggle('hidden', !isStepUpAmount);
+        elements.stepUpLabel.textContent = isStepUpAmount ? "Annual Step-up Amount (₹)" : "Annual Step-up Rate (%)";
+        needsRecalculate = true; // Always true to apply step-up settings
+
+
+        // Handle Inflation
+        if (params.get('inflation') === 'true') {
+            elements.inflationToggle.checked = true;
+            setValue('inflationRate', elements.inflationRateInput, elements.inflationRateSlider);
+            
+            const inflationCard = elements.inflationToggle.closest('.input-card');
+            elements.inflationRateContainer.classList.remove('hidden');
+            if(inflationCard) inflationCard.classList.add('input-card-accent');
+            needsRecalculate = true;
+        } else {
+            elements.inflationToggle.checked = false;
+            const inflationCard = elements.inflationToggle.closest('.input-card');
+            elements.inflationRateContainer.classList.add('hidden');
+            if(inflationCard) inflationCard.classList.remove('input-card-accent');
+            needsRecalculate = true; // Always true to apply inflation settings
+        }
+
+        // if mode was changed, calculate() was already called.
+        // if not, and other params were present, call it now.
+        if (needsRecalculate && !modeChanged) {
+            calculate();
+        }
+    }
+
+    function updateURLParameters() {
+        const params = new URLSearchParams();
+        
+        params.set('mode', isGoalMode ? 'goal' : 'wealth');
+        
+        if (isGoalMode) {
+            params.set('target', elements.targetAmountInput.value);
+        } else {
+            params.set('sip', elements.sipAmountInput.value);
+        }
+        
+        if (isStepUpAmount) {
+            params.set('stepUpMode', 'amount');
+            params.set('stepUp', elements.sipIncreaseAmountInput.value);
+        } else {
+            params.set('stepUpMode', 'rate');
+            params.set('stepUp', elements.sipIncreaseRateInput.value);
+        }
+        
+        params.set('returns', elements.returnRateInput.value);
+        params.set('period', elements.investmentPeriodInput.value);
+        
+        if (elements.inflationToggle.checked) {
+            params.set('inflation', 'true');
+            params.set('inflationRate', elements.inflationRateInput.value);
+        } else {
+            params.set('inflation', 'false');
+        }
+
+        // Use replaceState to avoid cluttering browser history on every slider move
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        // Only push state if it's different to avoid clutter
+        if (window.location.href !== newUrl) {
+            history.replaceState(null, '', newUrl);
+        }
+
+        // Also update the share links
+        updateShareLinks(newUrl);
+    }
+
+    // New function to update share links
+    function updateShareLinks(url) {
+        const shareUrl = new URL(url, window.location.origin).href; // Ensure it's an absolute URL
+        const shareTitle = "Check out this awesome SIP Calculator with Inflation!";
+        elements.shareWhatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
+        elements.shareFacebookBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+        elements.shareTelegramBtn.href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
+        elements.shareTwitterBtn.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
+    }
+
     // --- INITIALIZATION ---
-    calculate();
+    loadStateFromURL(); // ADDED: This will load params and call calculate() if needed.
+    
+    // If no params are present, run a default calculation
+    if (!new URLSearchParams(window.location.search).toString()) {
+        calculate();
+    }
+    
+    updateShareLinks(window.location.href); // ADDED: Set initial share links
     document.querySelectorAll('.range-slider').forEach(updateSliderFill);
     if(elements.copyrightYear) {
         elements.copyrightYear.textContent = new Date().getFullYear();
