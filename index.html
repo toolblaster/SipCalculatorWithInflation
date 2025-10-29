@@ -103,8 +103,8 @@
         }
         .content-wrapper {
             width: 100%;
-            max-width: 1000px;
-            margin: 1rem auto;
+            max-width: 1000px; /* THIS is the rule that creates your "second column". */
+            margin: 1rem auto; /* The 'auto' creates your "first and third columns" by centering the content. */
             padding-left: 1rem;
             padding-right: 1rem;
         }
@@ -122,55 +122,57 @@
         .range-slider::-webkit-slider-runnable-track {
             width: 100%;
             height: 4px;
-            background: linear-gradient(to right, #DC2626 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%)); /* Red-600 */
+            background: linear-gradient(to right, #E34037 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%));
             border-radius: 3px;
         }
         .range-slider::-moz-range-track {
             width: 100%;
             height: 4px;
-            background: linear-gradient(to right, #DC2626 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%)); /* Red-600 */
+            background: linear-gradient(to right, #E34037 var(--fill-percentage, 0%), #E5E7EB var(--fill-percentage, 0%));
             border-radius: 3px;
         }
         .range-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            margin-top: -8px;
-            width: 20px;
-            height: 20px;
+            margin-top: -8px; /* Adjusted for new size */
+            width: 20px; /* Increased size */
+            height: 20px; /* Increased size */
             border-radius: 50%;
-            background: #B91C1C; /* Red-700 */
-            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3); /* Red-600 with opacity */
+            background: #C22D2D;
+            box-shadow: 0 0 0 3px rgba(227, 64, 55, 0.3); /* Slightly larger shadow */
         }
         .range-slider:disabled::-webkit-slider-thumb {
             background: #9CA3AF;
             box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3);
         }
         .range-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
+            width: 20px; /* Increased size */
+            height: 20px; /* Increased size */
             border-radius: 50%;
-            background: #B91C1C; /* Red-700 */
+            background: #C22D2D;
             border: none;
-            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3); /* Red-600 with opacity */
+            box-shadow: 0 0 0 3px rgba(227, 64, 55, 0.3); /* Slightly larger shadow */
         }
         .range-slider:disabled::-moz-range-thumb {
             background: #9CA3AF;
+            border: none;
             box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3);
         }
 
         /* NEW: Styles for stepper buttons and number input */
         .manual-input {
-            -moz-appearance: textfield; /* Firefox */
-            width: 70px; /* Reduced width to make space */
+            width: 80px;
             padding: 0.25rem;
-            border: 1px solid #F87171; /* Red-400 */
+            border: 1px solid #E34037;
             border-radius: 0.375rem;
             font-size: 0.75rem;
             font-weight: 600;
             text-align: center;
-            background-color: #FEF2F2; /* Red-50 */
+            background-color: #f9fafb;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             transition: all 0.2s ease;
+            /* Remove default spinners on number inputs */
+            -moz-appearance: textfield;
         }
         .manual-input::-webkit-outer-spin-button,
         .manual-input::-webkit-inner-spin-button {
@@ -185,43 +187,44 @@
         }
         .manual-input:focus {
             outline: none;
-            border-color: #DC2626; /* Red-600 */
-            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2); /* Red-500 with opacity */
+            border-color: #C22D2D;
+            box-shadow: 0 1px 3px rgba(227, 64, 55, 0.2);
         }
         @media (min-width: 768px) {
              .manual-input {
-                width: 90px;
+                width: 100px;
                 font-size: 0.875rem;
              }
         }
         .stepper-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background-color: #FEE2E2; /* Red-100 */
-            color: #B91C1C; /* Red-700 */
-            border: 1px solid #FCA5A5; /* Red-300 */
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.1s ease;
-            user-select: none;
+            color: #DC2626; /* Red-600 */
+            font-weight: 900;
+            font-size: 1rem;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            user-select: none; /* Prevent text selection */
         }
         .stepper-btn:hover {
             background-color: #FECACA; /* Red-200 */
-            border-color: #F87171; /* Red-400 */
+            transform: scale(1.1);
         }
         .stepper-btn:active {
             background-color: #FCA5A5; /* Red-300 */
-            transform: scale(0.95);
+            transform: scale(1.05);
         }
         .stepper-btn:disabled {
             background-color: #E5E7EB;
-            border-color: #D1D5DB;
             color: #9CA3AF;
             cursor: not-allowed;
+            transform: scale(1);
         }
         /* End New Styles */
 
@@ -239,18 +242,17 @@
         }
         .input-card {
             background-color: #fff; /* Changed from f9fafb to white */
-            padding: 0.75rem; /* Increased padding */
+            padding: 0.5rem; /* UPDATED: Was 0.75rem (p-3), now p-2 */
             border-radius: 0.5rem;
             border: 1px solid #FCA5A5; /* Red-300 */
             transition: all 0.2s ease;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
         }
         .input-card:hover {
-            border-color: #F87171; /* Red-400 */
+            border-color: #E34037;
         }
         .input-card-accent {
-            border-color: #EF4444; /* Red-500 */
-            box-shadow: 0 0 0 1px #FCA5A5; /* Red-300 */
+            border-color: #E34037;
+            box-shadow: 0 0 0 1px #FCA5A5;
         }
         .switch-toggle-container {
             position: relative;
@@ -263,7 +265,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-shrink: 0; /* Prevent shrinking */
         }
         .switch-toggle-container::before {
             content: '';
@@ -292,7 +293,7 @@
         }
         .switch-toggle-container.active .switch-label.amount,
         .switch-toggle-container:not(.active) .switch-label.percent {
-            color: #B91C1C; /* Red-700 */
+            color: #C22D2D;
         }
         .heading-text-wrapper {
             position: relative;
@@ -321,10 +322,10 @@
             padding: 0.75rem;
             box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
         }
-        /* NEW: Blue variant for info sections */
+        /* NEW: Blue color theme for informational cards */
         .section-card-blue {
-            border: 1px solid #DBEAFE; /* Light blue */
-            border-left: 4px solid #BFDBFE; /* Lighter blue */
+            border-color: #DBEAFE; /* Blue-100 */
+            border-left-color: #93C5FD; /* Blue-300 */
         }
         .listicle {
             display: flex;
@@ -342,27 +343,27 @@
             justify-content: center;
             color: #dc2626;
         }
-        /* NEW: Blue variant for info sections */
+        /* NEW: Blue color theme for listicle icons */
         .listicle-icon-blue {
-            background-color: #DBEAFE; /* Light blue */
+            background-color: #DBEAFE; /* Blue-100 */
             color: #2563EB; /* Blue-600 */
         }
-        /* NEW: Green variant for "Related Tools" */
+        /* NEW: Green color theme for related tools */
         .section-card-green {
-            border: 1px solid #D1FAE5; /* Green-100 */
-            border-left: 4px solid #A7F3D0; /* Green-200 */
+            border-color: #D1FAE5; /* Green-100 */
+            border-left-color: #6EE7B7; /* Green-300 */
         }
         .listicle-icon-green {
             background-color: #D1FAE5; /* Green-100 */
             color: #059669; /* Green-600 */
         }
-        /* NEW: Purple variant for "Related Tools" */
+        /* NEW: Purple color theme for related tools */
         .section-card-purple {
-            border: 1px solid #E9D5FF; /* Purple-200 */
-            border-left: 4px solid #D8B4FE; /* Purple-300 */
+            border-color: #E9D5FF; /* Purple-100 */
+            border-left-color: #C084FC; /* Purple-300 */
         }
         .listicle-icon-purple {
-            background-color: #E9D5FF; /* Purple-200 */
+            background-color: #E9D5FF; /* Purple-100 */
             color: #9333EA; /* Purple-600 */
         }
         .faq-answer {
@@ -385,6 +386,16 @@
         .logo-icon {
             animation: glow 2.5s infinite alternate;
         }
+        /* NEW: Custom spacing classes for compactness */
+        .space-y-1\.5 > :not([hidden]) ~ :not([hidden]) {
+            margin-top: 0.375rem; /* 6px */
+        }
+        .mt-1\.5 {
+            margin-top: 0.375rem; /* 6px */
+        }
+        .p-1\.5 {
+            padding: 0.375rem; /* 6px */
+        }
         @keyframes glow {
             from {
                 filter: drop-shadow(0 0 3px rgba(227, 64, 55, 0.4));
@@ -393,22 +404,20 @@
                 filter: drop-shadow(0 0 10px rgba(227, 64, 55, 0.8));
             }
         }
+        /* REMOVED: Goal card aurora effect */
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
+    <!-- UPDATED: Added vertical padding (py-2) and responsive text/icon size -->
     <header id="main-header" class="bg-white border-b border-gray-200 shadow-sm w-full z-50">
         <div class="w-full max-w-[1000px] mx-auto px-4">
-             <!-- UPDATED: Increased padding from py-1 to py-2 -->
              <div class="flex items-center justify-center py-2">
-                <!-- UPDATED: Added hover effect -->
-                <a href="/" class="flex items-center space-x-2 md:space-x-3 min-w-0 hover:opacity-80 transition-opacity" aria-label="SipCalculatorWithInflation Homepage">
-                    <!-- UPDATED: Increased icon size on desktop -->
+                <a href="/" class="flex items-center space-x-2 min-w-0 hover:opacity-80 transition-opacity" aria-label="SipCalculatorWithInflation Homepage">
                     <svg class="w-6 h-6 md:w-7 md:h-7 text-red-600 flex-shrink-0 logo-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
                     </svg>
                     <div class="flex flex-col min-w-0">
-                        <!-- UPDATED: Increased text size on desktop -->
                         <span class="text-lg md:text-xl font-bold text-gray-800 truncate">SipCalculator<span class="font-extrabold text-red-600">WithInflation</span></span>
                         <div class="h-px w-1/2 bg-red-500 mt-0.5"></div>
                     </div>
@@ -418,11 +427,12 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-red-50 to-red-100 border-b border-red-200 py-4">
+    <!-- UPDATED: Reduced vertical padding from py-4 to py-3 -->
+    <section class="bg-gradient-to-br from-red-50 to-red-100 border-b border-red-200 py-3">
         <div class="max-w-[1000px] mx-auto px-4 text-center">
             <!-- UPDATED: H1 for SEO -->
             <h1 class="text-xl md:text-2xl font-extrabold text-gray-800 tracking-tight">
-                SIP Calculator with <span class="text-red-600">Inflation</span>
+                Chart Your Financial Future with <span class="text-red-600">Confidence</span>
             </h1>
             <p class="mt-1 max-w-2xl mx-auto text-sm text-gray-600">
                 Our advanced SIP calculator reveals the true future value of your wealth by accounting for inflation. Plan smarter and invest wiser.
@@ -434,39 +444,47 @@
     </section>
 
     <main class="content-wrapper">
-        <!-- UPDATED: Removed sticky top as it caused layout issues -->
-        <div id="calculator-section" class="bg-white shadow-lg rounded-xl p-2 md:p-3 w-full border border-red-300">
+        <!-- UPDATED: Reduced padding from p-2 md:p-3 to p-2 -->
+        <div id="calculator-section" class="bg-white shadow-lg rounded-xl p-2 w-full border border-red-300">
             <!-- Header Section -->
             <div class="text-center">
-                <!-- UPDATED: Removed redundant heading container -->
-                <!-- Changed h1 to h2 for semantic SEO -->
-                <h2 class="text-lg md:text-xl font-extrabold text-gray-800 heading-text-wrapper">Calculate Your Wealth</h2>
-                <p class="mt-2 text-xs text-gray-700">Plan your SIP investments for a secure financial future.</p>
+                <!-- UPDATED: Reduced padding from p-2 to p-1.5 -->
+                <div class="heading-container p-1.5 bg-gradient-to-r from-red-100 to-red-200">
+                    <div class="heading-text-wrapper">
+                        <!-- h2 for semantic SEO -->
+                        <h2 class="text-lg md:text-xl font-extrabold text-gray-800">SIP Calculator with Inflation</h2>
+                    </div>
+                    <p class="mt-1 text-xs text-gray-700">Plan your SIP investments for a secure financial future.</p>
+                </div>
             </div>
 
             <!-- REMOVED: Calculator Mode Toggle -->
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3 mt-3">
+            <!-- UPDATED: Reduced top margin from mt-3 to mt-2 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3 mt-2">
                 <!-- Input Section -->
-                <div class="space-y-2">
+                <!-- UPDATED: Reduced spacing from space-y-2 to space-y-1.5 -->
+                <div class="space-y-1.5">
                     <!-- Standard "Calculate Wealth" Inputs -->
                     <div id="sip-amount-card" class="input-card">
                         <label for="sip-amount-slider" class="block text-xs font-medium text-gray-700 mb-1">Monthly SIP Amount (₹)</label>
-                        <!-- UPDATED: Input group with stepper buttons -->
                         <div class="flex items-center space-x-2">
                             <input type="range" id="sip-amount-slider" min="500" max="100000" value="10000" step="500" class="range-slider">
+                            <!-- NEW: Stepper Buttons -->
                             <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                <button type="button" class="stepper-btn" data-input="sip-amount-input" data-action="decrease" aria-label="Decrease monthly SIP amount">-</button>
-                                <input type="number" id="sip-amount-input" class="manual-input" value="10000" min="500" max="100000" step="500" aria-label="Monthly SIP Amount (₹)">
-                                <button type="button" class="stepper-btn" data-input="sip-amount-input" data-action="increase" aria-label="Increase monthly SIP amount">+</button>
+                                <button class="stepper-btn" data-input="sip-amount-input" data-action="decrease" aria-label="Decrease SIP amount" type="button">-</button>
+                                <input type="number" id="sip-amount-input" class="manual-input" value="10000" aria-label="Monthly SIP Amount (₹)">
+                                <button class="stepper-btn" data-input="sip-amount-input" data-action="increase" aria-label="Increase SIP amount" type="button">+</button>
                             </div>
                         </div>
-                        <!-- NEW: Min/Max display -->
-                        <div class="flex justify-between text-xxs text-gray-500 mt-1 px-1">
+                        <!-- NEW: Min/Max text -->
+                        <div class="flex justify-between text-xxs text-gray-500 mt-1">
                             <span>Min: ₹500</span>
                             <span>Max: ₹1,00,000</span>
                         </div>
                     </div>
+
+                    <!-- REMOVED: Target Amount Card -->
 
                     <div class="input-card">
                         <div class="flex justify-between items-center mb-1">
@@ -476,35 +494,34 @@
                                 <span class="switch-label amount"> ₹ </span>
                             </div>
                         </div>
-                        <!-- Step-up Rate (Percent) -->
-                        <div class="hidden" id="step-up-rate-container">
-                            <div class="flex items-center space-x-2">
-                                <input type="range" id="sip-increase-rate-slider" min="0" max="20" value="0" step="1" class="range-slider" aria-labelledby="step-up-label">
-                                <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                    <button type="button" class="stepper-btn" data-input="sip-increase-rate-input" data-action="decrease" aria-label="Decrease step-up rate">-</button>
-                                    <input type="number" id="sip-increase-rate-input" class="manual-input" value="0" min="0" max="20" step="1" aria-labelledby="step-up-label">
-                                    <button type="button" class="stepper-btn" data-input="sip-increase-rate-input" data-action="increase" aria-label="Increase step-up rate">+</button>
-                                </div>
-                            </div>
-                            <div class="flex justify-between text-xxs text-gray-500 mt-1 px-1">
-                                <span>Min: 0%</span>
-                                <span>Max: 20%</span>
+                        <div class="flex items-center space-x-2 hidden" id="step-up-rate-container">
+                            <input type="range" id="sip-increase-rate-slider" min="0" max="20" value="0" step="1" class="range-slider" aria-labelledby="step-up-label">
+                            <!-- NEW: Stepper Buttons -->
+                            <div class="flex items-center space-x-1.5 flex-shrink-0">
+                                <button class="stepper-btn" data-input="sip-increase-rate-input" data-action="decrease" aria-label="Decrease step-up rate" type="button">-</button>
+                                <input type="number" id="sip-increase-rate-input" class="manual-input" value="0" aria-labelledby="step-up-label">
+                                <button class="stepper-btn" data-input="sip-increase-rate-input" data-action="increase" aria-label="Increase step-up rate" type="button">+</button>
                             </div>
                         </div>
-                        <!-- Step-up Amount (Rupees) -->
-                        <div id="step-up-amount-container">
-                             <div class="flex items-center space-x-2">
-                                 <input type="range" id="sip-increase-amount-slider" min="0" max="50000" value="0" step="100" class="range-slider" aria-labelledby="step-up-label">
-                                 <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                    <button type="button" class="stepper-btn" data-input="sip-increase-amount-input" data-action="decrease" aria-label="Decrease step-up amount">-</button>
-                                    <input type="number" id="sip-increase-amount-input" class="manual-input" value="0" min="0" max="50000" step="100" aria-labelledby="step-up-label">
-                                    <button type="button" class="stepper-btn" data-input="sip-increase-amount-input" data-action="increase" aria-label="Increase step-up amount">+</button>
-                                </div>
+                        <!-- NEW: Min/Max text -->
+                        <div id="step-up-rate-range" class="hidden flex justify-between text-xxs text-gray-500 mt-1">
+                            <span>Min: 0%</span>
+                            <span>Max: 20%</span>
+                        </div>
+                        
+                        <div class="flex items-center space-x-2" id="step-up-amount-container">
+                             <input type="range" id="sip-increase-amount-slider" min="0" max="50000" value="0" step="100" class="range-slider" aria-labelledby="step-up-label">
+                             <!-- NEW: Stepper Buttons -->
+                             <div class="flex items-center space-x-1.5 flex-shrink-0">
+                                <button class="stepper-btn" data-input="sip-increase-amount-input" data-action="decrease" aria-label="Decrease step-up amount" type="button">-</button>
+                                <input type="number" id="sip-increase-amount-input" class="manual-input" value="0" aria-labelledby="step-up-label">
+                                <button class="stepper-btn" data-input="sip-increase-amount-input" data-action="increase" aria-label="Increase step-up amount" type="button">+</button>
                              </div>
-                             <div class="flex justify-between text-xxs text-gray-500 mt-1 px-1">
-                                <span>Min: ₹0</span>
-                                <span>Max: ₹50,000</span>
-                            </div>
+                        </div>
+                        <!-- NEW: Min/Max text -->
+                        <div id="step-up-amount-range" class="flex justify-between text-xxs text-gray-500 mt-1">
+                            <span>Min: ₹0</span>
+                            <span>Max: ₹50,000</span>
                         </div>
                     </div>
 
@@ -513,33 +530,39 @@
                         <label for="return-rate-slider" class="block text-xs font-medium text-gray-700 mb-1">Expected Annual Return (%)</label>
                         <div class="flex items-center space-x-2">
                             <input type="range" id="return-rate-slider" min="1" max="30" value="12" step="0.1" class="range-slider">
+                            <!-- NEW: Stepper Buttons -->
                             <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                <button type="button" class="stepper-btn" data-input="return-rate-input" data-action="decrease" aria-label="Decrease expected return rate">-</button>
-                                <input type="number" id="return-rate-input" class="manual-input" value="12" min="1" max="30" step="0.1" aria-label="Expected Annual Return (%)">
-                                <button type="button" class="stepper-btn" data-input="return-rate-input" data-action="increase" aria-label="Increase expected return rate">+</button>
+                                <button class="stepper-btn" data-input="return-rate-input" data-action="decrease" aria-label="Decrease return rate" type="button">-</button>
+                                <input type="number" id="return-rate-input" class="manual-input" value="12" aria-label="Expected Annual Return (%)">
+                                <button class="stepper-btn" data-input="return-rate-input" data-action="increase" aria-label="Increase return rate" type="button">+</button>
                             </div>
                         </div>
-                        <div class="flex justify-between text-xxs text-gray-500 mt-1 px-1">
+                        <!-- NEW: Min/Max text -->
+                        <div class="flex justify-between text-xxs text-gray-500 mt-1">
                             <span>Min: 1%</span>
                             <span>Max: 30%</span>
                         </div>
                     </div>
 
+
                     <div id="investment-period-card" class="input-card">
                         <label for="investment-period-slider" class="block text-xs font-medium text-gray-700 mb-1">Investment Period (Years)</label>
                         <div class="flex items-center space-x-2">
                             <input type="range" id="investment-period-slider" min="1" max="40" value="15" step="1" class="range-slider">
+                            <!-- NEW: Stepper Buttons -->
                             <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                <button type="button" class="stepper-btn" data-input="investment-period-input" data-action="decrease" aria-label="Decrease investment period">-</button>
-                                <input type="number" id="investment-period-input" class="manual-input" value="15" min="1" max="40" step="1" aria-label="Investment Period (Years)">
-                                <button type="button" class="stepper-btn" data-input="investment-period-input" data-action="increase" aria-label="Increase investment period">+</button>
+                                <button class="stepper-btn" data-input="investment-period-input" data-action="decrease" aria-label="Decrease investment period" type="button">-</button>
+                                <input type="number" id="investment-period-input" class="manual-input" value="15" aria-label="Investment Period (Years)">
+                                <button class="stepper-btn" data-input="investment-period-input" data-action="increase" aria-label="Increase investment period" type="button">+</button>
                             </div>
                         </div>
-                        <div class="flex justify-between text-xxs text-gray-500 mt-1 px-1">
-                            <span>Min: 1 Year</span>
-                            <span>Max: 40 Years</span>
+                        <!-- NEW: Min/Max text -->
+                        <div class="flex justify-between text-xxs text-gray-500 mt-1">
+                            <span>Min: 1 Yr</span>
+                            <span>Max: 40 Yrs</span>
                         </div>
                     </div>
+
 
                     <div class="input-card">
                         <div class="flex items-center justify-between">
@@ -549,17 +572,20 @@
                                 <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                             </label>
                         </div>
-                        <div id="inflation-rate-container" class="hidden mt-2">
+                        <!-- UPDATED: Reduced top margin from mt-2 to mt-1.5 -->
+                        <div id="inflation-rate-container" class="hidden mt-1.5">
                             <label for="inflation-rate-slider" class="block text-xs font-medium text-gray-700 mb-1">Annual Inflation Rate (%)</label>
                             <div class="flex items-center space-x-2">
                                 <input type="range" id="inflation-rate-slider" min="0" max="15" value="6" step="0.1" class="range-slider">
+                                <!-- NEW: Stepper Buttons -->
                                 <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                    <button type="button" class="stepper-btn" data-input="inflation-rate-input" data-action="decrease" aria-label="Decrease inflation rate">-</button>
-                                    <input type="number" id="inflation-rate-input" class="manual-input" value="6" min="0" max="15" step="0.1" aria-label="Annual Inflation Rate (%)">
-                                    <button type="button" class="stepper-btn" data-input="inflation-rate-input" data-action="increase" aria-label="Increase inflation rate">+</button>
+                                    <button class="stepper-btn" data-input="inflation-rate-input" data-action="decrease" aria-label="Decrease inflation rate" type="button">-</button>
+                                    <input type="number" id="inflation-rate-input" class="manual-input" value="6" aria-label="Annual Inflation Rate (%)">
+                                    <button class="stepper-btn" data-input="inflation-rate-input" data-action="increase" aria-label="Increase inflation rate" type="button">+</button>
                                 </div>
                             </div>
-                            <div class="flex justify-between text-xxs text-gray-500 mt-1 px-1">
+                            <!-- NEW: Min/Max text -->
+                            <div class="flex justify-between text-xxs text-gray-500 mt-1">
                                 <span>Min: 0%</span>
                                 <span>Max: 15%</span>
                             </div>
@@ -567,22 +593,22 @@
                     </div>
                 </div>
 
-                <!-- Results Section -->
-                <div class="flex flex-col space-y-2 mt-3 lg:mt-0">
-                    <!-- Standard "Calculate Wealth" Result -->
-                    <!-- UPDATED: Result Card Visuals -->
-                    <div id="standard-result-summary" class="bg-gradient-to-tr from-red-50 to-orange-50 p-3 rounded-lg border border-red-200 text-center flex flex-col h-full">
-                        <h3 class="text-sm font-semibold text-red-800 mb-2">Your Projected Wealth</h3>
-                        <div class="bg-white p-2 rounded-lg border border-red-300 flex-grow space-y-2">
-                            <!-- Main Result: Future Value -->
-                            <div>
-                                <p class="text-xs text-gray-500">Future Value</p>
-                                <p id="final-value" class="text-2xl md:text-3xl font-extrabold text-gray-800">₹0</p>
-                            </div>
 
-                            <!-- Sub-Results: Invested & Returns -->
-                            <div class="grid grid-cols-2 gap-2 text-left">
-                                <div class="bg-gray-50 p-2 rounded-lg border border-gray-200">
+                <!-- Results Section -->
+                <!-- UPDATED: Reduced spacing from space-y-2 to space-y-1.5 and mt-3 to mt-0 -->
+                <div class="flex flex-col space-y-1.5 mt-3 lg:mt-0">
+                    <!-- Visually Appealing Result Card -->
+                    <!-- UPDATED: Reduced padding from p-3 to p-2 -->
+                    <div id="standard-result-summary" class="bg-gradient-to-tr from-red-50 to-orange-50 p-2 rounded-lg border border-red-200 text-center flex flex-col h-full">
+                        <h3 class="text-sm font-semibold text-red-800 mb-2">Your Projected Wealth</h3>
+                        <!-- UPDATED: Reduced padding from p-2 to p-1.5 -->
+                        <div class="bg-white p-1.5 rounded-lg border border-red-300 flex-grow">
+                            <p class="text-xs text-gray-500">Future Value</p>
+                            <p id="final-value" class="text-xl font-extrabold text-gray-800">₹0</p>
+                            <!-- UPDATED: Reduced gap from gap-2 to gap-1.5 and mt-1 to mt-1.5 -->
+                            <div class="grid grid-cols-2 gap-1.5 mt-1.5 text-left">
+                                <!-- UPDATED: Reduced padding from p-2 to p-1.5 -->
+                                <div class="bg-gray-50 p-1.5 rounded-lg">
                                     <div class="flex items-center">
                                         <div class="bg-red-100 rounded-full p-1 mr-2">
                                             <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
@@ -593,7 +619,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="bg-gray-50 p-2 rounded-lg border border-gray-200">
+                                <!-- UPDATED: Reduced padding from p-2 to p-1.5 -->
+                                <div class="bg-gray-50 p-1.5 rounded-lg">
                                     <div class="flex items-center">
                                         <div class="bg-green-100 rounded-full p-1 mr-2">
                                             <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
@@ -604,18 +631,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Real Value (Inflation Adjusted) -->
-                            <!-- UPDATED: Made more prominent -->
-                            <div id="real-value-container" class="bg-purple-50 p-2 rounded-lg col-span-2 hidden border border-purple-200">
-                                 <div class="flex items-center">
-                                    <div class="bg-purple-100 rounded-full p-1 mr-2">
-                                        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                                    </div>
-                                    <div>
-                                        <p class="text-xxs text-purple-700">Real Value (Today's Worth)</p>
-                                        <p id="real-value" class="text-sm font-bold text-purple-800">₹0</p>
+                                <!-- UPDATED: Real Value container styling -->
+                                <!-- UPDATED: Reduced padding from p-2 to p-1.5 -->
+                                <div id="real-value-container" class="bg-purple-50 border border-purple-200 p-1.5 rounded-lg col-span-2 hidden">
+                                     <div class="flex items-center">
+                                        <div class="bg-purple-100 rounded-full p-1 mr-2">
+                                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-xxs text-gray-500">Real Value (Today's Worth)</p>
+                                            <p id="real-value" class="text-xs font-bold text-purple-800">₹0</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -625,7 +651,8 @@
                     <!-- REMOVED: Goal Result Summaries -->
 
                     <!-- Doughnut Chart -->
-                    <div class="flex items-center justify-center h-40 w-full relative mt-2">
+                    <!-- UPDATED: Reduced height from h-40 to h-36 and margin-top from mt-2 to mt-1.5 -->
+                    <div class="flex items-center justify-center h-36 w-full relative mt-1.5">
                         <canvas id="investment-chart"></canvas>
                     </div>
                 </div>
@@ -633,7 +660,8 @@
 
             <!-- Updated button gradient -->
             <!-- MODIFIED: Changed container to flex for side-by-side buttons on desktop -->
-            <div class="mt-4 flex flex-col sm:flex-row justify-center gap-2">
+            <!-- UPDATED: Reduced top margin from mt-4 to mt-3 -->
+            <div class="mt-3 flex flex-col sm:flex-row justify-center gap-2">
                  <button id="toggle-table-btn" class="w-full sm:w-auto sm:max-w-xs px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-md">Show Yearly Growth</button>
                  <!-- NEW: Added "Show Growth Chart" button -->
                  <button id="toggle-line-chart-btn" class="w-full sm:w-auto sm:max-w-xs px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md">Show Growth Chart</button>
@@ -1001,6 +1029,7 @@
                             <div class="listicle-icon listicle-icon-blue">
                                 <!-- UPDATED SVG -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+
                             </div>
                             <div>
                                 <h3 class="font-bold text-sm text-gray-800">PPF Calculator</h3>
