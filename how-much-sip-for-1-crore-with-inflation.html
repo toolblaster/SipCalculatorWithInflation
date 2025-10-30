@@ -44,7 +44,7 @@
         "@id": "https://SipCalculatorWithInflation.toolblaster.com/how-much-sip-for-1-crore-with-inflation.html"
       },
       "headline": "SIP Investment Explained: How Much You Should Invest Monthly to Reach ₹1 Crore — With Inflation Impact Included",
-      "description": "Our complete guide explains SIPs, how returns are calculated, and the hidden impact of inflation. Learn how much to invest monthly to reach your ₹1 crore goal and avoid common mistakes.",
+      "description": "Learn exactly how much to invest in a SIP each month to build a ₹1 crore corpus, and see why adjusting for inflation is critical for your financial goals.",
       "image": "https://SipCalculatorWithInflation.toolblaster.com/favicon/android-chrome-512x512.png",  
       "author": {
         "@type": "Organization",
@@ -58,10 +58,10 @@
           "url": "https://SipCalculatorWithInflation.toolblaster.com/favicon/android-chrome-512x512.png"
         }
       },
-      "datePublished": "2025-10-30",
-      "dateModified": "2025-10-30"
+      "datePublished": "2025-10-29"
     }
     </script>
+    
     <!-- JSON-LD for FAQ Page -->
     <script type="application/ld+json">
     {
@@ -73,7 +73,7 @@
           "name": "How much SIP is needed to get ₹1 crore in 20 years?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Assuming a 12% annual return, you would need to invest approximately ₹10,000 per month. However, if inflation is 6%, that ₹1 crore will only have the purchasing power of about ₹31 lakh in today's money. To get a *real value* of ₹1 crore, you'd need to aim for a future corpus of over ₹3.2 crore, requiring a much higher SIP. We recommend using a SIP calculator with inflation to find your true target."
+            "text": "To get ₹1 crore in 20 years with an expected return of 12%, you would need to invest approximately ₹10,000 per month. If you account for 6% inflation, your ₹1 crore will only be worth about ₹31 lakhs in today's money. To get a *real value* of ₹1 crore, you'd need to invest much more."
           }
         },
         {
@@ -81,7 +81,7 @@
           "name": "What is the best SIP return calculator?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The best SIP return calculator is one that includes adjustments for both inflation and a step-up (annual increase). A simple calculator might show you a large future value, but it doesn't show you the 'real value' or purchasing power of that money, which is the most important factor for long-term-planning."
+            "text": "The best SIP return calculator is one that includes inputs for both inflation and a step-up percentage. A simple calculator only shows the final value (nominal return), but a calculator with an inflation adjustment shows you the 'Real Value' of your money, which is critical for accurate goal planning."
           }
         },
         {
@@ -89,7 +89,7 @@
           "name": "Does inflation affect SIP returns?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Inflation *reduces* the real value of your returns. If your SIP earns 12% in a year but inflation is 6%, your 'real return' (your actual increase in purchasing power) is only about 6%. Ignoring inflation is one of the biggest mistakes investors make."
+            "text": "Yes. Inflation does not affect your *nominal* return (the 12% your fund might earn), but it directly erodes the *real value* (purchasing power) of that return. If your SIP earns 12% but inflation is 6%, your real return is only about 6%. This is why it's crucial to use a SIP calculator with inflation."
           }
         },
         {
@@ -97,7 +97,7 @@
           "name": "Is SIP better than lump sum?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "For most investors, SIP is considered a better and safer approach. It removes the stress of trying to 'time the market' and benefits from 'rupee cost averaging' (buying more units when prices are low and fewer when high). A lump sum can be effective if you invest at the bottom of a market, but it's very high-risk."
+            "text": "For most people, SIP is a better approach because it averages out the purchase cost over time (Rupee Cost Averaging), removes the stress of 'timing the market,' and builds a disciplined investing habit. A lump sum can be effective if you invest at a market low, but it's much higher risk."
           }
         },
         {
@@ -105,7 +105,7 @@
           "name": "How can I increase my SIP amount annually?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Most mutual fund platforms and AMCs offer a 'Step-Up' or 'Top-Up' SIP feature. This allows you to automatically increase your monthly SIP amount by a fixed amount (e.g., ₹500) or a percentage (e.g., 10%) every year. This is a powerful strategy to align your investments with your salary growth and reach your goals much faster."
+            "text": "You can use a 'Step-Up' SIP feature, which is offered by most mutual fund platforms. This automatically increases your monthly SIP amount by a fixed percentage (e.g., 10%) or a fixed amount (e.g., ₹1,000) each year. This is the smartest way to reach your goals faster as your income grows."
           }
         }
       ]
@@ -120,6 +120,9 @@
 
     <!-- Tailwind CSS v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- NEW: Header/Footer Script -->
+    <script src="header-footer.js" defer></script>
 
     <!-- APPLY Inter Font -->
     <style>
@@ -130,127 +133,80 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-    <!-- Header (Copied from index.html) -->
-    <header id="main-header" class="bg-white border-b border-gray-200 shadow-lg w-full z-50">
-        <div class="w-full max-w-5xl mx-auto px-4">
-             <div class="flex items-center justify-between py-2">
-                <a href="/" class="flex items-center space-x-1.5 min-w-0 hover:opacity-80 transition-opacity" aria-label="SipCalculatorWithInflation Homepage">
-                    <svg class="w-5 h-5 md:w-6 md:h-6 text-red-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                       <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                    </svg>
-                    <div class="flex flex-col min-w-0">
-                        <span class="text-base md:text-lg font-bold text-gray-800 truncate">
-                            SipCalculator<span class="text-sm md:text-base font-semibold text-red-600">WithInflation</span>
-                        </span>
-                        <div class="h-px w-1/2 bg-red-500 mt-0.5"></div>
-                    </div>
-                </a>
-                <!-- Menu Links -->
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <a href="/" class="text-xs font-semibold text-gray-600 hover:text-red-600 hover:underline transition-colors">
-                        SIP Calculator
-                    </a>
-                    <!-- This page is active -->
-                    <a href="how-much-sip-for-1-crore-with-inflation.html" class="text-xs font-semibold text-red-600 underline pointer-events-none" aria-current="page">
-                        SIP Guide to ₹1 Crore
-                    </a>
-                    <a href="contact-us-and-legal.html" class="text-xs font-semibold text-gray-600 hover:text-red-600 hover:underline transition-colors">
-                        Contact & Legal
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- NEW: Header Placeholder -->
+    <div id="header-placeholder"></div>
 
     <!-- Main Article Content -->
     <main class="w-full max-w-5xl mx-auto my-4 px-4">
-        <div class="bg-white shadow-lg rounded-xl w-full border border-red-300 p-4">
-            
+        <!-- Main Article Wrapper Card -->
+        <div class="bg-white shadow-lg rounded-xl p-4 w-full border border-gray-200">
             <!-- Article Header -->
-            <div class="text-center border-b border-red-100 pb-3">
+            <div class="text-center mb-4">
                 <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
-                    SIP Investment Explained: How Much to Invest Monthly to Reach <span class="text-red-600">₹1 Crore</span>
+                    SIP Investment Explained: How Much to Invest Monthly for ₹1 Crore
                 </h1>
-                <p class="mt-2 text-sm leading-normal text-gray-600 max-w-3xl mx-auto">
-                    Ever wondered how much you <strong class="text-red-600">really</strong> need to invest to become a crorepati? The answer is less than you think, but <strong class="text-red-600">after</strong> inflation, the picture changes. This guide breaks it all down.
+                <p class="mt-2 text-base text-gray-600 max-w-3xl mx-auto">
+                    Ever wondered how much you <strong class="text-red-600">really</strong> need to invest every month to become a crorepati? The answer is hiding in one critical number: <strong class="text-red-600">inflation</strong>.
                 </p>
+                <a href="/#calculator-section" class="mt-4 inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition-transform transform hover:scale-105 text-sm">
+                    Try our SIP with Inflation Calculator &rarr;
+                </a>
             </div>
 
-            <!-- Article Body -->
-            <div class="space-y-4 mt-4">
+            <!-- Sections Wrapper -->
+            <div class="space-y-4">
 
-                <!-- 1. Introduction & CTA -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">1</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">The "₹1 Crore" Goal: What You Actually Need</h2>
+                <!-- 1. What Is SIP? -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">1</span>
+                        <h2 class="text-xl font-bold text-gray-900">What Is a SIP (Systematic Investment Plan)?</h2>
+                    </div>
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        A Systematic Investment Plan (SIP) is the simplest way to invest in mutual funds. Instead of investing a large lump sum at once, you invest a <strong class="text-red-600">fixed amount of money</strong> at regular intervals (usually monthly).
+                    </p>
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        Think of it as an EMI you pay for your future wealth. It's powerful for two reasons:
+                    </p>
+                    <!-- Inner Box -->
+                    <div class="mt-3 p-3 rounded-lg border border-gray-200 bg-gray-50 space-y-2">
+                        <div class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <p class="text-xs leading-normal text-gray-700"><strong class="font-semibold text-gray-800">It builds discipline.</strong> Since the amount is auto-debited, you invest consistently without having to think about it.</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <p class="text-xs leading-normal text-gray-700"><strong class="font-semibold text-gray-800">It uses Rupee Cost Averaging.</strong> You automatically buy more units when the market is low and fewer units when the market is high. This averages out your cost and reduces the risk of "timing the market."</p>
                         </div>
                     </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        Becoming a 'Crorepati' is a classic Indian dream. But here's the problem: <strong class="text-red-600">₹1 crore in 20 years is not the same as ₹1 crore today.</strong>
-                        The hidden enemy is <strong class="text-red-600">inflation</strong>, which silently eats away at your money's purchasing power. This guide will show you how to plan for your goal correctly, accounting for inflation and smart strategies like Step-Up SIPs.
-                    </p>
-                    <div class="mt-3 text-center">
-                        <a href="/#calculator-section" class="inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-2 px-4 text-sm rounded-lg shadow-md transition-transform transform hover:scale-105">
-                            Try our SIP with Inflation Calculator &rarr;
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 2. What is SIP -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">2</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">What is a SIP (Systematic Investment Plan)?</h2>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        A Systematic Investment Plan (SIP) is simply a way to invest in mutual funds. Instead of investing a large lump sum at once, you invest a smaller, fixed amount every month. Think of it like an EMI you pay for your future wealth.
-                    </p>
-                    <!-- Inner section with complimentary background -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2">
-                        <ul class="space-y-2">
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <p class="text-sm text-gray-700"><strong class="text-gray-900">It builds discipline.</strong> By automating your investment, you remove the emotion and temptation to spend.</p>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <p class="text-sm text-gray-700"><strong class="text-gray-900">It uses Rupee Cost Averaging.</strong> You automatically buy more units when the market is low and fewer units when it's high, averaging your cost over time and reducing risk.</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Inner section for Table -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 mt-3">
-                        <h3 class="text-base font-semibold text-gray-800">SIP vs. Lump Sum: A Quick Comparison</h3>
-                        <p class="text-sm leading-normal text-gray-700 mt-1 mb-2">Here’s why SIPs are preferred by most investors over a one-time lump sum investment.</p>
+                    
+                    <h3 class="mt-3 text-base font-semibold text-gray-800">SIP vs. Lump Sum: A Quick Comparison</h3>
+                    <!-- Inner Box -->
+                    <div class="mt-2 p-3 rounded-lg border border-gray-200 bg-gray-50">
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 border border-gray-200">
-                                <thead class="bg-gray-200"> <!-- Darker header for contrast -->
-                                    <tr>
-                                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Feature</th>
-                                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">SIP (Systematic Plan)</th>
-                                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Lump Sum (One-Time)</th>
+                            <table class="min-w-full text-xs">
+                                <thead>
+                                    <tr class="border-b border-gray-300">
+                                        <th class="py-2 px-2 text-left font-semibold">Feature</th>
+                                        <th class="py-2 px-2 text-left font-semibold">SIP (Systematic Plan)</th>
+                                        <th class="py-2 px-2 text-left font-semibold">Lump Sum (One-Time)</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="text-sm text-gray-700">
-                                        <td class="px-3 py-2 font-medium">Investment</td>
-                                        <td class="px-3 py-2">Fixed amount monthly</td>
-                                        <td class="px-3 py-2">Large amount at once</td>
+                                <tbody>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-2 px-2">Investment</td>
+                                        <td class="py-2 px-2">Small, fixed amounts monthly.</td>
+                                        <td class="py-2 px-2">Large, single amount at once.</td>
                                     </tr>
-                                    <tr class="text-sm text-gray-700">
-                                        <td class="px-3 py-2 font-medium">Market Timing</td>
-                                        <td class="px-3 py-2">Not required (Averages cost)</td>
-                                        <td class="px-3 py-2">High-risk; success depends on timing it right</td>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-2 px-2">Risk</td>
+                                        <td class="py-2 px-2">Lower (due to cost averaging).</td>
+                                        <td class="py-2 px-2">Higher (risk of bad timing).</td>
                                     </tr>
-                                    <tr class="text-sm text-gray-700">
-                                        <td class="px-3 py-2 font-medium">Best For</td>
-                                        <td class="px-3 py-2">Salaried individuals, long-term goals</td>
-                                        <td class="px-3 py-2">Investors with a large surplus</td>
+                                    <tr>
+                                        <td class="py-2 px-2">Best For</td>
+                                        <td class="py-2 px-2">Salaried investors, long-term goals.</td>
+                                        <td class="py-2 px-2">Windfalls, experienced investors.</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -258,265 +214,302 @@
                     </div>
                 </div>
 
-                <!-- 3. How Returns are Calculated -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">3</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">How SIP Returns Are Calculated</h2>
-                        </div>
+                <!-- 2. How Are SIP Returns Calculated? -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">2</span>
+                        <h2 class="text-xl font-bold text-gray-900">How Are SIP Returns Calculated?</h2>
                     </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        SIPs grow your wealth using the magic of <strong class="text-red-600">compounding</strong>. This means your money earns returns, and then those returns start earning their *own* returns.
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        SIP returns are calculated using the magic of <strong class="text-red-600">compounding</strong>. This means you don't just earn returns on your investment; you earn returns on your <strong class="text-red-600">returns</strong>.
                     </p>
-                    <div class="mt-2 bg-red-50 border border-red-200 rounded-lg p-3">
-                        <p class="text-sm text-gray-700"><strong class="text-gray-900">Example:</strong> If you invest <strong class="text-red-600">₹5,000 per month</strong> for 20 years at an average 12% return:</p>
-                        <ul class="mt-2 text-sm text-gray-700 list-disc list-inside space-y-1">
-                            <li>You will invest a total of <strong class="text-gray-900">₹12 lakhs</strong>.</li>
-                            <li>Your investment will grow to nearly <strong class="text-gray-900">₹50 lakhs</strong>.</li>
-                            <li>That's <strong class="text-green-600">₹38 lakhs</strong> in pure profit from compounding!</li>
-                        </ul>
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        For example:
+                    </p>
+                    <!-- Inner Box -->
+                    <div class="mt-3 p-3 rounded-lg border border-gray-200 bg-gray-50 space-y-2">
+                        <p class="text-xs leading-normal text-gray-700"><strong class="text-gray-800">Year 1:</strong> You invest ₹10,000. It earns 12% (₹1,200). Your total is now ₹11,200.</p>
+                        <p class="text-xs leading-normal text-gray-700"><strong class="text-gray-800">Year 2:</strong> You invest another ₹10,000. But now, your <strong class="text-red-600">₹11,200</strong> also earns 12%. Your previous earnings are now working for you!</p>
                     </div>
                 </div>
 
-                <!-- 4. The Hidden Factor: Inflation -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">4</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">The Hidden Factor: <strong class="text-red-600">Inflation</strong></h2>
-                        </div>
+                <!-- 3. The "₹1 Crore" Goal: What You Actually Need -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">3</span>
+                        <h2 class="text-xl font-bold text-gray-900">The "₹1 Crore" Goal: What You Actually Need</h2>
                     </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        This is the most overlooked part of financial planning. Your investment return (e.g., 12%) is your <strong class="text-red-600">"Nominal Return."</strong> What you *must* calculate is your <strong class="text-red-600">"Real Return."</strong>
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        This is where most people make a critical mistake. They plan to have ₹1 Crore in 20 years, not realizing what that money will <strong class="text-red-600">actually be worth</strong>.
                     </p>
-                    <div class="mt-2 bg-gray-50 border border-gray-200 rounded-lg p-3 text-center">
-                        <p class="text-base font-semibold text-gray-800">Real Return = Your Return Rate - Inflation Rate</p>
-                        <p class="text-sm text-gray-700 mt-1">(e.g., 12% Return - 6% Inflation = <strong class="text-green-600">6% Real Return</strong>)</p>
-                    </div>
-                    
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 mt-3">
-                        <h3 class="text-base font-semibold text-gray-800">The Shocking Truth About Inflation</h3>
-                        <p class="text-sm leading-normal text-gray-700 mt-1">
-                            Let's say you reach your ₹1 crore goal in 20 years. If average inflation was 6%, your <strong class="text-red-600">₹1 crore will only have the purchasing power of ₹31 lakhs</strong> in today's money.
-                        </p>
-                        <p class="text-sm leading-normal text-gray-700 mt-2">
-                            This is why you <strong class="text-red-600">must</strong> use a <strong class="text-red-600">SIP Calculator with Inflation</strong> to find the *real* value of your future wealth.
+
+                    <h3 class="mt-3 text-base font-semibold text-gray-800">The Shocking Truth About Inflation</h3>
+                    <p class="mt-1 text-sm leading-normal text-gray-700">
+                        Inflation is the silent killer of wealth. It's the rate at which your money loses its purchasing power.
+                    </p>
+                    <!-- Inner Box -->
+                    <div class="mt-3 p-3 rounded-lg border border-gray-200 bg-gray-50">
+                        <p class="text-sm leading-normal text-center text-gray-800">
+                            At just <strong class="text-red-600">6% inflation</strong>, ₹1 Crore in 20 years will have the same purchasing power as <strong class="text-red-600">only ₹31 Lakhs</strong> does today.
                         </p>
                     </div>
+                    <p class="mt-3 text-sm leading-normal text-gray-700">
+                        This means if your goal is to have the <strong class="text-red-600">purchasing power</strong> of ₹1 Crore, you actually need to save around <strong class="text-red-600">₹3.2 Crores!</strong>
+                    </p>
+
+                    <a href="/#calculator-section" class="mt-3 inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition-transform transform hover:scale-105 text-sm">
+                        Find Your <strong class="text-white">Real</strong> Wealth Goal &rarr;
+                    </a>
                 </div>
 
-                <!-- 5. Step-Up SIP: The Smart Secret -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">5</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">Step-Up SIP: The Smart Investor’s Secret</h2>
-                        </div>
+                <!-- 4. The Two Plans to Reach ₹1 Crore -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">4</span>
+                        <h2 class="text-xl font-bold text-gray-900">The Two Plans to Reach ₹1 Crore (in 20 Years)</h2>
                     </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        A "Step-Up" (or Top-Up) SIP is a feature where you automatically increase your monthly SIP amount every year, usually by 5-10%. This aligns your investments with your annual salary hike.
-                    </p>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        The difference is massive. Let's compare two plans aiming for <strong class="text-red-600">₹1 Crore</strong>:
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        Let's compare two investors, both aiming for ₹1 Crore in 20 years with a 12% expected return.
                     </p>
                     
-                    <div class="grid md:grid-cols-2 gap-3 mt-2">
-                        <!-- Card 1: Static SIP -->
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                            <h3 class="text-base font-semibold text-gray-800">Scenario 1: The Static Plan</h3>
-                            <p class="text-sm text-gray-600 mt-1">You invest a fixed <strong class="text-red-600">₹10,000/month</strong> for 20 years.</p>
-                            <ul class="mt-2 space-y-1 text-sm text-gray-700">
-                                <li><strong>Total Invested:</strong> ₹24 lakhs</li>
-                                <li><strong>Future Value (at 12%):</strong> <strong class="text-green-600 text-base font-bold">~ ₹1 Crore</strong></li>
+                    <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <!-- Scenario 1 Card -->
+                        <div class="p-3 rounded-lg border border-gray-200 bg-gray-50">
+                            <h3 class="font-semibold text-base text-gray-800">Scenario 1: The <strong class="text-red-600">Nominal</strong> Goal (The Mistake)</h3>
+                            <p class="mt-1 text-xs leading-normal text-gray-600">Ravi plans to have a <strong class="text-red-600">final value</strong> of ₹1 Crore. He ignores inflation.</p>
+                            <ul class="mt-2 space-y-1 text-xs">
+                                <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Monthly SIP:</span><strong class="text-red-600">₹10,000</strong></li>
+                                <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Total Invested:</span><strong class="text-gray-800">₹24 Lakhs</strong></li>
+                                <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Final Value:</span><strong class="text-green-600">₹1 Crore</strong></li>
+                                <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Real Value (at 6% inflation):</span><strong class="text-red-600">₹31 Lakhs</strong></li>
                             </ul>
+                            <p class="mt-2 text-xs font-semibold text-red-700">Result: Ravi reaches his goal on paper, but can only buy 1/3 of what he planned for.</p>
                         </div>
-                        <!-- Card 2: Step-Up SIP -->
-                        <div class="bg-green-50 border border-green-200 rounded-lg p-3">
-                            <h3 class="text-base font-semibold text-gray-800">Scenario 2: The Smart Plan</h3>
-                            <p class="text-sm text-gray-600 mt-1">You start with <strong class="text-red-600">₹5,000/month</strong> and <strong class="text-red-600">step-up 10%</strong> yearly.</p>
-                            <ul class="mt-2 space-y-1 text-sm text-gray-700">
-                                <li><strong>Total Invested:</strong> ₹34.3 lakhs</li>
-                                <li><strong>Future Value (at 12%):</strong> <strong class="text-green-600 text-base font-bold">~ ₹1.28 Crore</strong></li>
+                        
+                        <!-- Scenario 2 Card -->
+                        <div class="p-3 rounded-lg border border-gray-200 bg-gray-50">
+                            <h3 class="font-semibold text-base text-gray-800">Scenario 2: The <strong class="text-green-600">Real</strong> Goal (The Smart Plan)</h3>
+                            <p class="mt-1 text-xs leading-normal text-gray-600">Priya plans to have a <strong class="text-green-600">real value</strong> of ₹1 Crore (in today's money).</p>
+                             <ul class="mt-2 space-y-1 text-xs">
+                                <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Monthly SIP:</span><strong class="text-red-600">₹32,200</strong></li>
+                                <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Total Invested:</span><strong class="text-gray-800">₹77 Lakhs</strong></li>
+                                <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Final Value:</span><strong class="text-green-600">₹3.21 Crores</strong></li>
+                                <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Real Value (at 6% inflation):</span><strong class="text-green-600">₹1 Crore</strong></li>
                             </ul>
+                            <p class="mt-2 text-xs font-semibold text-green-700">Result: Priya's final corpus is 3.2x larger, but she achieves her <strong class="text-green-700">real</strong> financial goal.</p>
                         </div>
-                    </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        The Smart Plan starts with *half* the monthly amount but ends up with <strong class="text-red-600">₹28 lakhs more</strong>. This is the power of combining compounding with a step-up.
-                    </p>
-                    <div class="mt-3 text-center">
-                        <a href="/#calculator-section" class="inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-2 px-4 text-sm rounded-lg shadow-md transition-transform transform hover:scale-105">
-                            Calculate with Step-Up & Inflation &rarr;
-                        </a>
                     </div>
                 </div>
 
-                <!-- 6. What's a 'Realistic' Return Rate? -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">6</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">What's a "Realistic" Return Rate to Expect?</h2>
-                        </div>
+                <!-- 5. Step-Up SIP: The Secret Weapon -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">5</span>
+                        <h2 class="text-xl font-bold text-gray-900">Step-Up SIP: The Secret Weapon Against Inflation</h2>
                     </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        The 12% we use in examples is a common long-term average for <strong class="text-red-600">equity funds</strong>, but it's not guaranteed. Your expected return depends entirely on where you invest.
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        A <strong class="text-red-600">Step-Up SIP</strong> means you increase your monthly investment by a small amount each year (e.g., 10%), usually matching your salary hike. This is the <strong class="text-red-600">single best way</strong> to reach your "Real Goal" without feeling the pinch.
                     </p>
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2">
-                        <ul class="space-y-2">
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-red-600 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                                <div>
-                                    <p class="text-sm text-gray-700"><strong class="text-gray-900">Equity Funds (High Risk):</strong> Invest in stocks. Best for goals 7+ years away.</p>
-                                    <p class="text-xs text-gray-600"><i>Long-term Average: 12-15% p.a.</i></p>
-                                </div>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-blue-600 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" /></svg>
-                                <div>
-                                    <p class="text-sm text-gray-700"><strong class="text-gray-900">Hybrid Funds (Medium Risk):</strong> A mix of stocks and bonds. A balanced choice.</p>
-                                    <p class="text-xs text-gray-600"><i>Long-term Average: 9-11% p.a.</i></p>
-                                </div>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-green-600 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-                                <div>
-                                    <p class="text-sm text-gray-700"><strong class="text-gray-900">Debt Funds (Low Risk):</strong> Invest in bonds. Safer, but lower returns (may not beat inflation).</p>
-                                    <p class="text-xs text-gray-600"><i>Long-term Average: 6-7% p.a.</i></p>
-                                </div>
-                            </li>
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        Let's revisit Priya's "Real Goal" of ₹1 Crore (today's value).
+                    </p>
+                    <!-- Inner Box -->
+                    <div class="mt-3 p-3 rounded-lg border border-gray-200 bg-gray-50">
+                        <h3 class="font-semibold text-base text-gray-800">Priya's <strong class="text-green-600">Smart Step-Up</strong> Plan</h3>
+                        <p class="mt-1 text-xs leading-normal text-gray-600">She decides to start smaller and step-up her SIP by 10% each year.</p>
+                         <ul class="mt-2 space-y-1 text-xs">
+                            <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Starting Monthly SIP:</span><strong class="text-red-600">₹13,500</strong> (vs. ₹32,200)</li>
+                            <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Total Invested:</span><strong class="text-gray-800">₹76.5 Lakhs</strong></li>
+                            <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Final Value (at 12%):</span><strong class="text-green-600">₹3.22 Crores</strong></li>
+                            <li class="flex items-center gap-2"><span class="font-semibold text-gray-700">Real Value (at 6% inflation):</span><strong class="text-green-600">₹1 Crore</strong></li>
                         </ul>
+                        <p class="mt-2 text-xs font-semibold text-green-700">Result: By using a Step-Up, she achieves the <strong class="text-green-700">exact same goal</strong> by starting with an investment that is <strong class="text-green-700">58% smaller!</strong></T>
                     </div>
+
+                    <a href="/#calculator-section" class="mt-3 inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition-transform transform hover:scale-105 text-sm">
+                        Calculate with <strong class="text-white">Your</strong> Step-Up &rarr;
+                    </a>
                 </div>
                 
-                <!-- 7. How to Start a SIP (Affiliate Section) -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">7</div>
+                <!-- 6. What's a 'Realistic' Return Rate? -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">6</span>
+                        <h2 class="text-xl font-bold text-gray-900">What's a 'Realistic' Return Rate to Expect?</h2>
+                    </div>
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        The 12% we've used is a common long-term average for <strong class="text-red-600">equity mutual funds</strong>. But your expected return depends entirely on your investment type.
+                    </p>
+                    
+                    <!-- Inner Box -->
+                    <div class="mt-3 p-3 rounded-lg border border-gray-200 bg-gray-50 space-y-3">
                         <div>
-                            <h2 class="text-xl font-bold text-gray-900">How to Start a SIP (in 3 Steps)</h2>
+                            <h3 class="text-base font-semibold text-gray-800">Equity Funds (High Risk)</h3>
+                            <p class="text-xs leading-normal text-gray-700">Invest in stocks (e.g., Index Funds, Large-cap, Flexi-cap). Best for goals 7+ years away.</p>
+                            <p class="text-xs leading-normal font-semibold text-gray-700">Long-term Average: <strong class="text-red-600">12% - 15%</strong></p>
+                        </div>
+                        <div class="border-t border-gray-200 pt-3">
+                            <h3 class="text-base font-semibold text-gray-800">Hybrid Funds (Medium Risk)</h3>
+                            <p class="text-xs leading-normal text-gray-700">A mix of stocks and bonds. A good balance for goals 3-5 years away.</p>
+                            <p class="text-xs leading-normal font-semibold text-gray-700">Long-term Average: <strong class="text-red-600">9% - 11%</strong></p>
+                        </div>
+                        <div class="border-t border-gray-200 pt-3">
+                            <h3 class="text-base font-semibold text-gray-800">Debt Funds (Low Risk)</h3>
+                            <p class="text-xs leading-normal text-gray-700">Invest in bonds and fixed-income. Best for short-term goals (1-3 years).</p>
+                            <p class="text-xs leading-normal font-semibold text-gray-700">Long-term Average: <strong class="text-red-600">6% - 7%</strong> (Often just beats inflation)</p>
                         </div>
                     </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        Starting a SIP is now a 100% online and paperless process. You can start investing in minutes.
+                </div>
+
+                <!-- 7. How to Start a SIP -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">7</span>
+                        <h2 class="text-xl font-bold text-gray-900">How to Start a SIP (in 3 Simple Steps)</h2>
+                    </div>
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        Starting your investment journey is easier than ever. You can start online in minutes.
                     </p>
-                    <div class="mt-2 space-y-2 bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <div class="flex items-start space-x-3">
-                            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-xs">1</div>
+                    
+                    <!-- Inner Box -->
+                    <div class="mt-3 p-3 rounded-lg border border-gray-200 bg-gray-50 space-y-3">
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-200 text-red-700 font-bold text-xs flex items-center justify-center mt-0.5">1</span>
                             <div>
                                 <p class="text-sm font-bold text-gray-800">Complete Your KYC</p>
-                                <p class="text-sm text-gray-700">You need your PAN card and Aadhaar (linked to your mobile) for a quick e-KYC process. This is a one-time setup.</p>
+                                <p class="text-xs leading-normal text-gray-700">You'll need your PAN card, Aadhaar card (linked to your mobile), and bank details to complete your one-time Know Your Customer (KYC) process.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-3">
-                            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-xs">2</div>
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-200 text-red-700 font-bold text-xs flex items-center justify-center mt-0.5">2</span>
                             <div>
-                                <p class="text-sm font-bold text-gray-800">Open a Demat/MF Account</p>
-                                <p class="text-sm text-gray-700">Choose a trusted, registered platform (like a broker or a direct Mutual Fund app) to open your account.</p>
+                                <p class="text-sm font-bold text-gray-800">Choose Your Fund(s)</p>
+                                <p class="text-xs leading-normal text-gray-700">Based on your goals and risk appetite, select a mutual fund. For beginners, a simple Nifty 50 Index Fund is often a great place to start.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-3">
-                            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-xs">3</div>
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-200 text-red-700 font-bold text-xs flex items-center justify-center mt-0.5">3</span>
                             <div>
-                                <p class="text-sm font-bold text-gray-800">Start Your First SIP</p>
-                                <p class="text-sm text-gray-700">Select a mutual fund that matches your goal, set the monthly amount, and set up an auto-payment from your bank account.</p>
+                                <p class="text-sm font-bold text-gray-800">Set Up the SIP</p>
+                                <p class="text-xs leading-normal text-gray-700">Choose your monthly amount, select a date for the auto-debit, and approve the bank mandate. That's it! Your investment is now on autopilot.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-3 bg-gray-50 border border-gray-200 rounded-lg p-3 text-center">
-                        <p class="text-sm text-gray-700 font-medium">Ready to start investing online in minutes?</p>
-                        <a href="https://www.5paisa.com/demat-account?ReferralCode=54285431&ReturnUrl=invest-open-account" target="_blank" rel="noopener noreferrer nofollow" class="inline-flex items-center text-red-600 hover:underline font-semibold text-sm mt-1">
-                            <span>Open a Free Demat Account with 5paisa &raquo;</span>
+                    
+                    <!-- Affiliate CTA -->
+                    <div class="mt-3 p-3 rounded-lg border border-red-200 bg-red-50 text-center">
+                        <p class="text-sm font-semibold text-gray-800">Ready to Start Investing?</p>
+                        <p class="mt-1 text-xs leading-normal text-gray-700">You can open a free Demat account online in minutes with a trusted platform.</p>
+                        <a href="https://www.5paisa.com/demat-account?ReferralCode=54285431&ReturnUrl=invest-open-account" target="_blank" rel="noopener noreferrer nofollow" class="mt-2 inline-block bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md transition-transform transform hover:scale-105 text-sm">
+                            Open a Free Account with 5paisa &rarr;
                         </a>
                     </div>
                 </div>
 
-                <!-- 8. Common SIP Mistakes -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">8</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">Common SIP Mistakes to Avoid</h2>
+                <!-- 8. Common SIP Mistakes to Avoid -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">8</span>
+                        <h2 class="text-xl font-bold text-gray-900">Common SIP Mistakes to Avoid</h2>
+                    </div>
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        Even the best SIP plan can fail if you fall into these common traps.
+                    </p>
+                    
+                    <!-- Inner Box -->
+                    <div class="mt-3 p-3 rounded-lg border border-gray-200 bg-gray-50 space-y-3">
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-red-200 text-red-700 font-bold text-lg flex items-center justify-center mt-0.5">&times;</span>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Stopping SIPs During Dips</p>
+                                <p class="text-xs leading-normal text-gray-700">This is the worst mistake! Market dips are when your SIP is buying more units for the same price. Stopping it is like pausing your EMI. <strong class="text-red-600">Consistency is what builds wealth.</strong></p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-red-200 text-red-700 font-bold text-lg flex items-center justify-center mt-0.5">&times;</span>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Ignoring Inflation</p>
+                                <p class="text-xs leading-normal text-gray-700">As we've seen, this leads to massively under-funding your real goals.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-red-200 text-red-700 font-bold text-lg flex items-center justify-center mt-0.5">&times;</span>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Not Using Step-Up</p>
+                                <p class="text-xs leading-normal text-gray-700">Your income grows, so should your investments. A 10% annual step-up can drastically boost your final corpus.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-red-200 text-red-700 font-bold text-lg flex items-center justify-center mt-0.5">&times;</span>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Investing Without a Goal</p>
+                                <p class="text-xs leading-normal text-gray-700">Always link each SIP to a specific financial target (e.g., "Retirement," "Child's Education"). This gives you the motivation to stay invested.</p>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        Even the best SIP plan can fail if you fall into these common traps:
-                    </p>
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2">
-                        <ul class="space-y-2">
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <p class="text-sm text-gray-700"><strong class="text-gray-900">Stopping SIPs during market dips:</strong> Volatility is temporary; consistency is what builds wealth.</p>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <p class="text-sm text-gray-700"><strong class="text-gray-900">Ignoring Inflation:</strong> Your returns might look good on paper but lose value in <strong class="text-red-600">real</strong> terms.</p>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <p class="text-sm text-gray-700"><strong class="text-gray-900">Not increasing SIP amount:</strong> A 10% annual step-up can drastically boost your long-term wealth.</p>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <p class="text-sm text-gray-700"><strong class="text-gray-900">Chasing short-term returns:</strong> SIPs are designed for long-term goals (10+ years).</p>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <p class="text-sm text-gray-700"><strong class="text-gray-900">Investing without a goal:</strong> Always link each SIP to a financial target (e.g., retirement, home, education).</p>
-                            </li>
-                        </ul>
-                    </div>
-                    <blockquote class="mt-3 border-l-4 border-blue-400 bg-blue-50 p-3">
-                        <p class="text-sm font-semibold text-blue-800">
-                            💡 Avoiding these mistakes can mean the difference between ₹80 lakh and ₹1.2 crore in 20 years!
-                        </p>
+
+                    <!-- Blockquote -->
+                    <blockquote class="mt-3 p-3 rounded-lg border-l-4 border-blue-400 bg-blue-50 text-blue-800">
+                        <p class="text-sm font-semibold">💡 Avoiding these mistakes can be the difference between <strong class="text-blue-900">₹80 lakh and ₹1 crore</strong> in 20 years!</p>
                     </blockquote>
                 </div>
 
                 <!-- 9. SIP Returns Comparison Table -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">9</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">SIP Returns Comparison: Inflation vs. No Inflation</h2>
-                        </div>
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">9</span>
+                        <h2 class="text-xl font-bold text-gray-900">SIP Returns Comparison: Inflation vs. No Inflation</h2>
                     </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2 mb-2">
-                        This table shows the powerful impact of inflation over time. The "Final Value" is what your statement will show. The "Real Value" is what that money will <strong class="text-red-600">actually be worth</strong> in today's terms.
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        This table shows the powerful (and dangerous) effect of inflation over time. Notice how the gap between <strong class="text-red-600">Final Value</strong> and <strong class="text-red-600">Real Value</strong> gets wider over longer periods.
                     </p>
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                    
+                    <!-- Inner Box -->
+                    <div class="mt-3 p-3 rounded-lg border border-gray-200 bg-gray-50">
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 border border-gray-200">
-                                <thead class="bg-gray-200"> <!-- Darker header for contrast -->
-                                    <tr>
-                                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-600 uppercase">Monthly SIP</th>
-                                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-600 uppercase">Duration</th>
-                                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-600 uppercase">Return (12%)</th>
-                                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-600 uppercase">Final Value</th>
-                                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-600 uppercase">Real Value (at 6% Inflation)</th>
+                            <table class="min-w-full text-xs text-left">
+                                <thead>
+                                    <tr class="border-b border-gray-300">
+                                        <th class="py-2 px-2 font-semibold">Monthly SIP</th>
+                                        <th class="py-2 px-2 font-semibold">Duration</th>
+                                        <th class="py-2 px-2 font-semibold">Return (12%)</th>
+                                        <th class="py-2 px-2 font-semibold">Inflation (6%)</th>
+                                        <th class="py-2 px-2 font-semibold text-green-600">Final Value</th>
+                                        <th class="py-2 px-2 font-semibold text-red-600">Real Value</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="text-sm text-gray-700">
-                                        <td class="px-3 py-2 font-medium">₹5,000</td>
-                                        <td class="px-3 py-2">10 years</td>
-                                        <td class="px-3 py-2">12%</td>
-                                        <td class="px-3 py-2 font-semibold text-gray-900">₹11.6 lakh</td>
-                                        <td class="px-3 py-2 font-semibold text-red-600">₹6.5 lakh</td>
+                                <tbody>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-2 px-2">₹5,000</td>
+                                        <td class="py-2 px-2">10 years</td>
+                                        <td class="py-2 px-2">12%</td>
+                                        <td class="py-2 px-2">6%</td>
+                                        <td class="py-2 px-2 font-semibold text-green-600">₹11.6 Lakh</td>
+                                        <td class="py-2 px-2 font-semibold text-red-600">₹6.5 Lakh</td>
                                     </tr>
-                                    <tr class="text-sm text-gray-700">
-                                        <td class="px-3 py-2 font-medium">₹10,000</td>
-                                        <td class="px-3 py-2">15 years</td>
-                                        <td class="px-3 py-2">12%</td>
-                                        <td class="px-3 py-2 font-semibold text-gray-900">₹50.4 lakh</td>
-                                        <td class="px-3 py-2 font-semibold text-red-600">₹21.0 lakh</td>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-2 px-2">₹10,000</td>
+                                        <td class="py-2 px-2">15 years</td>
+                                        <td class="py-2 px-2">12%</td>
+                                        <td class="py-2 px-2">6%</td>
+                                        <td class="py-2 px-2 font-semibold text-green-600">₹50.4 Lakh</td>
+                                        <td class="py-2 px-2 font-semibold text-red-600">₹21.0 Lakh</td>
                                     </tr>
-                                    <tr class="text-sm text-gray-700">
-                                        <td class="px-3 py-2 font-medium">₹10,000</td>
-                                        <td class="px-3 py-2">20 years</td>
-                                        <td class="px-3 py-2">12%</td>
-                                        <td class="px-3 py-2 font-semibold text-gray-900">₹99.9 lakh</td>
-                                        <td class="px-3 py-2 font-semibold text-red-600">₹31.1 lakh</td>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-2 px-2">₹15,000</td>
+                                        <td class="py-2 px-2">20 years</td>
+                                        <td class="py-2 px-2">12%</td>
+                                        <td class="py-2 px-2">6%</td>
+                                        <td class="py-2 px-2 font-semibold text-green-600">₹1.5 Crore</td>
+                                        <td class="py-2 px-2 font-semibold text-red-600">₹46.7 Lakh</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-2">₹20,000</td>
+                                        <td class="py-2 px-2">25 years</td>
+                                        <td class="py-2 px-2">12%</td>
+                                        <td class="py-2 px-2">6%</td>
+                                        <td class="py-2 px-2 font-semibold text-green-600">₹3.79 Crore</td>
+                                        <td class="py-2 px-2 font-semibold text-red-600">₹88.4 Lakh</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -524,113 +517,116 @@
                     </div>
                 </div>
 
-                <!-- 10. FAQ Section (Accordion) -->
-                <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">10</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">Frequently Asked Questions (FAQ)</h2>
-                        </div>
+                <!-- 10. FAQ Section -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">10</span>
+                        <h2 class="text-xl font-bold text-gray-900">Frequently Asked Questions</h2>
                     </div>
-                    <div class="mt-2 border border-gray-200 rounded-lg bg-gray-50">
+                    
+                    <!-- Accordion Group -->
+                    <div class="mt-3 w-full max-w-4xl mx-auto border border-gray-200 rounded-lg overflow-hidden">
                         
                         <!-- FAQ 1 -->
-                        <div class="">
-                            <button class="faq-toggle flex justify-between items-center w-full p-3 text-left">
-                                <div class="flex items-center space-x-3">
-                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">1</div>
+                        <div>
+                            <button class="faq-toggle w-full flex justify-between items-center text-left p-3 bg-gray-50 hover:bg-gray-100 transition-colors duration-200" aria-expanded="false" aria-controls="faq-answer-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 font-bold text-xs flex items-center justify-center">1</span>
                                     <h3 class="text-base font-semibold text-gray-800">How much SIP is needed to get ₹1 crore in 20 years?</h3>
                                 </div>
-                                <svg class="faq-icon w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                                <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform duration-200" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
                             </button>
-                            <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-white">
-                                <p class="text-sm leading-normal text-gray-700 p-3 pt-0 ml-9 border-t border-gray-200">
-                                    Assuming a 12% annual return, you would need to invest approximately <strong class="text-red-600">₹10,000 per month</strong>. However, if inflation is 6%, that ₹1 crore will only have the purchasing power of about <strong class="text-red-600">₹31 lakh</strong> in today's money. To get a *real value* of ₹1 crore, you'd need to aim for a future corpus of over ₹3.2 crore, requiring a much higher SIP. We recommend using a SIP calculator with inflation to find your true target.
+                            <div id="faq-answer-1" class="faq-answer p-3 pt-0" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;">
+                                <p class="text-sm leading-normal text-gray-700 pl-7 pt-2">
+                                    To get a <strong class="text-red-600">nominal value</strong> of ₹1 crore in 20 years (at 12% return), you need to invest approx. <strong class="text-red-600">₹10,000/month</strong>.
+                                    <br>
+                                    However, to get the <strong class="text-red-600">real value</strong> (purchasing power) of ₹1 crore, you'd need a final corpus of ₹3.2 Crores, which requires a SIP of <strong class="text-red-600">₹32,200/month</strong> or a <strong class="text-red-600">step-up SIP starting at ₹13,500</strong>.
                                 </p>
                             </div>
                         </div>
 
                         <!-- FAQ 2 -->
                         <div class="border-t border-gray-200">
-                            <button class="faq-toggle flex justify-between items-center w-full p-3 text-left">
-                                <div class="flex items-center space-x-3">
-                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">2</div>
+                            <button class="faq-toggle w-full flex justify-between items-center text-left p-3 bg-gray-50 hover:bg-gray-100 transition-colors duration-200" aria-expanded="false" aria-controls="faq-answer-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 font-bold text-xs flex items-center justify-center">2</span>
                                     <h3 class="text-base font-semibold text-gray-800">What is the best SIP return calculator?</h3>
                                 </div>
-                                <svg class="faq-icon w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                                <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform duration-200" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
                             </button>
-                            <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-white">
-                                <p class="text-sm leading-normal text-gray-700 p-3 pt-0 ml-9 border-t border-gray-200">
-                                    The best SIP return calculator is one that includes adjustments for both <strong class="text-red-600">inflation</strong> and a <strong class="text-red-600">step-up</strong> (annual increase). A simple calculator might show you a large future value, but it doesn't show you the 'real value' or purchasing power of that money, which is the most important factor for long-term-planning.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- FAQ 3 -->
-                        <div class="border-t border-gray-200">
-                            <button class="faq-toggle flex justify-between items-center w-full p-3 text-left">
-                                <div class="flex items-center space-x-3">
-                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">3</div>
-                                    <h3 class="text-base font-semibold text-gray-800">Does inflation affect SIP returns?</h3>
-                                </div>
-                                <svg class="faq-icon w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                            </button>
-                            <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-white">
-                                <p class="text-sm leading-normal text-gray-700 p-3 pt-0 ml-9 border-t border-gray-200">
-                                    Yes. Inflation <strong class="text-red-600">reduces the real value</strong> of your returns. If your SIP earns 12% in a year but inflation is 6%, your <strong class="text-red-600">'real return'</strong> (your actual increase in purchasing power) is only about 6%. Ignoring inflation is one of the biggest mistakes investors make.
+                            <div id="faq-answer-2" class="faq-answer p-3 pt-0" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;">
+                                <p class="text-sm leading-normal text-gray-700 pl-7 pt-2">
+                                    The best SIP calculator is one like ours that includes <strong class="text-red-600">inflation</strong> and <strong class="text-red-600">step-up</strong> options. A simple calculator only shows your nominal return, which is misleading. A calculator with inflation shows the <strong class="text-red-600">"Real Value"</strong> of your money, which is essential for accurate goal planning.
                                 </p>
                             </div>
                         </div>
                         
+                        <!-- FAQ 3 -->
+                        <div class="border-t border-gray-200">
+                            <button class="faq-toggle w-full flex justify-between items-center text-left p-3 bg-gray-50 hover:bg-gray-100 transition-colors duration-200" aria-expanded="false" aria-controls="faq-answer-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 font-bold text-xs flex items-center justify-center">3</span>
+                                    <h3 class="text-base font-semibold text-gray-800">Does inflation affect SIP returns?</h3>
+                                </div>
+                                <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform duration-200" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+                            </button>
+                            <div id="faq-answer-3" class="faq-answer p-3 pt-0" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;">
+                                <p class="text-sm leading-normal text-gray-700 pl-7 pt-2">
+                                    Yes. Inflation doesn't change your fund's return (e.g., 12%), but it <strong class="text-red-600">erodes the purchasing power</strong> of that return. If your SIP earns 12% and inflation is 6%, your <strong class="text-red-600">Real Return</strong> (your actual growth in wealth) is only about 6%.
+                                </p>
+                            </div>
+                        </div>
+
                         <!-- FAQ 4 -->
                         <div class="border-t border-gray-200">
-                            <button class="faq-toggle flex justify-between items-center w-full p-3 text-left">
-                                <div class="flex items-center space-x-3">
-                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">4</div>
+                            <button class="faq-toggle w-full flex justify-between items-center text-left p-3 bg-gray-50 hover:bg-gray-100 transition-colors duration-200" aria-expanded="false" aria-controls="faq-answer-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 font-bold text-xs flex items-center justify-center">4</span>
                                     <h3 class="text-base font-semibold text-gray-800">Is SIP better than lump sum?</h3>
                                 </div>
-                                <svg class="faq-icon w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                                <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform duration-200" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
                             </button>
-                            <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-white">
-                                <p class="text-sm leading-normal text-gray-700 p-3 pt-0 ml-9 border-t border-gray-200">
-                                    For most investors, SIP is considered a better and safer approach. It removes the stress of trying to <strong class="text-red-600">'time the market'</strong> and benefits from 'rupee cost averaging' (buying more units when prices are low and fewer when high). A lump sum can be effective if you invest at the bottom of a market, but it's very high-risk.
+                            <div id="faq-answer-4" class="faq-answer p-3 pt-0" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;">
+                                <p class="text-sm leading-normal text-gray-700 pl-7 pt-2">
+                                    For most investors, <strong class="text-red-600">yes</strong>. SIPs build discipline, are lighter on the pocket, and use Rupee Cost Averaging to reduce risk. A lump sum requires a large amount of cash and the stress of "timing the market," which is very difficult to do correctly.
                                 </p>
                             </div>
                         </div>
 
                         <!-- FAQ 5 -->
                         <div class="border-t border-gray-200">
-                            <button class="faq-toggle flex justify-between items-center w-full p-3 text-left">
-                                <div class="flex items-center space-x-3">
-                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">5</div>
+                            <button class="faq-toggle w-full flex justify-between items-center text-left p-3 bg-gray-50 hover:bg-gray-100 transition-colors duration-200" aria-expanded="false" aria-controls="faq-answer-5">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 font-bold text-xs flex items-center justify-center">5</span>
                                     <h3 class="text-base font-semibold text-gray-800">How can I increase my SIP amount annually?</h3>
                                 </div>
-                                <svg class="faq-icon w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                                <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform duration-200" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
                             </button>
-                            <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-white">
-                                <p class="text-sm leading-normal text-gray-700 p-3 pt-0 ml-9 border-t border-gray-200">
-                                    Most mutual fund platforms and AMCs offer a <strong class="text-red-600">'Step-Up'</strong> or 'Top-Up' SIP feature. This allows you to automatically increase your monthly SIP amount by a fixed amount (e.g., ₹500) or a percentage (e.g., 10%) every year. This is a powerful strategy to align your investments with your salary growth and reach your goals much faster.
+                            <div id="faq-answer-5" class="faq-answer p-3 pt-0" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;">
+                                <p class="text-sm leading-normal text-gray-700 pl-7 pt-2">
+                                    Use the <strong class="text-red-600">"Step-Up"</strong> feature (also called an "annual increase") on your mutual fund platform. You can set it to automatically increase your SIP by a percentage (like 10%) or a fixed amount (like ₹1,000) each year. It's the best way to align your investments with your salary growth.
                                 </p>
                             </div>
                         </div>
 
-                    </div>
+                    </div> <!-- End Accordion Group -->
                 </div>
 
-                <!-- 11. Conclusion & Final CTA -->
-                <div class="bg-red-50 shadow-md rounded-lg p-4 border-l-4 border-red-500 text-center">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">11</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">Your First Step to <strong class="text-red-600">Real</strong> Wealth</h2>
-                        </div>
+                <!-- 11. Conclusion -->
+                <div class="p-4 rounded-lg bg-white border-l-4 border-red-500 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-600 font-bold text-lg flex items-center justify-center">11</span>
+                        <h2 class="text-xl font-bold text-gray-900">Conclusion: Your Next Step</h2>
                     </div>
-                    <p class="text-sm leading-normal text-gray-700 mt-2">
-                        Planning for ₹1 crore is a great goal. Planning for its <strong class="text-red-600">real value</strong> is a winning strategy. Before you start your next SIP, check the real value of your future money.
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        Planning for ₹1 Crore is a great goal, but planning for its <strong class="text-red-600">real value</strong> is the only way to guarantee your financial security.
                     </p>
-                    <div class="mt-3">
-                        <a href="/#calculator-section" class="inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-2 px-4 text-sm rounded-lg shadow-md transition-transform transform hover:scale-105">
-                            Use our SIP Calculator with Inflation & Step-Up now!
+                    <p class="mt-2 text-sm leading-normal text-gray-700">
+                        Don't just guess. Before you start your next SIP, check the real value of your future money.
+                    </p>
+                    <div class="mt-3 text-center">
+                        <a href="/#calculator-section" class="inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition-transform transform hover:scale-105 text-sm">
+                            Use our SIP Calculator with <strong class="text-white">Inflation & Step-Up</strong> Now!
                         </a>
                     </div>
                 </div>
@@ -639,22 +635,8 @@
         </div>
     </main>
 
-    <!-- Footer (Copied from index.html) -->
-    <footer class="bg-white border-t border-gray-200 py-2 mt-6">
-        <div class="w-full max-w-5xl mx-auto px-4 text-center">
-             <p class="text-xs text-gray-700">
-                &copy; <span id="copyright-year">2025</span> SipCalculatorWithInflation.toolblaster.com
-             </p>
-             <div class="border-t border-gray-200 my-1 max-w-xs mx-auto"></div>
-             <p class="text-xs text-gray-700">
-                A proud part of the <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> Network by <strong>Vikas Rana</strong>
-             </p>
-             <div class="border-t border-gray-200 my-1 max-w-xs mx-auto"></div>
-             <p class="text-xs text-gray-600 italic">
-                As an affiliate, we may earn from qualifying purchases.
-             </p>
-        </div>
-    </footer>
+    <!-- NEW: Footer Placeholder -->
+    <div id="footer-placeholder"></div>
 
     <!-- Script for FAQ Accordion (Close others when one opens) -->
     <script>
@@ -663,34 +645,40 @@
             
             allToggles.forEach(button => {
                 button.addEventListener('click', () => {
-                    const answer = button.nextElementSibling;
+                    const answer = document.getElementById(button.getAttribute('aria-controls'));
                     const icon = button.querySelector('.faq-icon');
-                    const isOpening = !answer.style.maxHeight;
+                    const isOpening = button.getAttribute('aria-expanded') === 'false';
 
-                    // Close all other answers
+                    // Close all other FAQs
                     allToggles.forEach(otherButton => {
                         if (otherButton !== button) {
-                            otherButton.nextElementSibling.style.maxHeight = null;
-                            otherButton.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                            const otherAnswer = document.getElementById(otherButton.getAttribute('aria-controls'));
+                            const otherIcon = otherButton.querySelector('.faq-icon');
+                            
+                            otherButton.setAttribute('aria-expanded', 'false');
+                            otherAnswer.style.maxHeight = '0';
+                            if (otherIcon) {
+                                otherIcon.style.transform = 'rotate(0deg)';
+                            }
                         }
                     });
 
                     // Open/close the clicked one
                     if (isOpening) {
+                        button.setAttribute('aria-expanded', 'true');
                         answer.style.maxHeight = answer.scrollHeight + 'px';
-                        icon.style.transform = 'rotate(180deg)';
+                        if (icon) {
+                            icon.style.transform = 'rotate(180deg)';
+                        }
                     } else {
-                        answer.style.maxHeight = null;
-                        icon.style.transform = 'rotate(0deg)';
+                        button.setAttribute('aria-expanded', 'false');
+                        answer.style.maxHeight = '0';
+                        if (icon) {
+                            icon.style.transform = 'rotate(0deg)';
+                        }
                     }
                 });
             });
-
-            // Set copyright year
-            const yearElem = document.getElementById('copyright-year');
-            if (yearElem) {
-                yearElem.textContent = new Date().getFullYear();
-            }
         });
     </script>
 
