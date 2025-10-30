@@ -53,7 +53,12 @@
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
-        "ratingCount": "128"
+        "ratingCount": "128",
+        // FIX: Added itemReviewed to resolve 'Invalid object type' validation error.
+        "itemReviewed": {
+          "@type": "SoftwareApplication",
+          "name": "SIP Calculator with Inflation and Step Up"
+        }
       },
       "offers": {
         "@type": "Offer",
@@ -61,7 +66,8 @@
         "priceCurrency": "INR"
       },
       "description": "A free online tool to calculate the future value of SIP (Systematic Investment Plan) investments, adjusted for inflation to show the real returns. Includes step-up functionality.",
-      "url": "https://SipCalculatorWithInflation.toolblaster.com"
+      "url": "https://SipCalculatorWithInflation.toolblaster.com",
+      "usageInfo": "https://SipCalculatorWithInflation.toolblaster.com/how-much-sip-for-1-crore-with-inflation.html" // Re-added this beneficial property
     }
     </script>
 
@@ -72,7 +78,8 @@
       "@type": "MathSolver",
       "name": "SIP Investment Calculator",
       "description": "Calculates the future value of a Systematic Investment Plan (SIP) considering annual step-up and inflation. Solves for future value based on inputs.",
-      "mathExpression": "FV = P * [((1 + i)^n - 1) / i] * (1 + i)",
+      // Using MathJax syntax for the formula
+      "mathExpression": "FV = P \\times \\frac{((1 + i)^n - 1)}{i} \\times (1 + i)",
       "url": "https://SipCalculatorWithInflation.toolblaster.com/",
       "inLanguage": "en"
     }
