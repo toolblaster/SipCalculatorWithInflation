@@ -183,6 +183,18 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        /* ADDED: Logo glow animation */
+        .logo-icon {
+            animation: glow 2.5s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 3px rgba(227, 64, 55, 0.4));
+            }
+            to {
+                filter: drop-shadow(0 0 10px rgba(227, 64, 55, 0.8));
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
