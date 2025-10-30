@@ -61,13 +61,7 @@
         main {
             flex-grow: 1;
         }
-        .content-wrapper {
-            width: 100%;
-            max-width: 1000px; /* UPDATED from 900px */
-            margin: 1rem auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
+        /* UPDATED: Replaced .content-wrapper with Tailwind */
          /* UPDATED: Copied heading container style from index.html */
         .heading-container {
             border-radius: 0.5rem;
@@ -128,8 +122,8 @@
 
     <!-- UPDATED: Changed shadow-sm to shadow-lg -->
     <header id="main-header" class="bg-white border-b border-gray-200 shadow-lg w-full z-50">
-        <!-- UPDATED: Max-width consistency -->
-        <div class="w-full max-w-[1000px] mx-auto px-4">
+        <!-- UPDATED: Changed max-width to max-w-5xl -->
+        <div class="w-full max-w-5xl mx-auto px-4">
              <!-- UPDATED: Changed justify-center to justify-between and added link -->
              <div class="flex items-center justify-between py-2">
                 <!-- UPDATED: Reduced space-x-2 to space-x-1.5 -->
@@ -146,15 +140,22 @@
                         <div class="h-px w-1/2 bg-red-500 mt-0.5"></div>
                     </div>
                 </a>
-                <!-- Link points to self, which is fine -->
-                <a href="contact-us-and-legal.html" class="text-xs font-semibold text-red-600 hover:text-red-800 hover:underline transition-colors">
-                    Contact & Legal
-                </a>
+                <!-- NEW: Added Menu Links -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <a href="how-much-sip-for-1-crore-with-inflation.html" class="text-xs font-semibold text-gray-600 hover:text-red-600 hover:underline transition-colors">
+                        SIP Guide to ₹1 Crore SIP Plan
+                    </a>
+                    <!-- This page is active -->
+                    <a href="contact-us-and-legal.html" class="text-xs font-semibold text-red-600 underline pointer-events-none">
+                        Contact & Legal
+                    </a>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="content-wrapper">
+    <!-- UPDATED: Changed max-width to max-w-5xl -->
+    <main class="w-full max-w-5xl mx-auto my-6 px-4">
         <div class="space-y-4">
              <!-- UPDATED: Applied heading-container style, changed h1 color -->
              <div class="heading-container text-center p-2 mb-4">
@@ -260,8 +261,9 @@
         </div>
     </main>
 
+    <!-- UPDATED: Changed max-width to max-w-5xl -->
     <footer class="bg-white border-t border-gray-200 py-2">
-        <div class="w-full max-w-[1000px] mx-auto px-4 text-center"> <!-- Changed max-w -->
+        <div class="w-full max-w-5xl mx-auto px-4 text-center">
              <!-- UPDATED: Added affiliate disclaimer -->
              <p class="text-xs text-gray-700">
                 &copy; <span id="copyright-year">2025</span> SipCalculatorWithInflation.toolblaster.com
