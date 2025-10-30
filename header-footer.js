@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (headerPlaceholder) {
         headerPlaceholder.innerHTML = getHeaderHTML(currentPath);
-        setupMobileMenu(); // Setup the new mobile menu logic
+        // Attach click listener for the mobile menu toggle after the HTML is added to the DOM
+        attachMobileMenuListener();
     }
 
     if (footerPlaceholder) {
@@ -19,52 +20,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Sets up the event listeners for the mobile menu toggle, using max-height
- * for a smooth CSS transition effect.
+ * Attaches the necessary event listeners for the mobile menu.
  */
-function setupMobileMenu() {
-    const toggleButton = document.getElementById('menu-toggle');
+function attachMobileMenuListener() {
+    const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('mobile-nav-menu');
+    const menuIcon = document.getElementById('menu-icon'); // NEW: Get the icon element
 
-    if (toggleButton && navMenu) {
-        // Initialize menu state (set max-height to 0 to keep it closed and hidden)
-        navMenu.style.maxHeight = '0';
+    if (menuToggle && navMenu && menuIcon) {
+        menuToggle.addEventListener('click', () => {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            
+            // Toggle aria attribute
+            menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+            
+            // Toggle Icon Rotation (NEW)
+            menuIcon.classList.toggle('rotate-90', !isExpanded);
 
-        // Add event listener for the menu button
-        toggleButton.addEventListener('click', () => {
-            const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
-            
-            toggleButton.setAttribute('aria-expanded', String(!isExpanded));
-            
             if (!isExpanded) {
-                // OPENING: Set max-height to scrollHeight to trigger slide-down animation
-                navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
+                // Open menu: remove hidden, calculate scrollHeight, then apply max-height
+                navMenu.classList.remove('hidden');
+                // Use a short delay to ensure display: block is processed before transition
+                setTimeout(() => {
+                    navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
+                }, 10);
             } else {
-                // CLOSING: Set max-height back to 0 to trigger slide-up animation
+                // Close menu: set max-height to 0, then add hidden after transition
                 navMenu.style.maxHeight = '0';
-            }
-        });
-
-        // Close menu if a link is clicked (e.g., navigating to a new page or section)
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                toggleButton.setAttribute('aria-expanded', 'false');
-                navMenu.style.maxHeight = '0';
-            });
-        });
-
-        // Adjust max-height on window resize if the menu is open, preventing overflow issues.
-        window.addEventListener('resize', () => {
-             // Only run if screen size suggests mobile (< sm is 640px)
-             if (window.innerWidth < 640 && toggleButton.getAttribute('aria-expanded') === 'true') {
-                navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
-            } else if (window.innerWidth >= 640) {
-                 // Ensure desktop mode never has max-height restriction
-                navMenu.style.maxHeight = null;
+                navMenu.addEventListener('transitionend', function handler() {
+                    if (navMenu.style.maxHeight === '0px') {
+                        navMenu.classList.add('hidden');
+                    }
+                    navMenu.removeEventListener('transitionend', handler);
+                });
             }
         });
     }
 }
+
 
 /**
  * Gets the active class for a nav link based on the current path.
@@ -78,11 +71,9 @@ function getLinkClass(pagePath, currentPath) {
     const normalizedPagePath = (pagePath === '/' || pagePath === '/index.html') ? '/' : pagePath;
 
     if (normalizedPath === normalizedPagePath) {
-        // Mobile Active Style: Larger text and strong red highlight
-        return 'text-base font-bold text-red-700 pointer-events-none bg-red-100/50'; 
+        return 'font-bold text-red-600'; // Removed underline for mobile focus state
     }
-    // Mobile Inactive Style
-    return 'text-base font-semibold text-gray-700 hover:text-red-600 hover:bg-gray-100 transition-colors'; 
+    return 'font-medium text-gray-700 hover:text-red-600 transition-colors'; // Removed underline for cleaner look
 }
 
 /**
@@ -104,69 +95,71 @@ function getAriaCurrent(pagePath, currentPath) {
  * @returns {string} - The header HTML.
  */
 function getHeaderHTML(currentPath) {
-    // Define the desktop link classes for clarity
-    const desktopLinkBase = 'text-xs font-semibold text-gray-600 hover:text-red-600 hover:underline transition-colors';
-    const desktopLinkActive = 'text-xs font-semibold text-red-600 underline pointer-events-none';
-    
-    // Helper to select desktop class
-    const getDesktopLinkClass = (pagePath) => {
-        const normalizedPath = (currentPath === '/' || currentPath === '/index.html') ? '/' : currentPath;
-        const normalizedPagePath = (pagePath === '/' || pagePath === '/index.html') ? '/' : pagePath;
-        return (normalizedPath === normalizedPagePath) ? desktopLinkActive : desktopLinkBase;
-    };
-    
+    // Define shared link classes for desktop and mobile menu
+    const desktopLinkClasses = (path) => `hidden sm:block text-xs ${getLinkClass(path, currentPath)} hover:underline`; // Re-added underline for desktop hover
+    // UPDATED mobileLinkClasses for left alignment, padding, and hover/active effects
+    const mobileLinkClasses = (path) => `block w-full py-2 px-6 text-sm text-left border-b border-gray-100 last:border-b-0 hover:bg-red-50 transition-colors ${getLinkClass(path, currentPath)}`;
+
 
     return `
     <header id="main-header" class="bg-white border-b border-gray-200 shadow-lg w-full z-50">
         <div class="w-full max-w-5xl mx-auto px-4">
              <div class="flex items-center justify-between py-2">
-                <a href="/" class="flex items-center space-x-1.5 min-w-0 hover:opacity-80 transition-opacity" aria-label="SipCalculatorWithInflation Homepage">
-                    <!-- UPDATED SVG: New icon representing growth and coin/investment. Added logo-icon class for animation. -->
+                <!-- Logo and Name -->
+                <a href="/" class="flex items-center space-x-2 min-w-0 hover:opacity-90 transition-opacity" aria-label="SipCalculatorWithInflation Homepage">
+                    <!-- New SIP Growth Coin Icon -->
                     <svg class="w-5 h-5 md:w-6 md:h-6 text-red-600 flex-shrink-0 logo-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div class="flex flex-col min-w-0">
-                        <span class="text-base md:text-lg font-bold text-gray-800 truncate">
-                            SipCalculator<span class="text-sm md:text-base font-semibold text-red-600">WithInflation</span>
+                        <!-- Improved Logo Text -->
+                        <span class="text-base md:text-lg font-extrabold text-gray-900 leading-tight truncate">
+                            SIP Calculator
                         </span>
-                        <div class="h-px w-1/2 bg-red-500 mt-0.5"></div>
+                        <span class="text-xs md:text-sm font-semibold text-red-600 leading-none -mt-0.5 md:-mt-1">
+                            w/ Inflation & Step Up
+                        </span>
                     </div>
                 </a>
-                
-                <!-- Desktop Menu Links (Visible on sm and up) -->
-                <div class="hidden sm:flex items-center space-x-3 sm:space-x-4">
-                    <a href="/" class="${getDesktopLinkClass('/')}" ${getAriaCurrent('/', currentPath)}>
-                        SIP Calculator
+
+                <!-- Desktop Menu Links -->
+                <nav class="flex items-center space-x-3 sm:space-x-4">
+                    <a href="/" class="${desktopLinkClasses('/', currentPath)}" ${getAriaCurrent('/', currentPath)}>
+                        Calculator
                     </a>
-                    <a href="how-much-sip-for-1-crore-with-inflation.html" class="${getDesktopLinkClass('/how-much-sip-for-1-crore-with-inflation.html')}" ${getAriaCurrent('/how-much-sip-for-1-crore-with-inflation.html', currentPath)}>
+                    <a href="how-much-sip-for-1-crore-with-inflation.html" class="${desktopLinkClasses('/how-much-sip-for-1-crore-with-inflation.html', currentPath)}" ${getAriaCurrent('/how-much-sip-for-1-crore-with-inflation.html', currentPath)}>
                         SIP Guide to ₹1 Crore
                     </a>
-                    <a href="contact-us-and-legal.html" class="${getDesktopLinkClass('/contact-us-and-legal.html')}" ${getAriaCurrent('/contact-us-and-legal.html', currentPath)}>
+                    <a href="contact-us-and-legal.html" class="${desktopLinkClasses('/contact-us-and-legal.html', currentPath)}" ${getAriaCurrent('/contact-us-and-legal.html', currentPath)}>
                         Contact & Legal
                     </a>
-                </div>
-
-                <!-- Mobile Menu Button (Visible below sm) -->
-                <button id="menu-toggle" class="sm:hidden p-1.5 rounded-md text-gray-600 hover:text-red-600 hover:bg-gray-100 transition-colors" aria-expanded="false" aria-controls="mobile-nav-menu">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
+                    
+                    <!-- Mobile Menu Toggle Button (with smooth rotation) -->
+                    <button id="menu-toggle" class="sm:hidden p-1.5 text-gray-700 hover:text-red-600 rounded-lg hover:bg-gray-100 transition-colors duration-300" aria-controls="mobile-nav-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+                         <svg id="menu-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </nav>
             </div>
         </div>
-
-        <!-- Mobile Menu (Controlled by JS max-height for smooth dropdown) -->
-        <div id="mobile-nav-menu" class="sm:hidden bg-gray-50 border-t border-gray-200 overflow-hidden transition-all duration-300 ease-in-out">
-            <div class="flex flex-col space-y-0.5 px-4 py-2">
-                <a href="/" class="${getLinkClass('/', currentPath)} p-2 rounded-lg" ${getAriaCurrent('/', currentPath)}>
+        
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-nav-menu" class="hidden sm:hidden w-full overflow-hidden transition-all duration-300 ease-in-out border-t border-gray-200" style="max-height: 0;">
+            <div class="flex flex-col items-center py-0.5"> <!-- Adjusted vertical padding for links below to handle it -->
+                <!-- UPDATED: Links now use left alignment and hover background -->
+                <a href="/" class="${mobileLinkClasses('/', currentPath)}">
                     SIP Calculator
                 </a>
-                <a href="how-much-sip-for-1-crore-with-inflation.html" class="${getLinkClass('/how-much-sip-for-1-crore-with-inflation.html', currentPath)} p-2 rounded-lg" ${getAriaCurrent('/how-much-sip-for-1-crore-with-inflation.html', currentPath)}>
-                    SIP Guide to ₹1 Crore
+                <a href="how-much-sip-for-1-crore-with-inflation.html" class="${mobileLinkClasses('/how-much-sip-for-1-crore-with-inflation.html', currentPath)}">
+                    ₹1 Crore Guide
                 </a>
-                <a href="contact-us-and-legal.html" class="${getLinkClass('/contact-us-and-legal.html', currentPath)} p-2 rounded-lg" ${getAriaCurrent('/contact-us-and-legal.html', currentPath)}>
+                <a href="contact-us-and-legal.html" class="${mobileLinkClasses('/contact-us-and-legal.html', currentPath)}">
                     Contact & Legal
                 </a>
             </div>
         </div>
+
     </header>
     `;
 }
