@@ -113,10 +113,12 @@ function getHeaderHTML(currentPath) {
                     </svg>
                     <div class="flex flex-col min-w-0">
                         <!-- Improved Logo Text -->
-                        <span class="text-base md:text-lg font-extrabold text-gray-900 leading-tight truncate">
+                        <!-- USER EDIT: Increased size of 'SIP Calculator' for more contrast -->
+                        <span class="text-lg md:text-xl font-extrabold text-gray-900 leading-tight truncate">
                             SIP Calculator
                         </span>
-                        <span class="text-xs md:text-sm font-semibold text-red-600 leading-none -mt-0.5 md:-mt-1">
+                        <!-- USER EDIT: Made subtext smaller for more contrast and apply to all screens -->
+                        <span class="text-[10px] font-semibold text-red-600 leading-none -mt-0.5 md:-mt-1">
                             w/ Inflation & Step Up
                         </span>
                     </div>
