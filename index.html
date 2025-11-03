@@ -421,6 +421,17 @@
             }
         }
         /* REMOVED: Goal card aurora effect */
+
+        /* --- USER EDIT: Added sticky table header --- */
+        #growth-table-container .md\:table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            /* Tailwind's bg-gray-50 is #f9fafb. This ensures the header is opaque. */
+            background-color: #f9fafb; 
+        }
+        /* --- END USER EDIT --- */
+
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -452,12 +463,12 @@
             <div class="text-center">
                 <!-- TWEAK: Reduced padding from p-2 to p-1.5 -->
                 <div class="heading-container p-1.5">
-                     <!-- UPDATED: Removed icon, wrapper div changed back to inline-block -->
-                    <div class="heading-text-wrapper inline-block">
-                        <!-- h2 for semantic SEO -->
-                        <!-- UPDATED: Changed text color to dark gray, adjusted font size -->
-                        <h2 class="text-lg md:text-xl lg:text-[20px] font-extrabold text-gray-900">SIP Calculator with Inflation</h2>
-                    </div>
+                     <!-- UPDATED: Removed wrapper div -->
+                    <!-- h2 for semantic SEO -->
+                    <!-- UPDATED: Removed icon and associated flex classes -->
+                    <h2 class="text-lg md:text-xl lg:text-[20px] font-extrabold text-gray-900">
+                        SIP Calculator with Inflation
+                    </h2>
                     <p class="mt-1 text-xs text-gray-800 font-medium">Plan your SIP investments for a secure financial future.</p>
                 </div>
             </div>
@@ -482,8 +493,8 @@
                                 <button class="stepper-btn" data-input="sip-amount-input" data-action="increase" aria-label="Increase SIP amount" type="button">+</button>
                             </div>
                         </div>
-                        <!-- TWEAK: Reduced mt-1 to mt-0.5 -->
-                        <div class="flex justify-between text-xxs text-gray-500 mt-0.5">
+                        <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                        <div class="flex justify-between text-xxs text-gray-600 mt-0.5">
                             <span>Min: ₹500</span>
                             <span>Max: ₹1,00,000</span>
                         </div>
@@ -509,8 +520,8 @@
                                 <button class="stepper-btn" data-input="sip-increase-rate-input" data-action="increase" aria-label="Increase step-up rate" type="button">+</button>
                             </div>
                         </div>
-                        <!-- TWEAK: Reduced mt-1 to mt-0.5 -->
-                        <div id="step-up-rate-range" class="hidden flex justify-between text-xxs text-gray-500 mt-0.5">
+                        <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                        <div id="step-up-rate-range" class="hidden flex justify-between text-xxs text-gray-600 mt-0.5">
                             <span>Min: 0%</span>
                             <span>Max: 20%</span>
                         </div>
@@ -524,8 +535,8 @@
                                 <button class="stepper-btn" data-input="sip-increase-amount-input" data-action="increase" aria-label="Increase step-up amount" type="button">+</button>
                              </div>
                         </div>
-                        <!-- TWEAK: Reduced mt-1 to mt-0.5 -->
-                        <div id="step-up-amount-range" class="flex justify-between text-xxs text-gray-500 mt-0.5">
+                        <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                        <div id="step-up-amount-range" class="flex justify-between text-xxs text-gray-600 mt-0.5">
                             <span>Min: ₹0</span>
                             <span>Max: ₹50,000</span>
                         </div>
@@ -544,8 +555,8 @@
                                 <button class="stepper-btn" data-input="return-rate-input" data-action="increase" aria-label="Increase return rate" type="button">+</button>
                             </div>
                         </div>
-                        <!-- TWEAK: Reduced mt-1 to mt-0.5 -->
-                        <div class="flex justify-between text-xxs text-gray-500 mt-0.5">
+                        <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                        <div class="flex justify-between text-xxs text-gray-600 mt-0.5">
                             <span>Min: 1%</span>
                             <span>Max: 30%</span>
                         </div>
@@ -564,8 +575,8 @@
                                 <button class="stepper-btn" data-input="investment-period-input" data-action="increase" aria-label="Increase investment period" type="button">+</button>
                             </div>
                         </div>
-                        <!-- TWEAK: Reduced mt-1 to mt-0.5 -->
-                        <div class="flex justify-between text-xxs text-gray-500 mt-0.5">
+                        <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                        <div class="flex justify-between text-xxs text-gray-600 mt-0.5">
                             <span>Min: 1 Yr</span>
                             <span>Max: 40 Yrs</span>
                         </div>
@@ -593,8 +604,8 @@
                                     <button class="stepper-btn" data-input="inflation-rate-input" data-action="increase" aria-label="Increase inflation rate" type="button">+</button>
                                 </div>
                             </div>
-                            <!-- TWEAK: Reduced mt-1 to mt-0.5 -->
-                            <div class="flex justify-between text-xxs text-gray-500 mt-0.5">
+                            <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                            <div class="flex justify-between text-xxs text-gray-600 mt-0.5">
                                 <span>Min: 0%</span>
                                 <span>Max: 15%</span>
                             </div>
@@ -609,11 +620,18 @@
                     <!-- Visually Appealing Result Card -->
                     <!-- TWEAK: Reduced padding from p-2 to p-1.5 -->
                     <div id="standard-result-summary" class="bg-gradient-to-tr from-red-50 to-orange-50 p-1.5 rounded-lg border border-red-200 text-center flex flex-col h-full">
-                        <!-- TWEAK: Reduced mb-2 to mb-1 -->
-                        <h3 class="text-sm font-semibold text-red-800 mb-1">Your Projected Wealth</h3>
+                        <!-- TWEAK: Reduced mb-2 to mb-1. ADDED Icon -->
+                        <h3 class="text-sm font-semibold text-red-800 mb-1 flex items-center justify-center gap-1.5">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-700" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                              <path fill-rule="evenodd" d="M18 9H2v7a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm3 1a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Your Projected Wealth</span>
+                        </h3>
                         <!-- UPDATED: Reduced padding from p-2 to p-1.5 -->
                         <div class="bg-white p-1.5 rounded-lg border border-red-300 flex-grow">
-                            <p class="text-xs text-gray-500">Future Value</p>
+                            <!-- IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                            <p class="text-xs text-gray-600">Future Value</p>
                             <!-- UPDATED: Increased font size, weight, and darkness for emphasis -->
                             <p id="final-value" class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">₹0</p>
                             <!-- UPDATED: Reduced gap from gap-2 to gap-1.5 and mt-1 to mt-1.5 -->
@@ -626,7 +644,8 @@
                                             <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                         </div>
                                         <div>
-                                            <p class="text-xxs text-gray-500">Invested</p>
+                                            <!-- IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                                            <p class="text-xxs text-gray-600">Invested</p>
                                             <p id="invested-amount" class="text-xs font-bold text-red-700">₹0</p>
                                         </div>
                                     </div>
@@ -639,7 +658,8 @@
                                             <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                                         </div>
                                         <div>
-                                            <p class="text-xxs text-gray-500">Returns</p>
+                                            <!-- IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                                            <p class="text-xxs text-gray-600">Returns</p>
                                             <p id="total-returns" class="text-xs font-bold text-green-700">₹0</p>
                                         </div>
                                     </div>
@@ -653,7 +673,8 @@
                                             <svg class="w-4 h-4 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                         </div>
                                         <div>
-                                            <p class="text-xxs text-gray-500">Real Value (Today's Worth)</p>
+                                            <!-- IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
+                                            <p class="text-xxs text-gray-600">Real Value (Today's Worth)</p>
                                             <p id="real-value" class="text-xs font-bold text-purple-800">₹0</p>
                                         </div>
                                     </div>
@@ -683,7 +704,10 @@
 
              <!-- Updated table container background/border (blue) -->
             <div id="growth-table-container" class="mt-3 hidden bg-blue-50 rounded-lg shadow-md border border-blue-200 p-3">
-                <h3 class="text-center text-sm font-bold text-blue-700 mb-2">Yearly Investment Growth</h3>
+                <h3 class="text-center text-lg font-bold text-blue-700 mb-2 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"> <path d="M2 10a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75V10zM7 3a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v14.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75V3zm5-2a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v16.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75V1zm5 4a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75V5z"></path> </svg>
+                    <span>Yearly Investment Growth</span>
+                </h3>
                 <div class="max-h-80 overflow-auto">
                     <!-- Desktop Table -->
                     <table class="min-w-full divide-y divide-gray-200 hidden md:table">
@@ -708,7 +732,13 @@
 
             <!-- NEW: Line Chart Container -->
             <div id="line-chart-container" class="mt-3 hidden bg-gray-50 rounded-lg shadow-md border border-gray-200 p-3">
-                <h3 class="text-center text-sm font-bold text-gray-700 mb-2">Growth Over Time</h3>
+                <!-- ADDED Icon -->
+                <h3 class="text-center text-lg font-bold text-gray-700 mb-2 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                    </svg>
+                    <span>Growth Over Time</span>
+                </h3>
                 <div class="relative h-64 sm:h-80 w-full">
                     <canvas id="growth-line-chart"></canvas>
                 </div>
@@ -716,7 +746,7 @@
 
              <!-- TWEAK: Reduced margin from my-2 to my-1 -->
              <hr class="border-t border-gray-200 my-1">
-             <div class="text-center text-gray-500">
+             <div class="text-center text-gray-600"> <!-- IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
                 <p class="text-xs"><strong>Disclaimer:</strong> This calculator is for informational purposes only and does not constitute financial advice.</p>
                 <p class="mt-1">
                     <a href="https://www.5paisa.com/demat-account?ReferralCode=54285431&ReturnUrl=invest-open-account" target="_blank" rel="noopener noreferrer nofollow" class="inline-flex items-center text-red-600 hover:underline font-semibold text-[.7rem] sm:text-xs">
