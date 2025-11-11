@@ -102,7 +102,7 @@ function getHeaderHTML(currentPath) {
 
 
     return `
-    <header id="main-header" class="bg-white border-b border-gray-200 shadow-lg w-full z-50">
+    <header id="main-header" class="bg-gray-50 border-b border-gray-200 shadow-lg w-full z-50">
         <div class="w-full max-w-5xl mx-auto px-4">
              <div class="flex items-center justify-between py-2">
                 <!-- Logo and Name -->
@@ -172,14 +172,16 @@ function getHeaderHTML(currentPath) {
  */
 function getFooterHTML() {
     return `
-    <footer class="bg-white border-t border-gray-200 py-2 mt-6 shadow-[0_-10px_15px_-3px_rgb(0_0_0_/_0.1),_0_-4px_6px_-4px_rgb(0_0_0_/_0.1)]">
+    <footer class="bg-gradient-to-t from-red-50 to-white border-t border-gray-200 py-2 mt-6 shadow-[0_-10px_15px_-3px_rgb(0_0_0_/_0.1),_0_-4px_6px_-4px_rgb(0_0_0_/_0.1)]">
         <div class="w-full max-w-5xl mx-auto px-4 text-center">
              <p class="text-xs text-gray-700">
                 &copy; <span id="copyright-year"></span> SipCalculatorWithInflation.toolblaster.com. All rights reserved.
              </p>
              <div class="border-t border-gray-200 my-1 max-w-xs mx-auto"></div>
              <p class="text-xs text-gray-700">
-                A proud part of the <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> Network by <strong>Vikas Rana</strong>
+                A proud part of the <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> Network
+                <!-- REMOVED: heart icon -->
+                by <strong>Vikas Rana</strong>
              </p>
              <!-- REMOVED: Divider and affiliate link disclaimer -->
         </div>
