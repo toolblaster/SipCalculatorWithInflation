@@ -402,13 +402,13 @@
             border-radius: 50%;
             transition: background-color 0.2s;
         }
-        /* NEW: Larger share button style */
+        /* USER EDIT: Reduced width and height from 40px to 32px */
         .share-btn-lg {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px; /* Larger */
-            height: 40px; /* Larger */
+            width: 32px; /* Was 40px */
+            height: 32px; /* Was 40px */
             border-radius: 50%;
             transition: all 0.2s;
             transform: scale(1);
@@ -813,26 +813,33 @@
         </div>
 
         <!-- NEW: More prominent share section -->
-        <!-- UPDATED: Was max-w-sm, now full width. Added gradient, padding, and larger text/buttons -->
-        <div class="mt-4 bg-gradient-to-r from-red-50 to-blue-50 shadow-lg rounded-xl p-4 w-full border border-gray-200">
-            <p class="text-center text-base font-bold text-gray-800 mb-3">Enjoying this tool? Share it with a friend!</p>
+        <!-- USER EDIT: Reduced padding from p-4 to p-2 -->
+        <div class="mt-4 bg-gradient-to-r from-red-50 to-blue-50 shadow-lg rounded-xl p-2 w-full border border-gray-200">
+            <!-- USER EDIT: Reduced margin from mb-3 to mb-2 -->
+            <p class="text-center text-base font-bold text-gray-800 mb-2">Enjoying this tool? Share it with a friend!</p>
             <div class="flex justify-center items-center space-x-2 sm:space-x-3">
                 <!-- UPDATED: Button styling -->
                 <a href="#" id="share-whatsapp" class="share-btn-lg bg-green-100 text-green-600 hover:bg-green-200" aria-label="Share on WhatsApp" target="_blank" rel="noopener noreferrer">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 14c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8.9-.1.1-.3.2-.5.1-.3-.1-1.1-.4-2-1.2-.8-.7-1.2-1.5-1.4-1.8-.1-.3 0-.5.1-.6.1-.1.2-.3.4-.4.1-.1.2-.2.3-.4.1-.1 0-.3-.1-.4-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.3c.1.1 1.7 2.5 4.2 3.7.6.3 1.1.5 1.5.6.6.1 1.2.1 1.6-.1.5-.2 1.5-1.2 1.7-1.5.2-.3.2-.5.1-.6l-.3-.1zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/></svg>
+                    <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 14c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8.9-.1.1-.3.2-.5.1-.3-.1-1.1-.4-2-1.2-.8-.7-1.2-1.5-1.4-1.8-.1-.3 0-.5.1-.6.1-.1.2-.3.4-.4.1-.1.2-.2.3-.4.1-.1 0-.3-.1-.4-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.3c.1.1 1.7 2.5 4.2 3.7.6.3 1.1.5 1.5.6.6.1 1.2.1 1.6-.1.5-.2 1.5-1.2 1.7-1.5.2-.3.2-.5.1-.6l-.3-.1zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/></svg>
                 </a>
                 <a href="#" id="share-facebook" class="share-btn-lg bg-blue-100 text-blue-600 hover:bg-blue-200" aria-label="Share on Facebook" target="_blank" rel="noopener noreferrer">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg>
+                    <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg>
                 </a>
                 <a href="#" id="share-telegram" class="share-btn-lg bg-sky-100 text-sky-600 hover:bg-sky-200" aria-label="Share on Telegram" target="_blank" rel="noopener noreferrer">
-                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.9 16.9l-2.83 2.69c-.3.29-.5.44-1.01.44z"/></svg>
+                   <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
+                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.9 16.9l-2.83 2.69c-.3.29-.5.44-1.01.44z"/></svg>
                 </a>
                 <a href="#" id="share-twitter" class="share-btn-lg bg-gray-800 text-white hover:bg-gray-700" aria-label="Share on X" target="_blank" rel="noopener noreferrer">
-                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/></svg>
+                   <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
+                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/></svg>
                 </a>
                 <button id="copy-link-btn" class="share-btn-lg bg-gray-200 text-gray-700 hover:bg-gray-300 relative" aria-label="Copy link">
-                   <svg id="copy-link-default" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                   <svg id="copy-link-success" class="w-5 h-5 text-green-600 hidden" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                   <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
+                   <svg id="copy-link-default" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                   <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
+                   <svg id="copy-link-success" class="w-4 h-4 text-green-600 hidden" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
         </div>
