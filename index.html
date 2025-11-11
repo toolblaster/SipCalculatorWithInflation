@@ -94,6 +94,11 @@
     <!-- Tailwind CSS v4: Using the Play CDN for the latest features. -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <!-- NEW: Flaticon CDN Links -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-brands/css/uicons-brands.css'>
+    <!-- END: Flaticon CDN Links -->
+
     <!-- Deferred scripts for performance -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
@@ -390,7 +395,7 @@
             overflow: hidden;
             transition: max-height 0.3s ease-in-out;
         }
-        .faq-question-button svg {
+        .faq-question-button svg, .faq-question-button i { /* Apply transition to i tag as well */
             transition: transform 0.3s ease-in-out;
         }
         .share-btn {
@@ -456,6 +461,13 @@
             background-color: #f9fafb; 
         }
         /* --- END USER EDIT --- */
+
+        /* NEW: Ensure Flaticons inherit parent size/color by default */
+        .listicle-icon i,
+        .share-btn-lg i {
+            font-size: inherit;
+            line-height: 1;
+        }
 
     </style>
 </head>
@@ -675,11 +687,9 @@
                     <div id="standard-result-summary" class="bg-white p-1 rounded-lg border border-gray-300 text-center flex flex-col">
                         <!-- TWEAK: Reduced mb-1 to mb-0.5. ADDED Icon -->
                         <h3 class="text-sm font-semibold text-red-800 mb-0.5 flex items-center justify-center gap-1.5">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-700" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-                              <path fill-rule="evenodd" d="M18 9H2v7a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm3 1a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Your Projected Wealth</span>
+                           <!-- REPLACED: SVG with Flaticon -->
+                           <i class="fi fi-rr-wallet h-4 w-4 text-red-700" aria-hidden="true"></i>
+                           <span>Your Projected Wealth</span>
                         </h3>
                         <!-- UPDATED: Reduced padding from p-1.5 to p-1 -->
                         <div class="bg-white p-1 rounded-lg border border-red-300 flex-grow">
@@ -694,7 +704,8 @@
                                     <div class="flex items-center">
                                         <!-- TWEAK: Reduced mr-2 to mr-1 -->
                                         <div class="bg-red-100 rounded-full p-1 mr-1">
-                                            <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                            <!-- REPLACED: SVG with Flaticon -->
+                                            <i class="fi fi-rr-piggy-bank w-4 h-4 text-red-600"></i>
                                         </div>
                                         <div>
                                             <!-- IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
@@ -708,7 +719,8 @@
                                     <div class="flex items-center">
                                         <!-- TWEAK: Reduced mr-2 to mr-1 -->
                                         <div class="bg-green-100 rounded-full p-1 mr-1">
-                                            <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                            <!-- REPLACED: SVG with Flaticon -->
+                                            <i class="fi fi-rr-arrow-trend-up w-4 h-4 text-green-600"></i>
                                         </div>
                                         <div>
                                             <!-- IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
@@ -723,7 +735,8 @@
                                      <div class="flex items-center">
                                         <!-- TWEAK: Reduced mr-2 to mr-1 -->
                                         <div class="bg-purple-200 rounded-full p-1 mr-1"> <!-- Icon background adjusted for contrast -->
-                                            <svg class="w-4 h-4 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                            <!-- REPLACED: SVG with Flaticon -->
+                                            <i class="fi fi-rr-shield-check w-4 h-4 text-purple-700"></i>
                                         </div>
                                         <div>
                                             <!-- IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
@@ -758,7 +771,8 @@
              <!-- Updated table container background/border (blue) -->
             <div id="growth-table-container" class="mt-3 hidden bg-blue-50 rounded-lg shadow-md border border-blue-200 p-3">
                 <h3 class="text-center text-lg font-bold text-blue-700 mb-2 flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"> <path d="M2 10a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75V10zM7 3a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v14.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75V3zm5-2a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v16.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75V1zm5 4a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75V5z"></path> </svg>
+                    <!-- REPLACED: SVG with Flaticon -->
+                    <i class="fi fi-rr-chart-histogram h-5 w-5 text-blue-600" aria-hidden="true"></i>
                     <span>Yearly Investment Growth</span>
                 </h3>
                 <div class="max-h-80 overflow-auto">
@@ -787,9 +801,8 @@
             <div id="line-chart-container" class="mt-3 hidden bg-gray-50 rounded-lg shadow-md border border-gray-200 p-3">
                 <!-- ADDED Icon -->
                 <h3 class="text-center text-lg font-bold text-gray-700 mb-2 flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
-                    </svg>
+                    <!-- REPLACED: SVG with Flaticon -->
+                    <i class="fi fi-rr-chart-line-up h-5 w-5 text-gray-600" aria-hidden="true"></i>
                     <span>Growth Over Time</span>
                 </h3>
                 <div class="relative h-64 sm:h-80 w-full">
@@ -804,9 +817,8 @@
                 <p class="mt-1">
                     <a href="https://www.5paisa.com/demat-account?ReferralCode=54285431&ReturnUrl=invest-open-account" target="_blank" rel="noopener noreferrer nofollow" class="inline-flex items-center text-red-600 hover:underline font-semibold text-[.7rem] sm:text-xs">
                         <span>Ready to start investing? Open a free Demat account.</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                        </svg>
+                        <!-- REPLACED: SVG with Flaticon -->
+                        <i class="fi fi-rr-arrow-up-right-from-square h-3 w-3 ml-1"></i>
                     </a>
                 </p>
             </div>
@@ -821,26 +833,25 @@
             <div class="flex justify-center items-center space-x-2 sm:space-x-3">
                 <!-- UPDATED: Button styling -->
                 <a href="#" id="share-whatsapp" class="share-btn-lg bg-green-100 text-green-600 hover:bg-green-200" aria-label="Share on WhatsApp" target="_blank" rel="noopener noreferrer">
-                    <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 14c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8.9-.1.1-.3.2-.5.1-.3-.1-1.1-.4-2-1.2-.8-.7-1.2-1.5-1.4-1.8-.1-.3 0-.5.1-.6.1-.1.2-.3.4-.4.1-.1.2-.2.3-.4.1-.1 0-.3-.1-.4-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.3c.1.1 1.7 2.5 4.2 3.7.6.3 1.1.5 1.5.6.6.1 1.2.1 1.6-.1.5-.2 1.5-1.2 1.7-1.5.2-.3.2-.5.1-.6l-.3-.1zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/></svg>
+                    <!-- REPLACED: w-4 h-4 with text-base for consistency -->
+                    <i class="fi fi-brands-whatsapp text-base"></i>
                 </a>
                 <a href="#" id="share-facebook" class="share-btn-lg bg-blue-100 text-blue-600 hover:bg-blue-200" aria-label="Share on Facebook" target="_blank" rel="noopener noreferrer">
-                    <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg>
+                    <!-- REPLACED: w-4 h-4 with text-base for consistency -->
+                    <i class="fi fi-brands-facebook text-base"></i>
                 </a>
                 <a href="#" id="share-telegram" class="share-btn-lg bg-sky-100 text-sky-600 hover:bg-sky-200" aria-label="Share on Telegram" target="_blank" rel="noopener noreferrer">
-                   <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
-                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.9 16.9l-2.83 2.69c-.3.29-.5.44-1.01.44z"/></svg>
+                   <!-- REPLACED: w-4 h-4 with text-base for consistency -->
+                   <i class="fi fi-brands-telegram text-base"></i>
                 </a>
                 <a href="#" id="share-twitter" class="share-btn-lg bg-gray-800 text-white hover:bg-gray-700" aria-label="Share on X" target="_blank" rel="noopener noreferrer">
-                   <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
-                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/></svg>
+                   <!-- REPLACED: w-4 h-4 with text-base for consistency -->
+                   <i class="fi fi-brands-twitter-alt text-base"></i>
                 </a>
                 <button id="copy-link-btn" class="share-btn-lg bg-gray-200 text-gray-700 hover:bg-gray-300 relative" aria-label="Copy link">
-                   <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
-                   <svg id="copy-link-default" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                   <!-- USER EDIT: Reduced icon size from w-5 h-5 to w-4 h-4 -->
-                   <svg id="copy-link-success" class="w-4 h-4 text-green-600 hidden" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                   <!-- REPLACED: w-4 h-4 with text-base for consistency -->
+                   <i id="copy-link-default" class="fi fi-rr-copy-alt text-base"></i>
+                   <i id="copy-link-success" class="fi fi-rr-check text-base text-green-600 hidden"></i>
                 </button>
             </div>
         </div>
@@ -868,11 +879,11 @@
                         <h3 class="text-lg font-bold text-gray-800">What Exactly is a SIP?</h3>
                          <p class="text-xs text-gray-600">Think of a Systematic Investment Plan (SIP) as putting your investments on autopilot. It's a smart and simple way to invest in mutual funds.</p>
                         <div class="listicle">
-                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                            <div class="listicle-icon"><i class="fi fi-rr-clock h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600">You invest a <strong>fixed amount automatically</strong> every month, building a disciplined saving habit without even trying.</p>
                         </div>
                         <div class="listicle">
-                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg></div>
+                            <div class="listicle-icon"><i class="fi fi-rr-arrow-trend-up h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600">It lets you harness the <strong>power of compounding</strong>, where your earnings start making their own money. It’s the secret sauce to long-term growth!</p>
                         </div>
                     </div>
@@ -884,12 +895,12 @@
                         <h3 class="text-lg font-bold text-gray-800">SIP vs. Lumpsum Investment</h3>
                         <p class="text-xs text-gray-600">Wondering whether to invest a little every month (SIP) or a big chunk at once (lumpsum)? Here's why SIPs are often a smarter choice for most people.</p>
                         <div class="listicle">
-                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg></div>
+                            <div class="listicle-icon"><i class="fi fi-rr-chart-simple-horizontal h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600"><strong>No Need to Time the Market:</strong> SIPs benefit from "Rupee Cost Averaging." This means you automatically buy more when prices are low and less when
 they're high, averaging out your cost and reducing stress.</p>
                         </div>
                         <div class="listicle">
-                            <div class="listicle-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                            <div class="listicle-icon"><i class="fi fi-rr-coins h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600"><strong>Start Small:</strong> You can start a SIP with as little as ₹500, making investing accessible to everyone, unlike lumpsum which often needs a large amount upfront.</p>
                         </div>
                     </div>
@@ -902,11 +913,11 @@ they're high, averaging out your cost and reducing stress.</p>
                         <h3 class="text-lg font-bold text-gray-800">Why Can't I Ignore Inflation?</h3>
                         <p class="text-xs text-gray-600">Inflation is the silent thief that reduces your money's buying power over time. What seems like a lot today might not be enough for your goals tomorrow.</p>
                          <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm3-6h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm3-6h.008v.008H14.25v-.008zm0 3h.008v.008H14.25v-.008zM4.5 21V5.75A2.25 2.25 0 016.75 3.5h10.5A2.25 2.25 0 0119.5 5.75V21" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-calculator h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600">The <strong>'Real Rate of Return'</strong> is what truly matters. It's your investment return minus the inflation rate, showing your actual growth in purchasing power.</p>
                         </div>
                         <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-sack-dollar h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600">Our <strong>sip with inflation calculator</strong> shows you the 'Real Value' of your money, so you get a true picture of your future wealth. It's the key to making sure your financial goals are truly achievable.</p>
                         </div>
                      </div>
@@ -919,15 +930,15 @@ they're high, averaging out your cost and reducing stress.</p>
                         <h3 class="text-lg font-bold text-gray-800">How Do I Use the Calculator?</h3>
                         <p class="text-xs text-gray-600">Getting started is easy. Our tool is more than a simple calculator; it's a <strong>sip calculator with step up and inflation</strong> features built right in.</p>
                         <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-list-check h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600"><strong>1. Enter Your Numbers:</strong> Use the sliders or tap the +/- buttons to input your investment details like monthly amount, expected returns, and time period.</p>
                         </div>
                          <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" /><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a4 4 0 00-3.446 6.032l-2.261 2.26a1 1 0 101.414 1.415l2.261-2.261A4 4 0 1011 5z" clip-rule="evenodd" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-bullseye-arrow h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600"><strong>2. Toggle on Inflation:</strong> Click the "Adjust for Inflation" switch to see the true 'Real Value' of your money, which is crucial for accurate planning.</p>
                         </div>
                          <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-check-circle h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600"><strong>3. Check Your Results:</strong> The calculator instantly shows your final value, total invested, and returns. Use the buttons to see your yearly growth data.</p>
                         </div>
                     </div>
@@ -941,7 +952,7 @@ they're high, averaging out your cost and reducing stress.</p>
                         <h3 class="text-lg font-bold text-gray-800">Choosing the Right Fund</h3>
                          <p class="text-xs text-gray-600">A calculator is a great tool, but it works best when you invest in the right places.</p>
                         <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-box h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600">Align your fund choice with your <strong>risk appetite</strong>. <strong>Equity funds</strong> offer higher growth potential for <strong>long-term goals</strong> but come with higher risk. <strong>Debt funds</strong> are safer and better for <strong>shorter goals</strong>.</p>
                         </div>
                     </div>
@@ -951,7 +962,7 @@ they're high, averaging out your cost and reducing stress.</p>
                         <h3 class="text-lg font-bold text-gray-800">What About Taxes?</h3>
                          <p class="text-xs text-gray-600">It's important to remember that your investment returns are <strong>taxable</strong>.</p>
                         <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-sack-dollar h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600">Gains from mutual funds are subject to <strong>Short-Term or Long-Term Capital Gains tax</strong>. The rules can be complex, so it's always a good idea to consult a <strong>financial advisor</strong> for personalized advice.</p>
                         </div>
                     </div>
@@ -966,14 +977,14 @@ they're high, averaging out your cost and reducing stress.</p>
                         <h3 class="text-lg font-bold text-gray-800">The Magic Behind the Math</h3>
                         <p class="text-xs text-gray-600">Curious how it works? Here's a peek at the formulas that power your calculations.</p>
                         <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h13.5m-13.5 7.5h13.5m-13.5-3.75h13.5M3.75 6.75h16.5v10.5h-16.5V6.75z" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-function h-4 w-4" aria-hidden="true"></i></div>
                             <div class="text-xs text-gray-600">
                                <p><strong>Future Value (FV) of SIP:</strong> This is the total money you'll have at the end.</p>
                                <p class="mt-2 text-xxs overflow-x-auto">$$FV = P \times \frac{((1 + i)^n - 1)}{i} \times (1 + i)$$</p>
                             </div>
                         </div>
                          <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-shield-exclamation h-4 w-4" aria-hidden="true"></i></div>
                             <div class="text-xs text-gray-600">
                                <p><strong>Inflation-Adjusted Value:</strong> This formula shows what that future money is worth in today's terms.</p>
                                <p class="mt-2 text-xxs overflow-x-auto">$$\text{Real Value} = \frac{FV}{(1 + r)^t}$$</p>
@@ -988,15 +999,16 @@ they're high, averaging out your cost and reducing stress.</p>
                         <h3 class="text-lg font-bold text-gray-800">Strategies to Build Real Wealth</h3>
                         <p class="text-xs text-gray-600">Here are a few pro tips to get the most out of your SIP investments.</p>
                         <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14.732 9.42a1 1 0 00-1.405-1.442l-2.43 2.384V2a1 1 0 00-2 0v8.362l-2.43-2.384a1 1 0 10-1.405 1.442l4.133 4.062a1 1 0 001.406 0l4.131-4.062zM18 17a1 1 0 01-1 1H3a1 1 0 110-2h14a1 1 0 011 1z" /></svg></div>
+                            <!-- REPLACED: fi-rr-arrow-up-right-dots with fi-rr-stats -->
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-stats h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600"><strong>Use a Step-Up SIP:</strong> Increase your investment amount a little each year. This is a powerful way to make sure your savings always outpace inflation.</p>
                         </div>
                         <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-calendar-clock h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600"><strong>Stay Invested Long-Term:</strong> Give your money at least 10 years to grow. This smooths out market ups and downs and lets compounding really work its magic.</p>
                         </div>
                         <div class="listicle">
-                            <div class="listicle-icon listicle-icon-blue"><svg xmlns="http://www.w3.org/2Two-Step-A" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg></div>
+                            <div class="listicle-icon listicle-icon-blue"><i class="fi fi-rr-house-chimney h-4 w-4" aria-hidden="true"></i></div>
                             <p class="text-xs text-gray-600"><strong>Choose Equity for Growth:</strong> For long-term goals, equity mutual funds have historically delivered returns that comfortably beat inflation.</p>
                         </div>
                     </div>
@@ -1013,9 +1025,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <!-- Insight 1: Compounding -->
                     <div class="flex flex-col items-center p-2">
                         <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
-                            <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+                            <!-- REPLACED: SVG with Flaticon -->
+                            <i class="fi fi-rr-clock w-8 h-8 text-red-600"></i>
                         </div>
                         <h3 class="font-bold text-gray-800 text-sm">Power of Compounding</h3>
                         <p class="text-xs text-gray-600 mt-1">Your earnings generate their own earnings, creating exponential growth.</p>
@@ -1023,9 +1034,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <!-- Insight 2: Rupee Cost Averaging -->
                     <div class="flex flex-col items-center p-2">
                         <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
-                            <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
-                            </svg>
+                            <!-- REPLACED: SVG with Flaticon -->
+                            <i class="fi fi-rr-arrows-repeat w-8 h-8 text-red-600"></i>
                         </div>
                         <h3 class="font-bold text-gray-800 text-sm">Rupee Cost Averaging</h3>
                         <p class="text-xs text-gray-600 mt-1">Investing regularly averages your cost and reduces market timing risks.</p>
@@ -1033,9 +1043,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <!-- Insight 3: Long-Term Growth -->
                     <div class="flex flex-col items-center p-2">
                         <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
-                           <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                            </svg>
+                           <!-- REPLACED: SVG with Flaticon -->
+                           <i class="fi fi-rr-arrow-trend-up w-8 h-8 text-red-600"></i>
                         </div>
                         <h3 class="font-bold text-gray-800 text-sm">Patience Pays Off</h3>
                         <p class="text-xs text-gray-600 mt-1">Long-term investing maximizes compounding and smooths out volatility.</p>
@@ -1043,10 +1052,8 @@ they're high, averaging out your cost and reducing stress.</p>
                      <!-- Insight 4: Diversification -->
                     <div class="flex flex-col items-center p-2">
                         <div class="bg-white rounded-full p-3 shadow-md border border-red-100 mb-2">
-                           <svg class="w-8 h-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
-                            </svg>
+                           <!-- REPLACED: SVG with Flaticon -->
+                           <i class="fi fi-rr-chart-pie-alt w-8 h-8 text-red-600"></i>
                         </div>
                         <h3 class="font-bold text-gray-800 text-sm">Diversification is Key</h3>
                         <p class="text-xs text-gray-600 mt-1">Spread investments across different assets to reduce overall risk.</p>
@@ -1062,7 +1069,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <div class="section-card section-card-blue">
                         <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800" aria-expanded="false" aria-controls="faq-answer-1">
                             Why use a SIP calculator with inflation adjustment?
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <!-- REPLACED: SVG with Flaticon -->
+                            <i class="fi fi-rr-angle-small-down w-4 h-4" aria-hidden="true"></i>
                         </button>
                         <div id="faq-answer-1" class="faq-answer">
                             <p class="pt-2 text-xs text-gray-600">A regular calculator can be misleading because it shows a future value that seems huge. An <strong>inflation-adjusted calculator</strong> is better because it shows you the <strong>'real value'</strong>, which tells you what your money will actually be able to buy. It's the only way to accurately plan for big goals like retirement.</p>
@@ -1071,7 +1079,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <div class="section-card section-card-blue">
                         <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800" aria-expanded="false" aria-controls="faq-answer-2">
                             What is a realistic inflation rate to use for India?
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <!-- REPLACED: SVG with Flaticon -->
+                            <i class="fi fi-rr-angle-small-down w-4 h-4" aria-hidden="true"></i>
                         </button>
                         <div id="faq-answer-2" class="faq-answer">
                             <p class="pt-2 text-xs text-gray-600">While it changes, the long-term average inflation in India has hovered around <strong>5-6%</strong>. For safe and realistic planning, using 6% in this <strong>sip with inflation calculator</strong> is a smart choice. Keep in mind that for specific goals, like education, inflation can sometimes be even higher!</p>
@@ -1080,7 +1089,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <div class="section-card section-card-blue">
                         <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800" aria-expanded="false" aria-controls="faq-answer-3">
                            Can a SIP truly beat inflation over the long term?
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <!-- REPLACED: SVG with Flaticon -->
+                            <i class="fi fi-rr-angle-small-down w-4 h-4" aria-hidden="true"></i>
                         </button>
                         <div id="faq-answer-3" class="faq-answer">
                              <p class="pt-2 text-xs text-gray-600"><strong>Absolutely.</strong> Historically, staying invested in equity mutual funds through a SIP for 10+ years has delivered returns that are <strong>significantly higher</strong> than inflation. The secret is patience. It allows compounding to work its magic and helps you ride out any short-term market bumps.</p>
@@ -1089,7 +1099,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <div class="section-card section-card-blue">
                         <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800" aria-expanded="false" aria-controls="faq-answer-4">
                            What is the difference between nominal and real return?
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <!-- REPLACED: SVG with Flaticon -->
+                            <i class="fi fi-rr-angle-small-down w-4 h-4" aria-hidden="true"></i>
                         </button>
                         <div id="faq-answer-4" class="faq-answer">
                             <div class="pt-2 text-xs text-gray-600 space-y-2">
@@ -1111,7 +1122,8 @@ they're high, averaging out your cost and reducing stress.</p>
                      <div class="section-card section-card-blue">
                         <button class="faq-question-button flex justify-between items-center w-full text-left text-sm font-semibold text-gray-800" aria-expanded="false" aria-controls="faq-answer-5">
                             How does a Step-Up SIP help combat inflation?
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <!-- REPLACED: SVG with Flaticon -->
+                            <i class="fi fi-rr-angle-small-down w-4 h-4" aria-hidden="true"></i>
                         </button>
                         <div id="faq-answer-5" class="faq-answer">
                             <p class="pt-2 text-xs text-gray-600">A step-up SIP involves increasing your monthly investment amount annually, often in line with an increase in your salary. This ensures that the amount you save is <strong>always growing</strong>, preventing the value of your contributions from being eroded by inflation over time. It's a powerful feature, and our <strong>sip calculator with step up and inflation</strong> lets you model this scenario easily.</p>
@@ -1130,8 +1142,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <a href="https://calculator.toolblaster.com/?mode=lumpsum" target="_blank" rel="noopener noreferrer" class="block section-card section-card-green hover:shadow-md hover:border-green-300 transition-all duration-200">
                         <div class="listicle">
                             <div class="listicle-icon listicle-icon-green">
-                                <!-- UPDATED SVG for Lumpsum -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                <!-- REPLACED: SVG with Flaticon -->
+                                <i class="fi fi-rr-briefcase-arrow-right h-4 w-4" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-sm text-gray-800">Lumpsum Calculator</h3>
@@ -1144,9 +1156,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <a href="https://calculator.toolblaster.com/calculators/ppf-calculator/" target="_blank" rel="noopener noreferrer" class="block section-card section-card-blue hover:shadow-md hover:border-blue-300 transition-all duration-200">
                         <div class="listicle">
                             <div class="listicle-icon listicle-icon-blue">
-                                <!-- UPDATED SVG -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-
+                                <!-- REPLACED: SVG with Flaticon -->
+                                <i class="fi fi-rr-shield-check h-4 w-4" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-sm text-gray-800">PPF Calculator</h3>
@@ -1159,8 +1170,8 @@ they're high, averaging out your cost and reducing stress.</p>
                     <a href="https://calculator.toolblaster.com/calculators/emi-calculator/" target="_blank" rel="noopener noreferrer" class="block section-card section-card-purple hover:shadow-md hover:border-purple-300 transition-all duration-200">
                         <div class="listicle">
                             <div class="listicle-icon listicle-icon-purple">
-                                <!-- UPDATED SVG -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                                <!-- REPLACED: SVG with Flaticon -->
+                                <i class="fi fi-rr-home h-4 w-4" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-sm text-gray-800">Home Loan EMI Calculator</h3>
