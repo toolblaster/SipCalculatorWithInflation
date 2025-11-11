@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const elements = {
         sipAmountSlider: getElem('sip-amount-slider'),
         sipAmountInput: getElem('sip-amount-input'),
+        // NEW Lumpsum elements
+        lumpsumToggle: getElem('lumpsum-toggle'),
+        lumpsumToggleCard: getElem('lumpsum-toggle-card'),
+        lumpsumContainer: getElem('lumpsum-container'),
+        lumpsumAmountSlider: getElem('lumpsum-amount-slider'),
+        lumpsumAmountInput: getElem('lumpsum-amount-input'),
+        // END NEW
         sipIncreaseRateSlider: getElem('sip-increase-rate-slider'),
         sipIncreaseRateInput: getElem('sip-increase-rate-input'),
         sipIncreaseAmountSlider: getElem('sip-increase-amount-slider'),
@@ -60,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // NEW: Map to link input IDs to their sliders for stepper buttons
     const inputSliderMap = {
         'sip-amount-input': elements.sipAmountSlider,
+        'lumpsum-amount-input': elements.lumpsumAmountSlider, // NEW
         'sip-increase-rate-input': elements.sipIncreaseRateSlider,
         'sip-increase-amount-input': elements.sipIncreaseAmountSlider,
         'return-rate-input': elements.returnRateSlider,
@@ -92,6 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateWealth() {
         // Ensure all elements exist before trying to read values
         const monthlySipAmount = parseFloat(elements.sipAmountInput?.value || 0);
+        // NEW: Lumpsum values
+        const isLumpsumOn = elements.lumpsumToggle?.checked;
+        const initialLumpsum = isLumpsumOn ? parseFloat(elements.lumpsumAmountInput?.value || 0) : 0;
+        // END NEW
         const annualReturnRate = parseFloat(elements.returnRateInput?.value || 0) / 100;
         const investmentPeriodYears = parseInt(elements.investmentPeriodInput?.value || 0);
         const isInflationOn = elements.inflationToggle?.checked;
@@ -100,8 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
             ? parseFloat(elements.sipIncreaseAmountInput?.value || 0) 
             : parseFloat(elements.sipIncreaseRateInput?.value || 0) / 100;
 
-        let totalInvested = 0;
-        let finalValue = 0;
+        let totalInvested = initialLumpsum; // Start with lumpsum
+        let sipValue = 0; // Value from SIPs
+        let lumpsumValue = initialLumpsum; // Value from Lumpsum
         let currentMonthlySip = monthlySipAmount;
         const monthlyRate = annualReturnRate / 12;
         const yearlyGrowthData = [];
@@ -112,15 +125,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let year = 1; year <= actualYears; year++) {
             let yearlyInvested = 0;
-            let yearlyEndValue = finalValue; // Start with the value from the previous year
+            let yearlySipValue = sipValue; // Start with the SIP value from the previous year
+            let yearlyLumpsumValue = lumpsumValue; // Start with the Lumpsum value from the previous year
             
             for (let month = 1; month <= 12; month++) {
-                yearlyEndValue = yearlyEndValue * (1 + monthlyRate) + currentMonthlySip;
+                yearlySipValue = yearlySipValue * (1 + monthlyRate) + currentMonthlySip;
+                yearlyLumpsumValue = yearlyLumpsumValue * (1 + monthlyRate); // Compound lumpsum monthly
                 yearlyInvested += currentMonthlySip;
             }
             
             totalInvested += yearlyInvested; // Add this year's investment to the cumulative total
-            finalValue = yearlyEndValue; // Update finalValue at the end of the year
+            sipValue = yearlySipValue; // Update cumulative SIP value
+            lumpsumValue = yearlyLumpsumValue; // Update cumulative Lumpsum value
+            
+            const finalValue = sipValue + lumpsumValue; // Total value is sum of both
             
             // NEW: Calculate real value for this specific year
             const currentRealValue = finalValue / Math.pow(1 + annualInflationRate, year);
@@ -141,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        const finalValue = sipValue + lumpsumValue; // Final total value
         const totalReturns = finalValue - totalInvested;
         
         // Update DOM elements (with checks)
@@ -340,6 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const inputsToTrack = [
         { slider: elements.sipAmountSlider, input: elements.sipAmountInput },
+        { slider: elements.lumpsumAmountSlider, input: elements.lumpsumAmountInput }, // NEW
         { slider: elements.sipIncreaseRateSlider, input: elements.sipIncreaseRateInput },
         { slider: elements.sipIncreaseAmountSlider, input: elements.sipIncreaseAmountInput },
         { slider: elements.returnRateSlider, input: elements.returnRateInput },
@@ -425,6 +445,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if(inflationCard) {
                 inflationCard.classList.toggle('input-card-accent', isChecked);
+            }
+            calculate();
+        });
+    }
+
+    // NEW: Lumpsum Toggle Event Listener
+    if (elements.lumpsumToggle) {
+        elements.lumpsumToggle.addEventListener('change', () => {
+            const isChecked = elements.lumpsumToggle.checked;
+            if (elements.lumpsumContainer) {
+                elements.lumpsumContainer.classList.toggle('hidden', !isChecked);
+            }
+            if(elements.lumpsumToggleCard) {
+                elements.lumpsumToggleCard.classList.toggle('input-card-accent', isChecked);
             }
             calculate();
         });
@@ -594,6 +628,21 @@ document.addEventListener('DOMContentLoaded', () => {
         setValue('returns', elements.returnRateInput, elements.returnRateSlider);
         setValue('period', elements.investmentPeriodInput, elements.investmentPeriodSlider);
         
+        // NEW: Handle Lumpsum
+        if (params.get('lumpsumOn') === 'true') {
+            if (elements.lumpsumToggle) elements.lumpsumToggle.checked = true;
+            setValue('lumpsum', elements.lumpsumAmountInput, elements.lumpsumAmountSlider);
+            
+            if (elements.lumpsumContainer) elements.lumpsumContainer.classList.remove('hidden');
+            if (elements.lumpsumToggleCard) elements.lumpsumToggleCard.classList.add('input-card-accent');
+        } else {
+            if (elements.lumpsumToggle) elements.lumpsumToggle.checked = false;
+            if (elements.lumpsumContainer) elements.lumpsumContainer.classList.add('hidden');
+            if (elements.lumpsumToggleCard) elements.lumpsumToggleCard.classList.remove('input-card-accent');
+        }
+        needsRecalculate = true; // Always true to apply lumpsum settings
+        // END NEW
+        
         // Handle Step-Up
         const stepUpMode = params.get('stepUpMode');
         if (stepUpMode === 'rate') {
@@ -642,6 +691,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Only set params if elements exist
         if (elements.sipAmountInput) params.set('sip', elements.sipAmountInput.value);
         if (elements.investmentPeriodInput) params.set('period', elements.investmentPeriodInput.value);
+        
+        // NEW: Lumpsum params
+        if (elements.lumpsumToggle?.checked) {
+            params.set('lumpsumOn', 'true');
+            if (elements.lumpsumAmountInput) params.set('lumpsum', elements.lumpsumAmountInput.value);
+        } else {
+            params.set('lumpsumOn', 'false');
+        }
+        // END NEW
         
         if (isStepUpAmount) {
             params.set('stepUpMode', 'amount');
