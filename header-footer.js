@@ -180,8 +180,8 @@ function getFooterHTML() {
              <div class="border-t border-gray-200 my-1 max-w-xs mx-auto"></div>
              <p class="text-xs text-gray-700">
                 A proud part of the <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> Network
-                <!-- REMOVED: heart icon -->
-                by <strong>Vikas Rana</strong>
+                <!-- ADDED: heart icon -->
+                <span class="text-red-600 mx-1" aria-label="with love">❤️</span>
              </p>
              <!-- REMOVED: Divider and affiliate link disclaimer -->
         </div>
