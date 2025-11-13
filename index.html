@@ -179,9 +179,13 @@
         /* NEW: Styles for stepper buttons and number input */
         .manual-input {
             width: 80px;
-            padding: 0.25rem;
-            border: 1px solid #E34037;
-            border-radius: 0.375rem;
+            height: 24px; /* ADDED */
+            padding: 0 0.25rem; /* MODIFIED */
+            border-top: 1px solid #E34037;
+            border-bottom: 1px solid #E34037;
+            border-left: none;
+            border-right: none;
+            /* border-radius: 0.375rem; */ /* REMOVED */
             font-size: 0.75rem;
             font-weight: 600;
             text-align: center;
@@ -206,6 +210,8 @@
             outline: none;
             border-color: #C22D2D;
             box-shadow: 0 1px 3px rgba(227, 64, 55, 0.2);
+            /* z-index: 10; */ /* REMOVED */
+            position: relative; /* for z-index */
         }
         @media (min-width: 768px) {
              .manual-input {
@@ -216,7 +222,8 @@
         .stepper-btn {
             width: 24px;
             height: 24px;
-            border-radius: 50%;
+            /* border-radius: 50%; */ /* REMOVED */
+            border: 1px solid #E34037; /* ADDED BORDER */
             background-color: #FEE2E2; /* Red-100 */
             color: #DC2626; /* Red-600 */
             font-weight: 900;
@@ -228,10 +235,12 @@
             transition: all 0.2s ease;
             flex-shrink: 0;
             user-select: none; /* Prevent text selection */
+            /* position: relative; */ /* REMOVED */
         }
         .stepper-btn:hover {
             background-color: #FECACA; /* Red-200 */
-            transform: scale(1.1);
+            /* transform: scale(1.1); */ /* REMOVED */
+            z-index: 5; /* hover effect */
         }
         .stepper-btn:active {
             background-color: #FCA5A5; /* Red-300 */
@@ -242,6 +251,7 @@
             color: #9CA3AF;
             cursor: not-allowed;
             transform: scale(1);
+            border-color: #D1D5DB; /* disabled border */
         }
         /* End New Styles */
 
@@ -287,8 +297,8 @@
         }
         .switch-toggle-container {
             position: relative;
-            width: 90px;
-            height: 28px;
+            width: 70px; /* MODIFIED */
+            height: 24px; /* MODIFIED */
             background-color: #E5E7EB;
             border-radius: 999px;
             cursor: pointer;
@@ -302,21 +312,21 @@
             position: absolute;
             top: 2px;
             left: 2px;
-            width: 41px;
-            height: 24px;
+            width: 31px; /* MODIFIED */
+            height: 20px; /* MODIFIED */
             background-color: white;
             border-radius: 999px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .switch-toggle-container.active::before {
-            transform: translateX(41px);
+            transform: translateX(35px); /* MODIFIED */
         }
         .switch-label {
             position: relative;
             flex-grow: 1;
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.6rem; /* MODIFIED */
             font-weight: 600;
             color: #6B7280;
             transition: color 0.2s;
@@ -525,10 +535,10 @@
                         <div class="flex items-center space-x-2">
                             <input type="range" id="sip-amount-slider" min="500" max="100000" value="10000" step="500" class="range-slider">
                             <!-- NEW: Stepper Buttons -->
-                            <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                <button class="stepper-btn" data-input="sip-amount-input" data-action="decrease" aria-label="Decrease SIP amount" type="button">-</button>
-                                <input type="number" id="sip-amount-input" class="manual-input" value="10000" aria-label="Monthly SIP Amount (₹)">
-                                <button class="stepper-btn" data-input="sip-amount-input" data-action="increase" aria-label="Increase SIP amount" type="button">+</button>
+                            <div class="flex items-center flex-shrink-0">
+                                <button class="stepper-btn rounded-l-md border-r-0" data-input="sip-amount-input" data-action="decrease" aria-label="Decrease SIP amount" type="button">-</button>
+                                <input type="number" id="sip-amount-input" class="manual-input rounded-none" value="10000" aria-label="Monthly SIP Amount (₹)">
+                                <button class="stepper-btn rounded-r-md border-l-0" data-input="sip-amount-input" data-action="increase" aria-label="Increase SIP amount" type="button">+</button>
                             </div>
                         </div>
                         <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
@@ -551,10 +561,10 @@
                             <label for="lumpsum-amount-slider" class="block text-xs font-medium text-gray-700 mb-0.5">Lumpsum Amount (₹)</label>
                             <div class="flex items-center space-x-2">
                                 <input type="range" id="lumpsum-amount-slider" min="0" max="10000000" value="0" step="10000" class="range-slider">
-                                <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                    <button class="stepper-btn" data-input="lumpsum-amount-input" data-action="decrease" aria-label="Decrease lumpsum amount" type="button">-</button>
-                                    <input type="number" id="lumpsum-amount-input" class="manual-input" value="0" aria-label="Lumpsum Amount (₹)">
-                                    <button class="stepper-btn" data-input="lumpsum-amount-input" data-action="increase" aria-label="Increase lumpsum amount" type="button">+</button>
+                                <div class="flex items-center flex-shrink-0">
+                                    <button class="stepper-btn rounded-l-md border-r-0" data-input="lumpsum-amount-input" data-action="decrease" aria-label="Decrease lumpsum amount" type="button">-</button>
+                                    <input type="number" id="lumpsum-amount-input" class="manual-input rounded-none" value="0" aria-label="Lumpsum Amount (₹)">
+                                    <button class="stepper-btn rounded-r-md border-l-0" data-input="lumpsum-amount-input" data-action="increase" aria-label="Increase lumpsum amount" type="button">+</button>
                                 </div>
                             </div>
                             <div class="flex justify-between text-xxs text-gray-600 mt-0.5">
@@ -578,10 +588,10 @@
                         <div class="flex items-center space-x-2 hidden" id="step-up-rate-container">
                             <input type="range" id="sip-increase-rate-slider" min="0" max="20" value="0" step="1" class="range-slider" aria-labelledby="step-up-label">
                             <!-- NEW: Stepper Buttons -->
-                            <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                <button class="stepper-btn" data-input="sip-increase-rate-input" data-action="decrease" aria-label="Decrease step-up rate" type="button">-</button>
-                                <input type="number" id="sip-increase-rate-input" class="manual-input" value="0" aria-labelledby="step-up-label">
-                                <button class="stepper-btn" data-input="sip-increase-rate-input" data-action="increase" aria-label="Increase step-up rate" type="button">+</button>
+                            <div class="flex items-center flex-shrink-0">
+                                <button class="stepper-btn rounded-l-md border-r-0" data-input="sip-increase-rate-input" data-action="decrease" aria-label="Decrease step-up rate" type="button">-</button>
+                                <input type="number" id="sip-increase-rate-input" class="manual-input rounded-none" value="0" aria-labelledby="step-up-label">
+                                <button class="stepper-btn rounded-r-md border-l-0" data-input="sip-increase-rate-input" data-action="increase" aria-label="Increase step-up rate" type="button">+</button>
                             </div>
                         </div>
                         <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
@@ -593,10 +603,10 @@
                         <div class="flex items-center space-x-2" id="step-up-amount-container">
                              <input type="range" id="sip-increase-amount-slider" min="0" max="50000" value="0" step="100" class="range-slider" aria-labelledby="step-up-label">
                              <!-- NEW: Stepper Buttons -->
-                             <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                <button class="stepper-btn" data-input="sip-increase-amount-input" data-action="decrease" aria-label="Decrease step-up amount" type="button">-</button>
-                                <input type="number" id="sip-increase-amount-input" class="manual-input" value="0" aria-labelledby="step-up-label">
-                                <button class="stepper-btn" data-input="sip-increase-amount-input" data-action="increase" aria-label="Increase step-up amount" type="button">+</button>
+                             <div class="flex items-center flex-shrink-0">
+                                <button class="stepper-btn rounded-l-md border-r-0" data-input="sip-increase-amount-input" data-action="decrease" aria-label="Decrease step-up amount" type="button">-</button>
+                                <input type="number" id="sip-increase-amount-input" class="manual-input rounded-none" value="0" aria-labelledby="step-up-label">
+                                <button class="stepper-btn rounded-r-md border-l-0" data-input="sip-increase-amount-input" data-action="increase" aria-label="Increase step-up amount" type="button">+</button>
                              </div>
                         </div>
                         <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
@@ -613,10 +623,10 @@
                         <div class="flex items-center space-x-2">
                             <input type="range" id="return-rate-slider" min="1" max="30" value="12" step="0.1" class="range-slider">
                             <!-- NEW: Stepper Buttons -->
-                            <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                <button class="stepper-btn" data-input="return-rate-input" data-action="decrease" aria-label="Decrease return rate" type="button">-</button>
-                                <input type="number" id="return-rate-input" class="manual-input" value="12" aria-label="Expected Annual Return (%)">
-                                <button class="stepper-btn" data-input="return-rate-input" data-action="increase" aria-label="Increase return rate" type="button">+</button>
+                            <div class="flex items-center flex-shrink-0">
+                                <button class="stepper-btn rounded-l-md border-r-0" data-input="return-rate-input" data-action="decrease" aria-label="Decrease return rate" type="button">-</button>
+                                <input type="number" id="return-rate-input" class="manual-input rounded-none" value="12" aria-label="Expected Annual Return (%)">
+                                <button class="stepper-btn rounded-r-md border-l-0" data-input="return-rate-input" data-action="increase" aria-label="Increase return rate" type="button">+</button>
                             </div>
                         </div>
                         <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
@@ -633,10 +643,10 @@
                         <div class="flex items-center space-x-2">
                             <input type="range" id="investment-period-slider" min="1" max="40" value="15" step="1" class="range-slider">
                             <!-- NEW: Stepper Buttons -->
-                            <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                <button class="stepper-btn" data-input="investment-period-input" data-action="decrease" aria-label="Decrease investment period" type="button">-</button>
-                                <input type="number" id="investment-period-input" class="manual-input" value="15" aria-label="Investment Period (Years)">
-                                <button class="stepper-btn" data-input="investment-period-input" data-action="increase" aria-label="Increase investment period" type="button">+</button>
+                            <div class="flex items-center flex-shrink-0">
+                                <button class="stepper-btn rounded-l-md border-r-0" data-input="investment-period-input" data-action="decrease" aria-label="Decrease investment period" type="button">-</button>
+                                <input type="number" id="investment-period-input" class="manual-input rounded-none" value="15" aria-label="Investment Period (Years)">
+                                <button class="stepper-btn rounded-r-md border-l-0" data-input="investment-period-input" data-action="increase" aria-label="Increase investment period" type="button">+</button>
                             </div>
                         </div>
                         <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
@@ -662,10 +672,10 @@
                             <div class="flex items-center space-x-2">
                                 <input type="range" id="inflation-rate-slider" min="0" max="15" value="6" step="0.1" class="range-slider">
                                 <!-- NEW: Stepper Buttons -->
-                                <div class="flex items-center space-x-1.5 flex-shrink-0">
-                                    <button class="stepper-btn" data-input="inflation-rate-input" data-action="decrease" aria-label="Decrease inflation rate" type="button">-</button>
-                                    <input type="number" id="inflation-rate-input" class="manual-input" value="6" aria-label="Annual Inflation Rate (%)">
-                                    <button class="stepper-btn" data-input="inflation-rate-input" data-action="increase" aria-label="Increase inflation rate" type="button">+</button>
+                                <div class="flex items-center flex-shrink-0">
+                                    <button class="stepper-btn rounded-l-md border-r-0" data-input="inflation-rate-input" data-action="decrease" aria-label="Decrease inflation rate" type="button">-</button>
+                                    <input type="number" id="inflation-rate-input" class="manual-input rounded-none" value="6" aria-label="Annual Inflation Rate (%)">
+                                    <button class="stepper-btn rounded-r-md border-l-0" data-input="inflation-rate-input" data-action="increase" aria-label="Increase inflation rate" type="button">+</button>
                                 </div>
                             </div>
                             <!-- TWEAK: Reduced mt-1 to mt-0.5. IMPROVED CONTRAST: text-gray-500 to text-gray-600 -->
@@ -762,10 +772,10 @@
             <!-- Updated button gradient -->
             <!-- MODIFIED: Changed container to flex for side-by-side buttons on desktop -->
             <!-- TWEAK: Reduced top margin from mt-3 to mt-2 -->
-            <div class="mt-2 flex flex-col sm:flex-row justify-center gap-2">
-                 <button id="toggle-table-btn" class="w-full sm:w-auto sm:max-w-xs px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-md">Show Yearly Growth</button>
+            <div class="mt-2 pt-2 border-t border-gray-200 flex flex-col sm:flex-row justify-center gap-2">
+                 <button id="toggle-table-btn" class="w-full sm:w-auto sm:max-w-xs px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-md">Show Yearly Growth</button>
                  <!-- NEW: Added "Show Growth Chart" button -->
-                 <button id="toggle-line-chart-btn" class="w-full sm:w-auto sm:max-w-xs px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md">Show Growth Chart</button>
+                 <button id="toggle-line-chart-btn" class="w-full sm:w-auto sm:max-w-xs px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ease-in-out bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md">Show Growth Chart</button>
             </div>
 
              <!-- Updated table container background/border (blue) -->
