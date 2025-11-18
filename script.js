@@ -568,9 +568,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.copyLinkBtn) {
         elements.copyLinkBtn.addEventListener('click', () => {
             const textArea = document.createElement('textarea');
-            // Update links to get the absolute latest URL
-            updateShareLinks(window.location.href);
-            textArea.value = window.location.href; 
+            
+            // UPDATED: Clean URL to remove query parameters for copying
+            const cleanUrl = updateShareLinks(window.location.href);
+            textArea.value = cleanUrl; 
             
             textArea.style.top = "0";
             textArea.style.left = "0";
@@ -726,13 +727,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update share links (called by URL update and share clicks)
     function updateShareLinks(url) {
-        const shareUrl = new URL(url, window.location.origin).href; // Ensure it's an absolute URL
+        // UPDATED: Clean URL to remove query parameters for sharing/copying
+        const urlObj = new URL(url, window.location.origin);
+        const cleanUrl = urlObj.origin + urlObj.pathname; // Only origin + path
+        
         const shareTitle = "Check out this awesome SIP Calculator with Inflation!";
         
-        if (elements.shareWhatsappBtn) elements.shareWhatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
-        if (elements.shareFacebookBtn) elements.shareFacebookBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-        if (elements.shareTelegramBtn) elements.shareTelegramBtn.href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
-        if (elements.shareTwitterBtn) elements.shareTwitterBtn.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
+        if (elements.shareWhatsappBtn) elements.shareWhatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + cleanUrl)}`;
+        if (elements.shareFacebookBtn) elements.shareFacebookBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(cleanUrl)}`;
+        if (elements.shareTelegramBtn) elements.shareTelegramBtn.href = `https://t.me/share/url?url=${encodeURIComponent(cleanUrl)}&text=${encodeURIComponent(shareTitle)}`;
+        if (elements.shareTwitterBtn) elements.shareTwitterBtn.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(cleanUrl)}&text=${encodeURIComponent(shareTitle)}`;
+        
+        return cleanUrl; // Return clean URL for other uses like copy button
     }
 
     // --- INITIALIZATION ---
