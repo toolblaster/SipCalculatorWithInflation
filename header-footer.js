@@ -172,18 +172,34 @@ function getHeaderHTML(currentPath) {
  */
 function getFooterHTML() {
     return `
-    <footer class="bg-gradient-to-t from-red-50 to-white border-t border-gray-200 py-2 mt-6 shadow-[0_-10px_15px_-3px_rgb(0_0_0_/_0.1),_0_-4px_6px_-4px_rgb(0_0_0_/_0.1)]">
-        <div class="w-full max-w-5xl mx-auto px-4 text-center">
-             <p class="text-xs text-gray-700">
-                &copy; <span id="copyright-year"></span> SipCalculatorWithInflation.toolblaster.com. All rights reserved.
-             </p>
-             <div class="border-t border-gray-200 my-1 max-w-xs mx-auto"></div>
-             <p class="text-xs text-gray-700">
-                A proud part of the <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline"><strong>toolblaster.com</strong></a> Network
-                <!-- ADDED: heart icon -->
-                <span class="text-red-600 mx-1" aria-label="with love">❤️</span>
-             </p>
-             <!-- REMOVED: Divider and affiliate link disclaimer -->
+    <footer class="bg-white border-t border-gray-200 py-3 mt-6">
+        <div class="w-full max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0 text-center md:text-left">
+             
+             <!-- Brand Logo (Compacted Left Side) -->
+             <div class="flex items-center gap-2 group cursor-default select-none">
+                <!-- Icon -->
+                <svg class="w-4 h-4 text-red-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <!-- Text Stack -->
+                <div class="flex flex-col items-start text-left">
+                    <span class="text-sm font-extrabold text-gray-900 leading-tight group-hover:text-red-600 transition-colors">SIP Calculator</span>
+                    <span class="text-[9px] font-semibold text-red-600 leading-none">w/ Inflation & Step Up</span>
+                </div>
+             </div>
+
+             <!-- Right Side: Info Stack (Compacted Right Side) -->
+             <div class="flex flex-col md:items-end items-center">
+                 <p class="text-[10px] text-gray-500 leading-tight">
+                    &copy; <span id="copyright-year"></span> SipCalculatorWithInflation.toolblaster.com
+                 </p>
+                 <p class="text-[10px] text-gray-400 leading-tight mt-0.5 flex items-center gap-1">
+                    <span>A Proud Part of</span>
+                    <a href="https://toolblaster.com" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-red-600 font-semibold transition-colors">toolblaster.com</a>
+                    <span>Network</span>
+                    <span class="text-red-500" aria-label="with love">❤️</span>
+                 </p>
+             </div>
         </div>
     </footer>
     `;
