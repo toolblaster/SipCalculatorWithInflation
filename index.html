@@ -171,7 +171,7 @@
 
         .manual-input {
             width: 80px;
-            height: 24px;
+            height: 30px; /* UPDATED: Expanded for mobile from 24px */
             padding: 0 0.25rem;
             border-top: 1px solid #E34037;
             border-bottom: 1px solid #E34037;
@@ -202,15 +202,10 @@
             box-shadow: 0 1px 3px rgba(227, 64, 55, 0.2);
             position: relative;
         }
-        @media (min-width: 768px) {
-             .manual-input {
-                width: 100px;
-                font-size: 0.875rem;
-             }
-        }
+        
         .stepper-btn {
-            width: 24px;
-            height: 24px;
+            width: 30px; /* UPDATED: Expanded for mobile touch */
+            height: 30px; /* UPDATED: Expanded for mobile touch */
             border: 1px solid #E34037;
             background-color: #FEE2E2;
             color: #DC2626;
@@ -238,6 +233,19 @@
             cursor: not-allowed;
             transform: scale(1);
             border-color: #D1D5DB;
+        }
+
+        /* Desktop Overrides for Inputs */
+        @media (min-width: 768px) {
+             .manual-input {
+                width: 100px;
+                font-size: 0.875rem;
+                height: 24px; /* Back to compact 24px on desktop */
+             }
+             .stepper-btn {
+                width: 24px; /* Back to compact 24px on desktop */
+                height: 24px; /* Back to compact 24px on desktop */
+             }
         }
 
         .text-xxs {
@@ -333,8 +341,7 @@
             padding: 0.75rem;
             box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
         }
-        /* REMOVED: Confusing .section-card-blue class. Use .section-card for red theme. */
-
+        
         .listicle {
             display: flex;
             align-items: flex-start;
@@ -351,7 +358,6 @@
             justify-content: center;
             color: #dc2626;
         }
-        /* REMOVED: Confusing .listicle-icon-blue class. Use .listicle-icon for red theme. */
         
         .section-card-green {
             border-color: #D1FAE5;
@@ -496,7 +502,7 @@
                         </div>
                         <div class="flex justify-between text-xxs text-gray-600 mt-0.5">
                             <span>Min: ₹500</span>
-                            <span>Max: ₹1,00,000</span>
+                            <span>Max: ₹1,00,00,000</span>
                         </div>
                     </div>
 
@@ -521,7 +527,7 @@
                             </div>
                             <div class="flex justify-between text-xxs text-gray-600 mt-0.5">
                                 <span>Min: ₹0</span>
-                                <span>Max: ₹1,00,00,000</span>
+                                <span>Max: ₹1,00,000</span>
                             </div>
                         </div>
                     </div>
