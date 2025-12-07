@@ -20,41 +20,51 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Attaches the necessary event listeners for the mobile menu.
+ * Attaches the necessary event listeners for the mobile menu (Right Slide-out).
  */
 function attachMobileMenuListener() {
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('mobile-nav-menu');
-    const menuIcon = document.getElementById('menu-icon'); // NEW: Get the icon element
+    const menuOverlay = document.getElementById('mobile-menu-overlay');
+    const closeBtn = document.getElementById('close-menu-btn');
+    const body = document.body;
 
-    if (menuToggle && navMenu && menuIcon) {
-        menuToggle.addEventListener('click', () => {
-            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-            
-            // Toggle aria attribute
-            menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
-            
-            // Toggle Icon Rotation (NEW)
-            menuIcon.classList.toggle('rotate-90', !isExpanded);
+    function openMenu() {
+        // Remove hidden first so it exists in DOM
+        menuOverlay.classList.remove('hidden');
+        
+        // Use a small timeout to allow the browser to register the 'hidden' removal
+        // before applying the opacity change for the transition to work.
+        setTimeout(() => {
+            menuOverlay.classList.remove('opacity-0');
+            navMenu.classList.remove('translate-x-full');
+        }, 10);
 
-            if (!isExpanded) {
-                // Open menu: remove hidden, calculate scrollHeight, then apply max-height
-                navMenu.classList.remove('hidden');
-                // Use a short delay to ensure display: block is processed before transition
-                setTimeout(() => {
-                    navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
-                }, 10);
-            } else {
-                // Close menu: set max-height to 0, then add hidden after transition
-                navMenu.style.maxHeight = '0';
-                navMenu.addEventListener('transitionend', function handler() {
-                    if (navMenu.style.maxHeight === '0px') {
-                        navMenu.classList.add('hidden');
-                    }
-                    navMenu.removeEventListener('transitionend', handler);
-                });
+        menuToggle.setAttribute('aria-expanded', 'true');
+        body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeMenu() {
+        // Start the transition out
+        navMenu.classList.add('translate-x-full');
+        menuOverlay.classList.add('opacity-0');
+
+        // Wait for transition to finish before hiding
+        menuOverlay.addEventListener('transitionend', function handler() {
+            if (menuOverlay.classList.contains('opacity-0')) {
+                menuOverlay.classList.add('hidden');
             }
-        });
+            menuOverlay.removeEventListener('transitionend', handler);
+        }, { once: true });
+        
+        menuToggle.setAttribute('aria-expanded', 'false');
+        body.style.overflow = ''; // Restore scrolling
+    }
+
+    if (menuToggle && navMenu && menuOverlay && closeBtn) {
+        menuToggle.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
     }
 }
 
@@ -71,9 +81,9 @@ function getLinkClass(pagePath, currentPath) {
     const normalizedPagePath = (pagePath === '/' || pagePath === '/index.html') ? '/' : pagePath;
 
     if (normalizedPath === normalizedPagePath) {
-        return 'font-bold text-red-600'; // Removed underline for mobile focus state
+        return 'font-bold text-red-700 bg-white/60 shadow-sm'; // Active state: white bg on gradient
     }
-    return 'font-medium text-gray-700 hover:text-red-600 transition-colors'; // Removed underline for cleaner look
+    return 'font-medium text-gray-700 hover:text-red-700 hover:bg-white/40 transition-colors'; // Default state
 }
 
 /**
@@ -95,14 +105,22 @@ function getAriaCurrent(pagePath, currentPath) {
  * @returns {string} - The header HTML.
  */
 function getHeaderHTML(currentPath) {
-    // Define shared link classes for desktop and mobile menu
-    const desktopLinkClasses = (path) => `hidden sm:block text-xs ${getLinkClass(path, currentPath)} hover:underline`; // Re-added underline for desktop hover
-    // UPDATED mobileLinkClasses for left alignment, padding, and hover/active effects
-    const mobileLinkClasses = (path) => `block w-full py-2 px-6 text-sm text-left border-b border-gray-100 last:border-b-0 hover:bg-red-50 transition-colors ${getLinkClass(path, currentPath)}`;
+    // Define shared link classes for desktop
+    const desktopLinkClasses = (path) => {
+        // Simple logic for desktop links: bold red if active, otherwise gray hover red
+        const normalizedPath = (currentPath === '/' || currentPath === '/index.html') ? '/' : currentPath;
+        const normalizedPagePath = (path === '/' || path === '/index.html') ? '/' : path;
+        const isActive = normalizedPath === normalizedPagePath;
+        
+        return `hidden sm:block text-xs ${isActive ? 'font-bold text-red-600' : 'font-medium text-gray-700 hover:text-red-600 hover:underline'} transition-colors`;
+    };
+
+    // UPDATED mobileLinkClasses for the slide-out menu
+    const mobileLinkClasses = (path) => `block w-full py-3 px-4 text-base rounded-lg mb-1 ${getLinkClass(path, currentPath)}`;
 
 
     return `
-    <header id="main-header" class="bg-gray-50 border-b border-gray-200 shadow-lg w-full z-50">
+    <header id="main-header" class="bg-gray-50 border-b border-gray-200 shadow-lg w-full z-50 relative">
         <div class="w-full max-w-5xl mx-auto px-4">
              <div class="flex items-center justify-between py-2">
                 <!-- Logo and Name -->
@@ -113,11 +131,9 @@ function getHeaderHTML(currentPath) {
                     </svg>
                     <div class="flex flex-col min-w-0">
                         <!-- Improved Logo Text -->
-                        <!-- USER EDIT: Increased size of 'SIP Calculator' for more contrast -->
                         <span class="text-lg md:text-xl font-extrabold text-gray-900 leading-tight truncate">
                             SIP Calculator
                         </span>
-                        <!-- USER EDIT: Made subtext smaller for more contrast and apply to all screens -->
                         <span class="text-[10px] font-semibold text-red-600 leading-none -mt-0.5 md:-mt-1">
                             w/ Inflation & Step Up
                         </span>
@@ -126,19 +142,19 @@ function getHeaderHTML(currentPath) {
 
                 <!-- Desktop Menu Links -->
                 <nav class="flex items-center space-x-3 sm:space-x-4">
-                    <a href="/" class="${desktopLinkClasses('/', currentPath)}" ${getAriaCurrent('/', currentPath)}>
+                    <a href="/" class="${desktopLinkClasses('/')}" ${getAriaCurrent('/', currentPath)}>
                         Calculator
                     </a>
-                    <a href="how-much-sip-for-1-crore-with-inflation.html" class="${desktopLinkClasses('/how-much-sip-for-1-crore-with-inflation.html', currentPath)}" ${getAriaCurrent('/how-much-sip-for-1-crore-with-inflation.html', currentPath)}>
+                    <a href="how-much-sip-for-1-crore-with-inflation.html" class="${desktopLinkClasses('/how-much-sip-for-1-crore-with-inflation.html')}" ${getAriaCurrent('/how-much-sip-for-1-crore-with-inflation.html', currentPath)}>
                         SIP Guide to ₹1 Crore
                     </a>
-                    <a href="contact-us-and-legal.html" class="${desktopLinkClasses('/contact-us-and-legal.html', currentPath)}" ${getAriaCurrent('/contact-us-and-legal.html', currentPath)}>
+                    <a href="contact-us-and-legal.html" class="${desktopLinkClasses('/contact-us-and-legal.html')}" ${getAriaCurrent('/contact-us-and-legal.html', currentPath)}>
                         Contact & Legal
                     </a>
                     
-                    <!-- Mobile Menu Toggle Button (with smooth rotation) -->
-                    <button id="menu-toggle" class="sm:hidden p-1.5 text-gray-700 hover:text-red-600 rounded-lg hover:bg-gray-100 transition-colors duration-300" aria-controls="mobile-nav-menu" aria-expanded="false" aria-label="Toggle navigation menu">
-                         <svg id="menu-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Mobile Menu Toggle Button -->
+                    <button id="menu-toggle" class="sm:hidden p-2 text-gray-700 hover:text-red-600 rounded-lg hover:bg-gray-100 transition-colors duration-200" aria-controls="mobile-nav-menu" aria-expanded="false" aria-label="Open navigation menu">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
@@ -146,19 +162,40 @@ function getHeaderHTML(currentPath) {
             </div>
         </div>
         
-        <!-- Mobile Navigation Drawer -->
-        <div id="mobile-nav-menu" class="hidden sm:hidden w-full overflow-hidden transition-all duration-300 ease-in-out border-t border-gray-200" style="max-height: 0;">
-            <div class="flex flex-col items-center py-0.5"> <!-- Adjusted vertical padding for links below to handle it -->
-                <!-- UPDATED: Links now use left alignment and hover background -->
-                <a href="/" class="${mobileLinkClasses('/', currentPath)}">
+        <!-- Mobile Navigation Overlay (Backdrop) -->
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300 ease-in-out sm:hidden"></div>
+
+        <!-- Mobile Navigation Drawer (Right Slide-out) -->
+        <div id="mobile-nav-menu" class="fixed top-0 right-0 h-full w-64 bg-gradient-to-b from-red-50 to-white shadow-2xl z-[70] transform translate-x-full transition-transform duration-300 ease-in-out sm:hidden flex flex-col">
+            
+            <!-- Drawer Header -->
+            <div class="flex items-center justify-between p-4 border-b border-red-100">
+                <span class="text-lg font-extrabold text-gray-900">Menu</span>
+                <button id="close-menu-btn" class="p-2 text-gray-500 hover:text-red-600 hover:bg-white rounded-full transition-colors" aria-label="Close menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Drawer Links -->
+            <div class="flex flex-col p-4 overflow-y-auto">
+                <a href="/" class="${mobileLinkClasses('/')}">
                     SIP Calculator
                 </a>
-                <a href="how-much-sip-for-1-crore-with-inflation.html" class="${mobileLinkClasses('/how-much-sip-for-1-crore-with-inflation.html', currentPath)}">
+                <a href="how-much-sip-for-1-crore-with-inflation.html" class="${mobileLinkClasses('/how-much-sip-for-1-crore-with-inflation.html')}">
                     ₹1 Crore Guide
                 </a>
-                <a href="contact-us-and-legal.html" class="${mobileLinkClasses('/contact-us-and-legal.html', currentPath)}">
+                <a href="contact-us-and-legal.html" class="${mobileLinkClasses('/contact-us-and-legal.html')}">
                     Contact & Legal
                 </a>
+            </div>
+
+             <!-- Drawer Footer (Optional Branding) -->
+            <div class="mt-auto p-4 border-t border-red-100 text-center">
+                 <p class="text-[10px] text-gray-500">
+                    SipCalculatorWithInflation &copy; ${new Date().getFullYear()}
+                 </p>
             </div>
         </div>
 
