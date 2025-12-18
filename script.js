@@ -784,4 +784,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Final check to fill sliders that might have been loaded from URL
     inputsToTrack.forEach(({ slider }) => updateSliderFill(slider));
+
+    // --- NEW: Automatically open the first FAQ item ---
+    const firstFaqBtn = document.querySelector('.faq-question-button');
+    if(firstFaqBtn) {
+        firstFaqBtn.setAttribute('aria-expanded', 'true');
+        const answer = document.getElementById(firstFaqBtn.getAttribute('aria-controls'));
+        const svg = firstFaqBtn.querySelector('svg') || firstFaqBtn.querySelector('i');
+        
+        if (answer) {
+             // Use setTimeout to ensure the DOM is fully painted so scrollHeight is accurate
+             setTimeout(() => {
+                 answer.style.maxHeight = answer.scrollHeight + 'px';
+                 if(svg) svg.style.transform = 'rotate(180deg)'; 
+             }, 100);
+        }
+    }
 });
