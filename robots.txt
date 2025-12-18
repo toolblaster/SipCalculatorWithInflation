@@ -1,8 +1,7 @@
 # Allow all search engines
 User-agent: *
 Disallow: /admin/
-Disallow: /scripts/
 Disallow: /private/
 
 # Sitemap location
-Sitemap: https://SipCalculatorWithInflation.toolblaster.com/sitemap.xml
+Sitemap: https://sipcalculatorwithinflation.toolblaster.com/sitemap.xml
