@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let investmentChart;
     let growthLineChart; // NEW: Line chart instance
     let isStepUpAmount = true;
+    let isUserInteraction = false; // Flag to track if user has interacted
     
     // NEW: Map to link input IDs to their sliders for stepper buttons
     const inputSliderMap = {
@@ -370,8 +371,16 @@ document.addEventListener('DOMContentLoaded', () => {
     inputsToTrack.forEach(({ slider, input }) => {
         if (!slider || !input) return;
         const update = () => { updateSliderFill(slider); debouncedCalculate(); };
-        slider.addEventListener('input', () => { input.value = slider.value; update(); });
+        
+        // Mark as user interaction on input events
+        slider.addEventListener('input', () => { 
+            isUserInteraction = true; 
+            input.value = slider.value; 
+            update(); 
+        });
+        
         input.addEventListener('input', () => { 
+            isUserInteraction = true; 
             // Only sync slider if the value is within range, otherwise slider breaks
             const val = parseFloat(input.value);
             const min = parseFloat(slider.min);
@@ -384,6 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // UPDATED: Blur event logic using new precision function
         input.addEventListener('blur', () => {
+            isUserInteraction = true;
             let value = parseFloat(input.value) || 0;
             const min = parseFloat(slider.min);
             const max = parseFloat(slider.max);
@@ -407,6 +417,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', (e) => {
         const target = e.target.closest('.stepper-btn');
         if (!target) return;
+        
+        isUserInteraction = true; // Mark as interaction
 
         const inputId = target.dataset.input;
         const action = target.dataset.action;
@@ -438,6 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
    
     if (elements.inflationToggle) {
         elements.inflationToggle.addEventListener('change', () => {
+            isUserInteraction = true; // Mark interaction
             const inflationCard = elements.inflationToggle.closest('.input-card');
             const isChecked = elements.inflationToggle.checked;
             if (elements.inflationRateContainer) {
@@ -453,6 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // NEW: Lumpsum Toggle Event Listener
     if (elements.lumpsumToggle) {
         elements.lumpsumToggle.addEventListener('change', () => {
+            isUserInteraction = true; // Mark interaction
             const isChecked = elements.lumpsumToggle.checked;
             if (elements.lumpsumContainer) {
                 elements.lumpsumContainer.classList.toggle('hidden', !isChecked);
@@ -466,6 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (elements.stepUpToggle) {
         elements.stepUpToggle.addEventListener('click', () => {
+            isUserInteraction = true; // Mark interaction
             isStepUpAmount = !isStepUpAmount;
             elements.stepUpToggle.classList.toggle('active', isStepUpAmount);
             elements.stepUpToggle.setAttribute('aria-checked', isStepUpAmount.toString());
@@ -641,7 +656,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (elements.lumpsumContainer) elements.lumpsumContainer.classList.add('hidden');
             if (elements.lumpsumToggleCard) elements.lumpsumToggleCard.classList.remove('input-card-accent');
         }
-        needsRecalculate = true; // Always true to apply lumpsum settings
+        // If 'lumpsumOn' is present, we should recalculate
+        if (params.has('lumpsumOn')) needsRecalculate = true;
         // END NEW
         
         // Handle Step-Up
@@ -650,7 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isStepUpAmount = false;
             if (elements.stepUpToggle) elements.stepUpToggle.classList.remove('active');
             setValue('stepUp', elements.sipIncreaseRateInput, elements.sipIncreaseRateSlider);
-        } else {
+        } else if (stepUpMode === 'amount') {
             // Default to amount mode
             isStepUpAmount = true;
             if (elements.stepUpToggle) elements.stepUpToggle.classList.add('active');
@@ -663,7 +679,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (elements.stepUpAmountContainer) elements.stepUpAmountContainer.classList.toggle('hidden', !isStepUpAmount);
             if (elements.stepUpLabel) elements.stepUpLabel.textContent = isStepUpAmount ? "Annual Step-up Amount (₹)" : "Annual Step-up Rate (%)";
         }
-        needsRecalculate = true; // Always true to apply step-up settings
+        if (params.has('stepUpMode')) needsRecalculate = true; 
 
         // Handle Inflation
         if (params.get('inflation') === 'true') {
@@ -673,13 +689,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (elements.inflationRateContainer) elements.inflationRateContainer.classList.remove('hidden');
             const inflationCard = elements.inflationToggle?.closest('.input-card');
             if(inflationCard) inflationCard.classList.add('input-card-accent');
-        } else {
+        } else if (params.get('inflation') === 'false') {
             if (elements.inflationToggle) elements.inflationToggle.checked = false;
             if (elements.inflationRateContainer) elements.inflationRateContainer.classList.add('hidden');
             const inflationCard = elements.inflationToggle?.closest('.input-card');
             if(inflationCard) inflationCard.classList.remove('input-card-accent');
         }
-        needsRecalculate = true; // Always true to apply inflation settings
+        if (params.has('inflation')) needsRecalculate = true;
 
         if (needsRecalculate) {
             calculate();
@@ -687,6 +703,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateURLParameters() {
+        // --- NEW: Guard Clause ---
+        // If user hasn't interacted AND there are no existing params, don't update URL.
+        // This keeps the URL clean on first load unless we are normalizing existing params.
+        const currentSearch = window.location.search;
+        const hasExistingParams = currentSearch && currentSearch.length > 1; // >1 to account for just '?'
+
+        if (!isUserInteraction && !hasExistingParams) {
+            return;
+        }
+        // --- End Guard Clause ---
+
         const params = new URLSearchParams();
         
         // Only set params if elements exist
